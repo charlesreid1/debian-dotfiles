@@ -63,8 +63,6 @@ autocmd BufRead,BufNewFile,BufEnter *.md,*.markdown call MathAndLiquid()
 " http://blog.sanctum.geek.nz/vim-annoyances/
 " don't break words with wrap on
 set linebreak
-" put swap files in one place, instead of in-place
-set directory=~/.vim/swap
 " don't make these keys do annoying things
 nnoremap <F1> <nop>
 nnoremap J mzJ`z
@@ -397,12 +395,6 @@ vnoremap p "_dP
 " ====================
 " " (woah.)
 
-" Use the Solarized Dark theme
-set background=dark
-colorscheme solarized
-let g:solarized_termtrans=1
-
-
 " Enhance command-line completion
 set wildmenu
 
@@ -422,7 +414,7 @@ set noeol
 
 " Centralize backups, swapfiles and undo history
 set backupdir=~/.vim/backups
-"set directory=~/.vim/swap
+set directory=~/.vim/swap
 if exists("&undodir")
 	set undodir=~/.vim/undo
 endif
