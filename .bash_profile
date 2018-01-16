@@ -7,34 +7,27 @@
 
 # This is a good idea generally
 PATH="/usr/local/bin:$PATH"
+PATH="${HOME}/scripts:${PATH}"
 
-if [[ "$HOSTNAME" == "maya" ]]; then
+# Must
+EDITOR="vim"
 
-	# Setting PATH for homebrew
-	PATH="/Users/charles/.local/bin:$PATH"
-	PATH="/Users/charles/Library/Python/3.6/bin:$PATH"
+# Try not to have to deal with PYTHONPATH...
 
-	# Set up google cloud SDK
-	F1="/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc"
-	F2="/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc"
-	if [[ -f $F1 ]]; then
-		source $F1
-	fi
-	if [[ -f $F2 ]]; then
-		source $F2
-	fi
+# Go
+#export PATH="${HOME}/.local/bin:${PATH}"
+#export PATH="${HOME}/gocode/bin:${PATH}"
+export GOPATH="${HOME}/gocode"
+HISTFILE="$HOME/.bash_history"
+HISTFILESIZE=1000000000
+HISTIGNORE="ls:cls:clc:clear:pwd:l:ll:[ \t]*"
+HISTSIZE=1000000
+HISTTIMEFORMAT=': %Y-%m-%d_%H:%M:%S; '
 
-fi
-
-export PATH
-
-# Just let homebrew take care of PYTHONPATH, yeah?
-# But if you really needed to, you could set it here.
-
+# Bash history
 # Append to the Bash history file, rather than overwriting it
 shopt -s histappend;
-
-# Bash history 
+# Save Bash history 
 shopt -s cmdhist;
 
 
@@ -64,10 +57,7 @@ for option in autocd globstar; do
 	shopt -s "$option" 2> /dev/null;
 done;
 
-# Add tab completion for many Bash commands
-if which brew &> /dev/null && [ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]; then
-	source "$(brew --prefix)/share/bash-completion/bash_completion";
-elif [ -f /etc/bash_completion ]; then
+if [ -f /etc/bash_completion ]; then
 	source /etc/bash_completion;
 fi;
 

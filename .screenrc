@@ -9,5 +9,7 @@ defutf8 on
 
 # Change escape char to Control + B
 escape b
+##### if that doesn't work, try this:
+#escape b
 
-# See http://www.softpanorama.org/Utilities/Screen/screenrc_examples.shtml
+autodetach on
