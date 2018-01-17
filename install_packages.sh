@@ -40,6 +40,7 @@ apt-get install -y \
     gfortran \
     gcc \
     g++ \
+    libc++-dev \
     libstdc++-6-dev
 
 apt autoremove
