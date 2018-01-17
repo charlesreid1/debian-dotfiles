@@ -11,13 +11,13 @@ function doIt() {
 	rsync \
 		--exclude ".git/" \
 		--exclude "bootstrap.sh" \
-		--exclude "pre_bootstrap.sh" \
-		--exclude "set_machine_name.sh" \
-		--exclude "install_packages.sh" \
-		--exclude "remove_packages.sh" \
-		--exclude "python_setup.sh" \
-		--exclude "python_install.sh" \
 		--exclude "fix_ssh.sh" \
+		--exclude "install_packages.sh" \
+		--exclude "pre_bootstrap.sh" \
+		--exclude "python_install.sh" \
+		--exclude "python_setup.sh" \
+		--exclude "remove_packages.sh" \
+		--exclude "set_machine_name.sh" \
 		--exclude "README.md" \
 		--exclude "LICENSE" \
 		-avh --no-perms . ~;
