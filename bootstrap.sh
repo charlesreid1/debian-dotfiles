@@ -17,6 +17,7 @@ function doIt() {
 		--exclude "remove_packages.sh" \
 		--exclude "python_setup.sh" \
 		--exclude "python_install.sh" \
+		--exclude "fix_ssh.sh" \
 		--exclude "README.md" \
 		--exclude "LICENSE" \
 		-avh --no-perms . ~;
