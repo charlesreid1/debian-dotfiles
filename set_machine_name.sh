@@ -6,6 +6,10 @@
 #
 # It will prompt you for the hostname you want to set.
 
+echo "This script should be run as root."
+echo ""
+echo ""
+
 echo "The current hostname is" $(cat /etc/hostname)
 
 echo "Type the new hostname you want for your machine, then press [ENTER]:"

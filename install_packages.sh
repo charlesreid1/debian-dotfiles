@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "This script should be run as root."
+
 apt-get install -y \
     aptitude \
     apache \

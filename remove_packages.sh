@@ -11,7 +11,7 @@
 # xfonts
 # wbrazilian/catalan/bulgarian/etc
 
-
+echo "This script should be run as root."
 
 apt-get remove -y                            \
         task-amharic                         \
