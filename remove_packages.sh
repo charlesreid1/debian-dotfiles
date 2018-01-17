@@ -20,6 +20,8 @@ if [ "$(id -u)" != "0" ]; then
     exit 1;
 fi
 
+apt-get remove -y xiterm+thai
+
 apt-get remove -y                            \
         task-amharic                         \
         task-amharic-desktop                 \
