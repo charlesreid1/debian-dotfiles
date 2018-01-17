@@ -20,7 +20,8 @@ apt-get install -y \
     tshark \
     tcpdump \
     stunnel \
-    wireshark
+    wireshark \
+    net-tools
 
 apt-get install -y \
     python3 \
