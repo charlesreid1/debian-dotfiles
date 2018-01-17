@@ -6,9 +6,14 @@
 #
 # It will prompt you for the hostname you want to set.
 
-echo "This script should be run as root."
-echo ""
-echo ""
+if [ "$(id -u)" != "0" ]; then
+    echo ""
+    echo ""
+    echo "This script should be run as root."
+    echo ""
+    echo ""
+    exit 1;
+fi
 
 echo "The current hostname is" $(cat /etc/hostname)
 

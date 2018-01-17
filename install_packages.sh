@@ -1,6 +1,13 @@
 #!/bin/bash
 
-echo "This script should be run as root."
+if [ "$(id -u)" != "0" ]; then
+    echo ""
+    echo ""
+    echo "This script should be run as root."
+    echo ""
+    echo ""
+    exit 1;
+fi
 
 apt-get install -y \
     aptitude \
