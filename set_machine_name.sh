@@ -13,6 +13,8 @@ read newhostname
 
 hostname $newhostname 
 echo $newhostname > /etc/hostname
+echo "127.0.0.1 $newhostname" >> /etc/hosts
+
 echo "The new hostname is ${HOSTNAME}"
 echo "The new hostname is" $(cat /etc/hostname)
 echo "Try logging out and back in."
