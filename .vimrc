@@ -8,7 +8,7 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 filetype plugin indent on
-setlocal spell spelllang=en_us
+"setlocal spell spelllang=en_us
 set nofoldenable    " disable folding
 
 
