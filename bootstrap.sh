@@ -13,6 +13,8 @@ function doIt() {
 		--exclude "bootstrap.sh" \
 		--exclude "pre_bootstrap.sh" \
 		--exclude "set_machine_name.sh" \
+		--exclude "install_packages.sh" \
+		--exclude "remove_packages.sh" \
 		--exclude "README.md" \
 		--exclude "LICENSE" \
 		-avh --no-perms . ~;
