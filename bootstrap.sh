@@ -13,6 +13,7 @@ function doIt() {
 		--exclude "bootstrap.sh" \
 		--exclude "fix_ssh.sh" \
 		--exclude "install_packages.sh" \
+		--exclude "jupiter_install_packages.sh" \
 		--exclude "pre_bootstrap.sh" \
 		--exclude "python_install.sh" \
 		--exclude "python_setup.sh" \
