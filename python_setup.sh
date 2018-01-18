@@ -12,3 +12,5 @@ wget https://bootstrap.pypa.io/get-pip.py
 /usr/bin/python2 get-pip.py
 /usr/bin/python3 get-pip.py
 /bin/rm -f get-pip.py
+
+apt-get install -y libpython2.7-dev libpython3.5-dev
