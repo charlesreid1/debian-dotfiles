@@ -495,3 +495,4 @@ apt-get remove -y                             \
         wspanish                              \
         wswedish 
 
+apt -y autoremove
