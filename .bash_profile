@@ -1,30 +1,40 @@
-
-
+# This is the bash profile.
+# 
+# This file sets PATH and bash options.
+#
 # to add your own non-committed machine-specific settings,
 # use ~/.extra 
-
-
-
-# This is a good idea generally
-PATH="/usr/local/bin:$PATH"
-PATH="${HOME}/scripts:${PATH}"
 
 # Must
 EDITOR="vim"
 
+# Set $PATH here
+PATH="/usr/local/bin:$PATH"
+PATH="${HOME}/scripts:${PATH}"
+PATH="/sbin:${PATH}"
+
+
+
+
+# Python:
 # Try not to have to deal with PYTHONPATH...
 
 # Go
 #export PATH="${HOME}/.local/bin:${PATH}"
 #export PATH="${HOME}/gocode/bin:${PATH}"
 export GOPATH="${HOME}/gocode"
+
+
+
+
+# Bash history
+
 HISTFILE="$HOME/.bash_history"
 HISTFILESIZE=1000000000
 HISTIGNORE="ls:cls:clc:clear:pwd:l:ll:[ \t]*"
 HISTSIZE=1000000
 HISTTIMEFORMAT=': %Y-%m-%d_%H:%M:%S; '
 
-# Bash history
 # Append to the Bash history file, rather than overwriting it
 shopt -s histappend;
 # Save Bash history 
