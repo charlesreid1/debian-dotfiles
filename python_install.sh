@@ -28,3 +28,6 @@ pip3 install -U --user tornado pyzmq pygments
 
 pip2 install -U --user pygments pillow pelican
 pip3 install -U --user pygments pillow pelican
+
+pip2 install -U --user virtualenv conda
+pip3 install -U --user virtualenv conda
