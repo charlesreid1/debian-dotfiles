@@ -6,6 +6,9 @@ apt-get install -y aircrack-ng
 apt-get install -y net-tools
 apt-get install -y reaver
 apt-get install -y john
+apt-get install -y lua5.3
+apt-get install -y liblua5.3-0
+apt-get install -y liblua5.3-dev
 
 ## Ideally, would add wifite to a 
 ## directory that is on $PATH
