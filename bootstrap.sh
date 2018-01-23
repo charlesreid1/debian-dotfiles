@@ -12,6 +12,7 @@ function doIt() {
 		--exclude ".git/" \
 		--exclude "bootstrap.sh" \
 		--exclude "fix_ssh.sh" \
+		--exclude "greenfield_codes.sh" \
 		--exclude "install_packages.sh" \
 		--exclude "jupiter_install_packages.sh" \
 		--exclude "pre_bootstrap.sh" \
