@@ -13,6 +13,7 @@ PATH="/usr/local/bin:$PATH"
 PATH="${HOME}/scripts:${PATH}"
 PATH="/sbin:${PATH}"
 
+PATH="/usr/local/bro/bin:${PATH}"
 
 
 
