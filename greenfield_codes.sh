@@ -14,7 +14,13 @@ git clone --recursive https://charlesreid1.com:3000/charlesreid1/bot-master.git 
 git clone --recursive https://charlesreid1.com:3000/charlesreid1/charlesreid1-master.git charlesreid1
 git clone --recursive https://charlesreid1.com:3000/cs/cs-master.git cs
 git clone --recursive https://charlesreid1.com:3000/dotfiles/dotfiles-master.git dotfiles
-git clone --recursive https://charlesreid1.com:3000/kali/kali-master.git kali
+git clone --recursive https://charlesreid1.com:3000/kali/kali-master.git kali-master
 git clone --recursive https://charlesreid1.com:3000/charlesreid1/pelican-master.git pelican
 git clone --recursive https://charlesreid1.com:3000/rpi/pi-master.git rpi
+
+mkdir security
+cd security
+git clone --recursive https://github.com/bro/bro.git
+git clone https://github.com/danielmiessler/SecLists.git
+
 
