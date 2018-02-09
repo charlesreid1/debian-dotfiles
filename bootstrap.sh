@@ -20,6 +20,7 @@ function doIt() {
 		--exclude "python_setup.sh" \
 		--exclude "remove_packages.sh" \
 		--exclude "set_machine_name.sh" \
+		--exclude ".old_bash_prompt.sh" \
 		--exclude "README.md" \
 		--exclude "LICENSE" \
 		-avh --no-perms . ~;
