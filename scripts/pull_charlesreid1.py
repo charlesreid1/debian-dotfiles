@@ -4,12 +4,14 @@ import os
 import re
 import socket
 
+
 """
-Pull Charlesreid1.com
+Pull Charlesreid1.com - Rojo
 
 This script pulls the latest version of charlesreid1.com
 source and the latest wiki edit data.
 """
+
 
 def pull():
 
@@ -51,13 +53,9 @@ if __name__=="__main__":
     host = socket.gethostname()
 
     if(host=="rojo"):
-
         one_day = 24*3600
         while True:
             pull()
             time.sleep(one_day)
-
     else:
-
         print("You aren't rojo - you probably didn't mean to run this script!")
-
