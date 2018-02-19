@@ -4,6 +4,7 @@ import time
 import os
 import re
 import socket
+import getpass
 
 
 """
@@ -115,11 +116,15 @@ def cleanup(tmpdir):
 if __name__=="__main__":
 
     host = socket.gethostname()
+    user = getpass.getuser()
 
-    if(host=="rojo"):
+    if(host!="rojo"):
+        print("You aren't on rojo - you probably didn't mean to run this script!")
+    elif(user!="root"):
+        print("You aren't root - you must be root to run gitea dump!")
+    else:
         one_day = 24*3600
         while True:
             make_gitea_data()
             time.sleep(one_day)
-    else:
-        print("You aren't rojo - you probably didn't mean to run this script!")
+

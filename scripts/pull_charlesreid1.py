@@ -40,6 +40,7 @@ def pull():
         output += subprocess.Popen(["/bin/cp","-r","*","/www/charlesreid1.com/htdocs/."], cwd=output_dir).decode('utf-8')
 
     except subprocess.CalledProcessError:
+
         now = datetime.now()
         day = now.date().isoformat()
         hr = re.sub(":","-",now.time().isoformat()[0:8])
@@ -48,15 +49,20 @@ def pull():
         with open(logfile,'w') as f:
             logfile.write(output)
 
+        print("Encountered error: logging to %s"%logfile)
+
 
 if __name__=="__main__":
 
     host = socket.gethostname()
 
-    if(host=="rojo"):
+    if(host!="rojo"):
+        print("You aren't on rojo - you probably didn't mean to run this script!")
+    elif(user!="charles"):
+        print("You aren't charles - you should run this script as charles!")
+    else:
         one_day = 24*3600
         while True:
             pull()
             time.sleep(one_day)
-    else:
-        print("You aren't rojo - you probably didn't mean to run this script!")
+

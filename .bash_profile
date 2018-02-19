@@ -15,6 +15,7 @@ PATH="/sbin:${PATH}"
 PATH="/opt/collectd/bin:${PATH}"
 PATH="/opt/collectd/sbin:${PATH}"
 PATH="/usr/local/bro/bin:${PATH}"
+PATH="${HOME}/.pyenv/bin:${PATH}"
 
 # To load pyenv automatically,
 # add this:
