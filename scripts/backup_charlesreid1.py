@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 from datetime import datetime 
 import subprocess
+import socket
 
+from backup_mysql import backup_mysql
 
 """
 Back Up Charlesreid1.com
@@ -17,55 +19,48 @@ This script does the following:
 """
 
 
-dat = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-basedir = "/junkinthetrunk/backups/charlesreid1_"+dat
+def backup_charlesreid1(basedir):
+    """
+    Backup charlesreid1.com files
+    """
+    
+    # create backup dir
+    subprocess.call(["mkdir","-p",basedir])
+    
+    #####################
+    # Start specific task
 
-# create backup dir
-subprocess.call(["mkdir","-p",basedir])
+    # back up mysql
+    backup_mysql(basedir)
+    
+    # aapache, nginx, php backup
+    apachetarget = basedir + "/etc_apache2.tar.gz"
+    apacheconf = "/etc/apache2"
+    apachecmd = ["tar","czf",apachetarget,apacheconf]
+    
+    nginxtarget = basedir + "/etc_nginx.tar.gz"
+    nginxconf = "/etc/nginx"
+    nginxcmd = ["tar","czf",nginxtarget,nginxconf]
+    
+    phptarget = basedir + "/etc_php.tar.gz"
+    phpconf = "/etc/php5"
+    phpcmd = ["tar","czf",phptarget,phpconf]
+    
+    # End specific task
+    #####################
+    
+    print("Done backing up charlesreid1.com to %s"%basedir)
 
-#####################
-# Start specific task
 
-# load mysql username/password
-with open('rojo.mysql.password','r') as f:
-    credentials = f.readlines()
-u = credentials[0].strip()
-p = credentials[1].strip()
+if __name__=="__main__":
 
-# back up mysql db
-userarg = "--user=%s"%(u)
-pwarg = "--password=%s"%(p)
-dumpcmdbase = ["mysqldump",userarg,pwarg]
+    host = socket.gethostname()
 
-allargs = "--all-databases"
-alldump = basedir+"/sql_dump.sql"
-dumpcmd = dumpcmdbase + [allargs]
+    dat = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
-wikiargs = "wikidb"
-wikidump = basedir+"/wikidb_dump.sql"
-wikicmd = dumpcmdbase + [wikiargs]
-
-with open( alldump,'wb') as f:
-    subprocess.call(dumpcmd, cwd=basedir, stdout=f)
-
-with open(wikidump,'wb') as f:
-    subprocess.call(wikicmd, cwd=basedir, stdout=f)
-
-# aapache, nginx, php backup
-apachetarget = basedir + "/etc_apache2.tar.gz"
-apacheconf = "/etc/apache2"
-apachecmd = ["tar","czf",apachetarget,apacheconf]
-
-nginxtarget = basedir + "/etc_nginx.tar.gz"
-nginxconf = "/etc/nginx"
-nginxcmd = ["tar","czf",nginxtarget,nginxconf]
-
-phptarget = basedir + "/etc_php.tar.gz"
-phpconf = "/etc/php5"
-phpcmd = ["tar","czf",phptarget,phpconf]
-
-# End specific task
-#####################
-
-print("Done backing up charlesreid1.com to %s"%basedir)
+    if(host=="rojo"):
+        basedir = "/junkinthetrunk/backups/charlesreid1_"+dat
+        backup_charlesreid1(basedir)
+    else:
+        raise Exception("You aren't rojo - you probably didn't mean to run this script!")
 

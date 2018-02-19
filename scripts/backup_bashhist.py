@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 from datetime import datetime 
 import subprocess
+import socket
 
 
 """
@@ -15,19 +16,39 @@ That's it. No tricky dance moves.
 """
 
 
-dat = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-basedir = "/junkinthetrunk/backups/bashhist_"+dat
+def backup_bashhist(basedir,histfile):
+    """
+    Backup bash history
+    """
+    
+    # create backup dir 
+    subprocess.call(["mkdir","-p",basedir])
+    
+    #####################
+    # Start specific task
+    
+    subprocess.call(["/bin/cp",histfile,base])
+    
+    # End specific task
+    #####################
+    
+    print("Done backing up %s to %s"%(histfile,basedir))
 
-# create backup dir 
-subprocess.call(["mkdir","-p",basedir])
 
-#####################
-# Start specific task
+if __name__=="__main__":
 
-subprocess.call(["/bin/cp","/home/charles/.bash_history",base])
+    host = socket.gethostname()
 
-# End specific task
-#####################
+    dat = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
-print("Done backing up charlesreid1.com to %s"%basedir)
+    if(host=="rojo"):
+        histfile = "/home/charles/.bash_history"
+        basedir = "/junkinthetrunk/backups/bashhist_"+dat
+        backup_mysql(basedir,histfile)
+    elif(host=="jupiter"):
+        histfile = "/home/charles/.bash_history"
+        basedir = "/opt/backups/bashhist_"+dat
+        backup_mysql(basedir,histfile)
+    else:
+        raise Exception("You aren't rojo or jupiter - you probably didn't mean to run this script!")
 

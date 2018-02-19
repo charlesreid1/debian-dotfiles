@@ -5,17 +5,18 @@ import socket
 
 
 """
-Back Up Charlesreid1.com
+Back Up Charlesreid1.com Wiki
 
-Size: Small
+Size: Medium
 
 This script does the following:
-- back up all MySQL databases
+- back up wiki dump
+- zip wiki files (images, config files, skins, etc.)
 """
 
 
-def backup_mysql(basedir):
-    
+def backup_wiki(basedir):
+
     # create backup dir
     subprocess.call(["mkdir","-p",basedir])
     
@@ -28,29 +29,28 @@ def backup_mysql(basedir):
     u = credentials[0].strip()
     p = credentials[1].strip()
     
-    # back up mysql db
+    # back up wiki db
     userarg = "--user=%s"%(u)
     pwarg = "--password=%s"%(p)
     dumpcmdbase = ["mysqldump",userarg,pwarg]
-    
-    allargs = "--all-databases"
-    alldump = basedir+"/sql_dump.sql"
-    dumpcmd = dumpcmdbase + [allargs]
     
     wikiargs = "wikidb"
     wikidump = basedir+"/wikidb_dump.sql"
     wikicmd = dumpcmdbase + [wikiargs]
     
-    with open( alldump,'wb') as f:
-        subprocess.call(dumpcmd, cwd=basedir, stdout=f)
-    
     with open(wikidump,'wb') as f:
         subprocess.call(wikicmd, cwd=basedir, stdout=f)
+
+    # compress wiki files
+    wikitar = basedir+"/wiki_files.tar.gz"
+    wikidir = "/www/w"
+    subprocss.call(["tar","czf",wikitar,wikidir])
     
     # End specific task
     #####################
     
-    print("Done backing up mysql to %s"%basedir)
+    print("Done backing up wiki to %s"%basedir)
+
 
 if __name__=="__main__":
 
@@ -59,9 +59,8 @@ if __name__=="__main__":
     dat = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
     if(host=="rojo"):
-        basedir = "/junkinthetrunk/backups/mysql_"+dat
+        basedir = "/junkinthetrunk/backups/wiki_"+dat
         backup_mysql(basedir)
     else:
         raise Exception("You aren't rojo - you probably didn't mean to run this script!")
-
 
