@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-
+import socket
+import subprocess
 
 """
 Make SSH Key
@@ -18,18 +19,16 @@ def make_ssh_key(keydir):
     print("-"*40)
 
     keygencmd = ["ssh-keygen",
+                "-f",keydir+"/id_rsa",
                 "-t","rsa",
-                "-b","4096",
                 "-C","\"charlesreid1@gmail.com\"",
-                "-P","\"\"",
-                "-f",keydir+"/.id_rsa"]
-
+                "-N",""]
     subprocess.call(keygencmd)
 
     agentcmd = ["eval","\"$(ssh-agent -s)\""]
-    subprocess.call(agentcmd)
+    subprocess.Popen(agentcmd, shell=True)
 
-    addcmd = ["ssh-add",keydir+"/.id_rsa"]
+    addcmd = ["ssh-add",keydir+"/id_rsa"]
     subprocess.call(addcmd)
 
 
