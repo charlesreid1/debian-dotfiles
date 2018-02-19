@@ -8,6 +8,7 @@
 mkdir -p ~/.vim/swap
 mkdir -p ~/.vim/undo
 mkdir -p ~/.vim/backups
+mkdir -p ~/.logs
 
 # Change shell to bash
 BASH="/bin/bash"
