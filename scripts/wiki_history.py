@@ -41,6 +41,7 @@ Database schema:
         * Value is timestamp when db doc was last updated
 """
 
+
 def page_history_database():
     """Run the algorithm that iterates through
     each page and each revision, creating a document

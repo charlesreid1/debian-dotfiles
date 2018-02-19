@@ -102,5 +102,11 @@ def extract_data_to_csv(tmpdir):
 
 
 if __name__=="__main__":
-    #nuke()
-    main()
+
+    host = socket.gethostname()
+
+    if(host!="jupiter"):
+        print("You aren't on jupiter - you probably didn't mean to run this script!")
+    else:
+        push_wiki()
+
