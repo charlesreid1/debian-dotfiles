@@ -1,112 +1,105 @@
 #!/usr/bin/python3
 import pywikibot
 import time
+import tempfile
 from datetime import datetime
-from collections_sites_pages import get_collections, get_site, get_page_generator, get_records_table, update_records_table
+from pymongo import MOngoClient
+import pandas as pd
+
+from wiki_history import page_history_database
+
 
 """
-Make and push Wiki Edit Data 
+Push Wiki Data
 (Jupiter)
 
-This script runs commands to re-create the 
-database of charlesreid1.com wiki edits.
-The resulting data goes into a MongoDB 
-database on Jupiter. The resulting data
-is then parsed and assembled for visualization.
+This script runs commands to create the database of 
+charlesreid1.com wiki edits and assemble the page graph.
+The resulting data goes into a MongoDB database on Jupiter,
+and is also added to a CSV file.
 
-
-Tasks:
-- page generator
-- for each edit of each page, create new db entry
-- extract data from db
-- groupby date, sum on edit
-- git add csv to charlesreid1.com repository
-- git commit csv
-- git push csv
+This script creates the CSV data and checks it into 
+version control.
 """
 
-def make_history():
-    """Run the algorithm that iterates through
-    each page and each revision, creating a document
-    for each revision.
+def push_wiki():
     """
-    N = 0
-    sleepytime = 0.1
+    Push wiki edit data to the charlesreid1.com repo.
+    """
+    # Start by making the data to push:
+    # Update the database
+    page_history_database()
 
-    count_chars = True
+    # Make a place to contain the mess
+    tmpdir = tempfile.mkdtemp()
 
-    # Get connection/database/collections objects
-    prefix = 'page_history'
-    client, db, page_history_collection, meta_collection = get_collections(prefix)
+    # Now extract/process data and dump to CSV
+    extract_data_to_csv(tmpdir)
 
-    # Get records of prior scrapes
-    records = get_records_table(meta_collection)
+    # Check out git directory
+    # Update file
+    # Push changes
+    push_changes(tmpdir)
+    
 
-    # Get the site
-    site = get_site()
+def push_changes(tmpdir):
+    """
+    Check out a copy of the repository,
+    copy the fresh wiki data into the repository,
+    and do the git add commit push dance.
+    """
+    # check out the repo
+    clonecmd = ["git","clone","-b","charlesreid1-src","git@git.charlesreid1.com:charlesreid1/charlesreid1.com.git"]
+    subprocess.call(clonecmd, cwd=tmpdir)
 
-    # Get the iterator returning pages to process
-    page_generator = get_page_generator(site, N)
+    # copy the page_edits.csv file to the repo
+    reponame = "charlesreid1.com"
+    repopath = "pelican/content/page_edits.csv"
+    cpcmd = ["/bin/cp","page_edits.csv",reponame+"/"+repopath]
+    subprocess.call(cpcmd, cwd=tmpdir)
 
-    # If page has been scraped more than threshold seconds ago, skip it...
-    threshold = 0
+    # add/commit/push
+    addcmd = ["git","add",repopath]
+    subprocess.call(addcmd, cwd=tmpdir+"/"+reponame)
 
-    # Run the algorithm:
-    for page in page_generator:
+    commitcmd = ["git","commit",repopath,"-m","'Update wiki page edit data.'"]
+    subprocess.call(commitcmd, cwd=tmpdir+"/"+reponame)
 
-        page_title = page.title()
+    pushcmd = ["git","push","origin","charlesreid1-src"]
+    subprocess.call(pushcmd, cwd=tmpdir+"/"+reponame)
 
-        print("Now parsing page: %s"%(page_title))
 
-        # Should we update this page?
-        update = False
-        if(page in records.keys()):
-            old_time = records[page_title]
-            new_time = datetime.now()
-            if( (new_time-old_time) > threshold ):
-                update = True
-        else:
-            update = True
+def extract_data_to_csv(tmpdir):
 
-        if update:
-            rev_generator = page.revisions(content=count_chars)
+    # Make connection to database
+    # Requires page_history database to be populated already
+    # See https://charlesreid1.com:3000/wiki/charlesreid1-wiki-data
+    client = MongoClient('10.6.0.1',27017)
+    db = client['charlesreid1wiki']
+    collection = db['page_history']
+    
+    # Extract timestamp and character count for revision 
+    df = pd.DataFrame()
+    for i, doc in enumerate(collection.find()):
+    
+        # Keep user posted
+        if((i+1)%500==0):
+            print(i+1)
+    
+        # If you want to stop early
+        if(i>300 and False):
+            break
+    
+        # Very simple csv: timestamp and count
+        df = df.append({'charcount': int(doc['count']), 'edits': 1, 'timestamp': doc['timestamp'].date()},ignore_index=True)
+    
+    # Aggregate results
+    ag = df.groupby(['timestamp']).agg({'charcount':sum, 'edits':sum})
+    
+    # Dump to csv
+    ag.to_csv(tmpdir+'/page_edits.csv')
 
-            for rev in rev_generator:
 
-                # Assemble the document
-                doc = {}
-                doc['_id'] = rev.sha1
-                doc['title'] = page_title
-                doc['timestamp'] = rev.timestamp
-
-                if(count_chars):
-                    doc['count'] = len(rev.text)
-
-                # Remove the old document
-                page_history_collection.delete_one({"_id": rev.sha1})
-
-                # Eventually, change content=True
-                # and add the character count
-
-                # Insert the new document
-                page_history_collection.insert_one(doc)
-
-            # Update records
-            update_records_table(meta_collection, page_title, datetime.now())
-
-            time.sleep(sleepytime)
-
-    # Fin.
-    client.close()
-
-def nuke():
-    # Get connection/database/collections objects
-    client, db, page_history_collection, meta_collection = get_collections()
-
-    page_history_collection.drop()
-    meta_collection.drop()
-
-    client.close()
 
 if __name__=="__main__":
     #nuke()
