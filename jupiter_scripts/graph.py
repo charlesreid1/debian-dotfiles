@@ -173,4 +173,3 @@ class Graph:
     self._outgoing[u][v] = e
     self._incoming[v][u] = e
 
-

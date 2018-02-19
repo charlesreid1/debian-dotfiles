@@ -192,4 +192,3 @@ def get_transpose_graph(g):
     
     return g2 
 
-

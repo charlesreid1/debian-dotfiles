@@ -46,5 +46,3 @@ class MongoGraph(Graph):
                 pass
         print("Done.\n")
 
-
-
