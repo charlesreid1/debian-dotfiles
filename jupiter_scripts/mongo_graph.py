@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from graph import Graph
 
 class MongoGraph(Graph):
