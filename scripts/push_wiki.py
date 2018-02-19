@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 
 """
 Make and push Wiki Edit Data 
