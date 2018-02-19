@@ -98,7 +98,6 @@ def mongo_export(tmpdir):
     g.export_graph(collection)
 
 
-
 if __name__=="__main__":
 
     host = socket.gethostname()
@@ -110,6 +109,4 @@ if __name__=="__main__":
         subprocess.call(["mkdir","-p",t])
         mongo_export(t)
         json_export(t)
-
-
 
