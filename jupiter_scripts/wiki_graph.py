@@ -2,6 +2,7 @@
 import socket
 import pywikibot
 import time
+import tempfile
 from pymongo import MongoClient
 from datetime import datetime
 import pandas as pd
@@ -22,7 +23,7 @@ You should also connect to the VPN so Jupiter MongoDB is at 10.6.0.1
 """
 
 
-def json_export(tmpdir):
+def graphdb_to_json(tmpdir):
     g = main_import()
     
     vertices = []
@@ -43,12 +44,31 @@ def json_export(tmpdir):
     result['nodes'] = vertices
     result['links'] = edges
 
-    with open(tmpdir+'/wiki_graph.json','w') as f:
+    with open(tmpdir+'/page_graph.json','w') as f:
         json.dump(result, f, indent=4)
 
 
 
-def mongo_export(tmpdir):
+def main_import():
+    """This loads all edges from the 
+    MongoDB database and populates 
+    a graph from it. 
+    
+    The Graph object is returned.
+    """
+    # Get connection/database/collections objects
+    prefix = 'page_graph'
+    client, db, collection = get_collection(prefix)
+
+    # Graph:
+    g = MongoGraph(directed=True)
+    g.import_graph(collection)
+
+    return g
+
+
+
+def graphdb(tmpdir):
     """This runs pywikibot to step through each page
     and construct nodes and edges for the wiki link 
     graph. Once the graph is completely constructed, 
@@ -97,16 +117,6 @@ def mongo_export(tmpdir):
     # Export the graph to MongoDB
     g.export_graph(collection)
 
-
 if __name__=="__main__":
-
-    host = socket.gethostname()
-
-    if(host!="jupiter"):
-        print("You aren't on jupiter - you probably didn't mean to run this script!")
-    else:
-        t = '/tmp/ioeuirweoriuw'
-        subprocess.call(["mkdir","-p",t])
-        mongo_export(t)
-        json_export(t)
+    print("Don't call this script directly: call push_wiki.py instead")
 

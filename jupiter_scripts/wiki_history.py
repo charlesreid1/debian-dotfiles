@@ -42,6 +42,39 @@ Database schema:
 """
 
 
+def page_history_to_csv(tmpdir):
+
+    # Make connection to database
+    # Requires page_history database to be populated already
+    # See https://charlesreid1.com:3000/wiki/charlesreid1-wiki-data
+    client = MongoClient('10.6.0.1',27017)
+    db = client['charlesreid1wiki']
+    collection = db['page_history']
+    
+    # Extract timestamp and character count for revision 
+    df = pd.DataFrame()
+    for i, doc in enumerate(collection.find()):
+    
+        # Keep user posted
+        if((i+1)%500==0):
+            print(i+1)
+    
+        # If you want to stop early
+        if(i>300 and False):
+            break
+    
+        # Very simple csv: timestamp and count
+        df = df.append({'charcount': int(doc['count']), 'edits': 1, 'timestamp': doc['timestamp'].date()},ignore_index=True)
+    
+    # Aggregate results
+    ag = df.groupby(['timestamp']).agg({'charcount':sum, 'edits':sum})
+    
+    # Dump to csv
+    ag.to_csv(tmpdir+'/page_edits.csv')
+
+
+
+
 def page_history_database():
     """Run the algorithm that iterates through
     each page and each revision, creating a document
@@ -144,11 +177,5 @@ def nuke():
 
 
 if __name__=="__main__":
-
-    host = socket.gethostname()
-
-    if(host!="jupiter"):
-        print("You aren't on jupiter - you probably didn't mean to run this script!")
-    else:
-        page_history_database()
+    print("Don't call this script directly: call push_wiki.py instead")
 
