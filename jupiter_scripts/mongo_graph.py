@@ -47,3 +47,6 @@ class MongoGraph(Graph):
                 pass
         print("Done.\n")
 
+if __name__=="__main__":
+    print("Don't call this script directly: call push_wiki.py instead")
+

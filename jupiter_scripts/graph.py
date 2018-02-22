@@ -174,3 +174,6 @@ class Graph:
     self._outgoing[u][v] = e
     self._incoming[v][u] = e
 
+if __name__=="__main__":
+    print("Don't call this script directly: call push_wiki.py instead")
+

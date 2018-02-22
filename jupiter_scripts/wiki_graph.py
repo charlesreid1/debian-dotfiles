@@ -68,7 +68,7 @@ def main_import():
 
 
 
-def graphdb(tmpdir):
+def graphdb():
     """This runs pywikibot to step through each page
     and construct nodes and edges for the wiki link 
     graph. Once the graph is completely constructed, 

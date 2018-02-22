@@ -193,3 +193,6 @@ def get_transpose_graph(g):
     
     return g2 
 
+if __name__=="__main__":
+    print("Don't call this script directly: call push_wiki.py instead")
+

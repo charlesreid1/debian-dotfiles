@@ -2,6 +2,7 @@
 import socket
 import pywikibot
 import time
+import pandas as pd
 from pymongo import MongoClient
 from datetime import datetime
 
@@ -103,7 +104,7 @@ def page_history_database():
 
         print("Now parsing page: %s"%(page_title))
 
-        rev_generator = page.revisions(content=count_chars)
+        rev_generator = page.revisions(content=True)
 
         for rev in rev_generator:
 
@@ -126,7 +127,6 @@ def page_history_database():
     client.close()
 
 
-
 """
 Collections, Sites, Pages methods follow.
 
@@ -135,6 +135,7 @@ various pywikibot objects representing
 db connections, dbs, collections, wiki sites,
 and wiki pages.
 """
+
 
 def get_collection(collections_label):
     """Create a connection to the database,

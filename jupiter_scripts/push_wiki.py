@@ -2,8 +2,10 @@
 import pywikibot
 import time
 import tempfile
+import socket
+import subprocess
 from datetime import datetime
-from pymongo import MOngoClient
+from pymongo import MongoClient
 import pandas as pd
 
 from wiki_history import page_history_database, page_history_to_csv
@@ -23,59 +25,73 @@ This script creates the CSV data and checks it into
 version control.
 """
 
+
+def dbg(msg):
+    print(msg)
+
+
 def push_wiki():
     """
     Push wiki edit data to the charlesreid1.com repo.
     """
-    # Make a place to contain the mess
-    tmpdir = tempfile.mkdtemp()
+    ## Make a place to contain the mess
+    #dbg("- making temporary directory")
+    #tmpdir = tempfile.mkdtemp()
+    #dbg("          %s"%(tmpdir))
 
-    # Update the page history database
-    page_history_database()
+    ## Update the page history database
+    #dbg("- updating page history database")
+    #page_history_database()
 
-    # Extract page history data to CSV
-    page_history_to_csv(tmpdir)
+    ## Extract page history data to CSV
+    #dbg("- extracting page history data")
+    #page_history_to_csv(tmpdir)
 
-    # Update the page graph database
-    graphdb()
+    ## Update the page graph database
+    #dbg("- updating page graph database")
+    #graphdb()
 
-    # Extract page graph to JSON
-    graphdb_to_json()
+    ## Extract page graph to JSON
+    #dbg("- extracting page graph json")
+    #graphdb_to_json(tmpdir)
 
     # Git add/commit/push changes
+    tmpdir = '/tmp/tmp1hvu_k3z'
+    dbg("- push changes")
     push_changes(tmpdir)
     
 
 def push_changes(tmpdir):
     """
-    Check out a copy of the repository,
-    copy the fresh wiki data into the repository,
-    and do the git add commit push dance.
+    Commit changes to data/wiki repo
     """
     # check out the repo
-    reponame = "charlesreid1.com"
-    clonecmd = ["git","clone","-b","charlesreid1-src","git@git.charlesreid1.com:charlesreid1/charlesreid1.com.git"]
+    reponame = "wiki"
+    clonecmd =  ["git","clone"]
+    clonecmd += ["git@git.charlesreid1.com:data/%s.git"%(reponame)]
+    clonecmd += [reponame]
     subprocess.call(clonecmd, cwd=tmpdir)
 
     # copy the page_edits.csv file to the repo
-    edits_repopath = "pelican/content/page_edits.csv"
+    edits_repopath = "page_edits.csv"
     edits_cpcmd = ["/bin/cp","page_edits.csv",reponame+"/"+edits_repopath]
     subprocess.call(edits_cpcmd, cwd=tmpdir)
 
     # copy the page_graph.json file to the repo
-    graph_repopath = "pelican/content/page_graph.json"
-    graph_cpcmd = ["/bin/cp","page_edits.csv",reponame+"/"+graph_repopath]
+    graph_repopath = "page_graph.json"
+    graph_cpcmd = ["/bin/cp","page_graph.json",reponame+"/"+graph_repopath]
     subprocess.call(graph_cpcmd, cwd=tmpdir)
 
     # add/commit/push
     addcmd = ["git","add",edits_repopath,graph_repopath]
     subprocess.call(addcmd, cwd=tmpdir+"/"+reponame)
 
-    commitcmd = ["git","commit",edits_repopath,graph_repopath,"-m","'Update wiki page edit/graph data.'"]
+    commitcmd = ["git","commit",edits_repopath,graph_repopath,"-m","'Update wiki page edit and page graph data.'"]
     subprocess.call(commitcmd, cwd=tmpdir+"/"+reponame)
 
-    pushcmd = ["git","push","origin","charlesreid1-src"]
+    pushcmd = ["git","push","origin","master"]
     subprocess.call(pushcmd, cwd=tmpdir+"/"+reponame)
+
 
 
 if __name__=="__main__":
