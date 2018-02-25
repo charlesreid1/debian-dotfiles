@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+import getpass
 import subprocess
 import time
 import os
@@ -55,6 +56,7 @@ def pull():
 if __name__=="__main__":
 
     host = socket.gethostname()
+    user = getpass.getuser()
 
     if(host!="rojo"):
         print("You aren't on rojo - you probably didn't mean to run this script!")
