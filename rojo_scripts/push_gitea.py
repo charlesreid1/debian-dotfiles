@@ -250,7 +250,7 @@ class PushGitea(object):
         addcmd = ["git","add",csvname]
         subprocess.call(addcmd, cwd=gitdir)
 
-        commitcmd = ["git","commit",csvname,"-m","'[SCRIPT] updating gitea commit counts'"]
+        commitcmd = ["git","commit",csvname,"-m","[SCRIPT] updating gitea commit counts"]
         dbg("    - git commit")
         subprocess.call(commitcmd, cwd=gitdir)
 
