@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+import pandas
+import glob
+import tempfile
 import subprocess
 import time
 import os
@@ -39,12 +42,8 @@ class PushGitea(object):
     def __init__(self):
         self.tmpdir = ""
         self.reposdir = ""
-        self.statusdir = "status"
+        self.statusdirname = "status"
         self.csvname = "commit_counts.csv"
-
-    def doit(self):
-        self.make_gitea_data()
-        self.push_gitea_data()
 
     def make_gitea_data(self):
         """
@@ -69,8 +68,12 @@ class PushGitea(object):
         dbg("- committing csv into git data repo")
         self.commit_csv()
 
-        dbg("- clean up zipped data")
+        dbg("- cleaning up zipped data")
         self.cleanup()
+
+        dbg("*"*60)
+        dbg("\t\t\tALL DONE")
+        dbg("*"*60)
 
 
     def gitea_dump(self):
@@ -95,29 +98,30 @@ class PushGitea(object):
     
         """
         tmpdir = self.tmpdir 
+
+        # make temp dir writable by git user
+        chowncmd = ["sudo","chown","git:git",tmpdir]
+        subprocess.call(chowncmd)
     
         giteabin = "/www/gitea/bin/gitea"
         sudo_prefix = ["sudo","-H","-u","git"]
-    
+
         # Run gitea dump as user gitea
         dbg("    - running gitea dump as user gitea")
-        gitea_dump  = [giteabin,"dump"]
+        gitea_dump  = [giteabin,"dump","-t",tmpdir]
         subprocess.call(sudo_prefix + gitea_dump, cwd=tmpdir)
-        
+
         # Find the zip file
         dbg("    - finding the zip file")
-        proc = subprocess.Popen(["ls","-1","-t","gitea*.zip"],
-                cwd=tmpdir,
-                stdout=subprocess.PIPE)
-        ls = proc.stdout.read().decode('utf-8').split("\n")
-        giteazipfile = ls[0]
-        
+        zz = sorted([(os.path.getctime(f), f) for f in glob.glob(tmpdir+"/*.zip")])
+        giteazipfile = zz[-1][1]
+
         # Unzip the resulting file
         dbg("    - unzipping gitea*.zip")
         giteazipdir = "giteazip"
-        outputdir = tmpdir+giteazipdir
+        outputdir = tmpdir+"/"+giteazipdir
         mkdir_cmd = ["mkdir",outputdir]
-        unzip_cmd = ["unzip","-d",outputdir,giteazipfile]
+        unzip_cmd = ["unzip","-qq","-d",outputdir,giteazipfile]
         subprocess.call(sudo_prefix + mkdir_cmd, cwd=tmpdir)
         subprocess.call(sudo_prefix + unzip_cmd, cwd=tmpdir)
     
@@ -125,10 +129,10 @@ class PushGitea(object):
         dbg("    - unzipping gitea-repos.zip")
         repozipdir = "repositories"
         repozip = "gitea-repo.zip"
-        unzip_cmd = ["unzip","-d",repozipdir,repozip]
+        unzip_cmd = ["unzip","-qq","-d",".",repozip]
         subprocess.call(sudo_prefix + unzip_cmd, cwd=outputdir)
     
-        self.reposdir = outputdir + repozipdir
+        self.reposdir = outputdir + "/" + repozipdir
     
     
     def extract_commit_data(self):
@@ -136,34 +140,34 @@ class PushGitea(object):
         Extract commit data from each repo 
         in the given gitea dump directory
         """
-        tmpdir = self.tempdir
+        tmpdir = self.tmpdir
         reposdir = self.reposdir
-        status_dir = self.status_dir
+        self.statusdir = tmpdir +"/"+ self.statusdirname
+        statusdir = self.statusdir
     
         filter_flags = "--author=Charles"
     
-        subprocess.call(['mkdir','-p',st], cwd=tmpdir)
-        status_dir = tmpdir + "/" + st
-    
+        subprocess.call(['mkdir','-p',statusdir], cwd=tmpdir)
+        
         orgs = glob.glob(reposdir+"/*")
         for org in orgs:
     
             base_org = os.path.basename(org)
-            repos = glob(org+"/*")
+            repos = glob.glob(org+"/*")
     
             for repo in repos:
     
                 # Print out the org and repo name
                 base_repo = re.sub('.git','',os.path.basename(repo))
-                log_file = base_org + "." + base_repo + ".log"
+                logfile = base_org + "." + base_repo + ".log"
                 dbg("    - %s : %s"%(base_org,base_repo))
     
-                log_file = base_org + "." + base_repo + ".log"
+                logfile = base_org + "." + base_repo + ".log"
                 #pretty_arg = "--pretty=%n%n%h%n%an%n%ae%n%ai%n%s"
                 pretty_arg = "--pretty=%H %ai %s"
-                full_log_file = status_dir + "/" + log_file
+                full_logfile = statusdir + "/" + logfile
     
-                with open(full_log_file,'w') as f:
+                with open(full_logfile,'w') as f:
     
                     cmd = ["git","log",filter_flags,pretty_arg]
     
@@ -176,26 +180,28 @@ class PushGitea(object):
         in the dump directory into Pandas,
         and compile the CSV.
         """
-        tmpdir = self.tempdir
+        tmpdir = self.tmpdir
         reposdir = self.reposdir
         statusdir = self.statusdir
         csvname = self.csvname
+
+        df = pandas.DataFrame()
 
         orgs = glob.glob(reposdir+"/*")
         for org in orgs:
     
             base_org = os.path.basename(org)
-            repos = glob(org+"/*")
+            repos = glob.glob(org+"/*")
     
             for repo in repos:
     
                 # Print out the org and repo name
                 base_repo = re.sub('.git','',os.path.basename(repo))
-                log_file = base_org + "." + base_repo + ".log"
+                logfile = base_org + "." + base_repo + ".log"
                 dbg("    - %s : %s"%(base_org,base_repo))
 
                 # Get each commit
-                with open(status_dir + "/" + log_file, 'r', encoding="ISO-8859-1") as f:
+                with open(statusdir + "/" + logfile, 'r', encoding="ISO-8859-1") as f:
                     lines = f.readlines()
 
                 for line in lines:
@@ -227,38 +233,35 @@ class PushGitea(object):
         statusdir = self.statusdir
         csvname = self.csvname
         csvfile = statusdir + "/" + csvname
+        gitdir = tmpdir + "/git"
 
         # clone the git data repo
         dbg("    - cloning git data repo")
-        clonecmd = ["git","clone","https://charlesreid1.com:3000/data/git.git"]
+        clonecmd = ["git","clone","git@git.charlesreid1.com:data/git.git",gitdir]
         subprocess.call(clonecmd, cwd=tmpdir)
 
         # copy the csv file into the git data repo
         dbg("    - copying csv file to git repo")
-        gitdir = tmpdir + "/" + git
         cpcmd = ["/bin/cp",csvfile,"."]
         subprocess.call(cpcmd, cwd=gitdir)
 
         # add commit push
         dbg("    - git add")
         addcmd = ["git","add",csvname]
-        subprocss.call(addcmd, cwd=gitdir)
+        subprocess.call(addcmd, cwd=gitdir)
 
         commitcmd = ["git","commit",csvname,"-m","'[SCRIPT] updating gitea commit counts'"]
         dbg("    - git commit")
-        subprocss.call(commitcmd, cwd=gitdir)
+        subprocess.call(commitcmd, cwd=gitdir)
 
         pushcmd = ["git","push","origin","master"]
         dbg("    - git push")
-        subprocss.call(pushcmd, cwd=gitdir)
+        subprocess.call(pushcmd, cwd=gitdir)
+
 
     def cleanup(self):
         cleancmd = ["rm","-rf",self.tmpdir]
-        #subprocess.call(cleancmd)
-        print("-"*40)
-        print("Cleanup command:")
-        print("    %s"%(" ".join(cleancmd)))
-        print("-"*40)
+        subprocess.call(cleancmd)
 
 
 
@@ -274,7 +277,8 @@ if __name__=="__main__":
     else:
         #one_day = 24*3600
         while True:
-            make_gitea_data()
+            p = PushGitea()
+            p.make_gitea_data()
             #time.sleep(one_day)
             exit()
 
