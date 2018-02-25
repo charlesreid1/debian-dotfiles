@@ -5,7 +5,6 @@ import tempfile
 import socket
 import subprocess
 from datetime import datetime
-from pymongo import MongoClient
 import pandas as pd
 
 from wiki_history import page_history_database, page_history_to_csv
@@ -34,29 +33,28 @@ def push_wiki():
     """
     Push wiki edit data to the charlesreid1.com repo.
     """
-    ## Make a place to contain the mess
-    #dbg("- making temporary directory")
-    #tmpdir = tempfile.mkdtemp()
-    #dbg("          %s"%(tmpdir))
+    # Make a place to contain the mess
+    dbg("- making temporary directory")
+    tmpdir = tempfile.mkdtemp()
+    dbg("          %s"%(tmpdir))
 
-    ## Update the page history database
-    #dbg("- updating page history database")
-    #page_history_database()
+    # Update the page history database
+    dbg("- updating page history database")
+    page_history_database()
 
-    ## Extract page history data to CSV
-    #dbg("- extracting page history data")
-    #page_history_to_csv(tmpdir)
+    # Extract page history data to CSV
+    dbg("- extracting page history data")
+    page_history_to_csv(tmpdir)
 
-    ## Update the page graph database
-    #dbg("- updating page graph database")
-    #graphdb()
+    # Update the page graph database
+    dbg("- updating page graph database")
+    graphdb()
 
-    ## Extract page graph to JSON
-    #dbg("- extracting page graph json")
-    #graphdb_to_json(tmpdir)
+    # Extract page graph to JSON
+    dbg("- extracting page graph json")
+    graphdb_to_json(tmpdir)
 
     # Git add/commit/push changes
-    tmpdir = '/tmp/tmp1hvu_k3z'
     dbg("- push changes")
     push_changes(tmpdir)
     
@@ -67,9 +65,10 @@ def push_changes(tmpdir):
     """
     # check out the repo
     reponame = "wiki"
+    repodir = tmpdir + "/" + reponame
     clonecmd =  ["git","clone"]
     clonecmd += ["git@git.charlesreid1.com:data/%s.git"%(reponame)]
-    clonecmd += [reponame]
+    clonecmd += [repodir]
     subprocess.call(clonecmd, cwd=tmpdir)
 
     # copy the page_edits.csv file to the repo
@@ -91,6 +90,36 @@ def push_changes(tmpdir):
 
     pushcmd = ["git","push","origin","master"]
     subprocess.call(pushcmd, cwd=tmpdir+"/"+reponame)
+
+
+
+    # clone the data master repo
+    dbg("    - cloning data master repo")
+    reponame = "data"
+    repodir = tmpdir + "/" + reponame
+    clonecmd =  ["git","clone"]
+    clonecmd += ["--recursive"]
+    clonecmd += ["git@git.charlesreid1.com:data/data-master.git"]
+    clonecmd += [repodir]
+    subprocess.call(clonecmd, cwd=tmpdir)
+
+    # update the data
+    wikidatadir = repodir + "/wiki"
+    pullcmd = ["git","pull","origin","master"]
+    subprocess.call(pullcmd, cwd=wikidatadir)
+
+    # add commit push
+    dbg("    - git add")
+    addcmd = ["git","add","git"]
+    subprocess.call(addcmd, cwd=repodir)
+
+    commitcmd = ["git","commit","wiki","-m","[SCRIPT] updating to latest git data"]
+    dbg("    - git commit")
+    subprocess.call(commitcmd, cwd=repodir)
+
+    pushcmd = ["git","push","origin","master"]
+    dbg("    - git push")
+    subprocess.call(pushcmd, cwd=repodir)
 
 
 
