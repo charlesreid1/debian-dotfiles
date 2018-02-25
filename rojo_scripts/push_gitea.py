@@ -234,6 +234,7 @@ class PushGitea(object):
         csvname = self.csvname
         csvfile = statusdir + "/" + csvname
         gitdir = tmpdir + "/git"
+        gitdir2 = tmpdir + "/git2"
 
         # clone the git data repo
         dbg("    - cloning git data repo")
@@ -244,7 +245,7 @@ class PushGitea(object):
         dbg("    - copying csv file to git repo")
         cpcmd = ["/bin/cp",csvfile,"."]
         subprocess.call(cpcmd, cwd=gitdir)
-
+        
         # add commit push
         dbg("    - git add")
         addcmd = ["git","add",csvname]
@@ -257,6 +258,30 @@ class PushGitea(object):
         pushcmd = ["git","push","origin","master"]
         dbg("    - git push")
         subprocess.call(pushcmd, cwd=gitdir)
+
+        # clone the data master repo
+        dbg("    - cloning data master repo")
+        clonecmd = ["git","clone","--recursive","git@git.charlesreid1.com:data/data-master.git",gitdir2]
+        subprocess.call(clonecmd, cwd=tmpdir)
+
+        # update the data
+        gitdatadir = gitdir2+"/git"
+        pullcmd = ["git","pull","origin","master"]
+        subprocess.call(pullcmd, cwd=gitdatadir)
+
+        # add commit push
+        dbg("    - git add")
+        addcmd = ["git","add","git"]
+        subprocess.call(addcmd, cwd=gitdir2)
+
+        commitcmd = ["git","commit","git","-m","[SCRIPT] updating to latest git data"]
+        dbg("    - git commit")
+        subprocess.call(commitcmd, cwd=gitdir2)
+
+        pushcmd = ["git","push","origin","master"]
+        dbg("    - git push")
+        subprocess.call(pushcmd, cwd=gitdir2)
+
 
 
     def cleanup(self):
