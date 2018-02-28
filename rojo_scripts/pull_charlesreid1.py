@@ -15,6 +15,11 @@ source and the latest wiki edit data.
 """
 
 
+def extract_output(cmd, cwd):
+    result = subprocess.Popen(cmd, cwd=cwd, stdout=subprocess.PIPE).stdout.read().decode('utf-8')
+    return result
+
+
 def pull():
 
     log_dir  = "/home/charles/.logs/pull_charlesreid1"
@@ -27,18 +32,26 @@ def pull():
         output = ""
 
         # Ensure log dir exists
-        output += subprocess.Popen(["mkdir","-p",log_dir], cwd="/").decode('utf-8')
+        mkdircmd = ["mkdir","-p",log_dir]
+        output += extract_output(mkdircmd, "/")
 
         # update theme
-        output += subprocess.Popen(["git","pull","origin","master"], cwd=theme_dir).decode('utf-8')
-        output += subprocess.Popen(["pelican-themes","-U",theme_dir], cwd="/").decode('utf-8')
+        themepullcmd = ["git","pull","origin","master"]
+        output += extract_output(themepullcmd, theme_dir)
+
+        pelicanthemescmd = ["pelican-themes","-U",theme_dir]
+        output += extract_output(pelicanthemescmd, "/")
 
         # make site
-        output += subprocess.Popen(["git","pull","origin","charlesreid1-src"], cwd=src_dir).decode('utf-8')
-        output += subprocess.Popen(["pelican","content"], cwd=pelican_dir).decode('utf-8')
+        gitpullcmd = ["git","pull","origin","charlesreid1-src"]
+        output += extract_output(gitpullcmd, src_dir)
+
+        pelicancmd = ["pelican","content"]
+        output += extract_output(pelicancmd, pelican_dir)
 
         # copy new stie over
-        output += subprocess.Popen(["/bin/cp","-r","*","/www/charlesreid1.com/htdocs/."], cwd=output_dir).decode('utf-8')
+        cpcmd = ["/bin/cp","-r","*","/www/charlesreid1.com/htdocs/."]
+        output += extract_output(cpcmd, output_dir)
 
     except subprocess.CalledProcessError:
 
