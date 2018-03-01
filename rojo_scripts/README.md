@@ -14,6 +14,12 @@ pull latest changes to charlesreid1, make htdocs, and deploy:
 ./pull_charlesreid1.py
 ```
 
+pull latest data to charlesreid1.com/data:
+
+```
+./pull_charlesreid1_data.py
+```
+
 ## running stuff
 
 run bots in screen:
@@ -48,6 +54,8 @@ back up database (wiki only, and everything):
 ./backup_wiki.py
 ./backup_mysql.py
 ```
+
+(Need a bacup gitea script)
 
 ## databases
 

@@ -22,7 +22,7 @@ def extract_output(cmd, cwd):
 
 def pull():
 
-    log_dir  = "/home/charles/.logs/pull_charlesreid1"
+    log_dir   = "/home/charles/.logs/pull_charlesreid1"
     theme_dir = "/home/charles/codes/charlesreid1/charlesreid1.com-theme"
     src_dir = "/www/charlesreid1.com/charlesreid1-src"
     pelican_dir = src_dir+"/pelican"
@@ -31,7 +31,7 @@ def pull():
     try:
         output = ""
 
-        # Ensure log dir exists
+        # ensure log dir exists
         mkdircmd = ["mkdir","-p",log_dir]
         output += extract_output(mkdircmd, "/")
 
@@ -59,7 +59,7 @@ def pull():
         day = now.date().isoformat()
         hr = re.sub(":","-",now.time().isoformat()[0:8])
         timestamp = day + "_" + hr
-        logfile = log_dir+"/"+"logfile_"+timestamp+".log"
+        logfile = log_dir+"/logfile_"+timestamp+".log"
         with open(logfile,'w') as f:
             logfile.write(output)
 
