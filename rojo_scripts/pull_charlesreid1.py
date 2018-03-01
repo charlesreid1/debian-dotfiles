@@ -1,10 +1,13 @@
 #!/usr/bin/python3
 import getpass
 import subprocess
+import glob
 import time
 import os
 import re
 import socket
+from datetime import datetime
+from pprint import pprint
 
 
 """
@@ -12,6 +15,8 @@ Pull Charlesreid1.com - Rojo
 
 This script pulls the latest version of charlesreid1.com
 source and the latest wiki edit data.
+
+VERIFIED
 """
 
 
@@ -22,6 +27,7 @@ def extract_output(cmd, cwd):
 
 def pull():
 
+    htdocs_dir = "/www/charlesreid1.com/htdocs"
     log_dir   = "/home/charles/.logs/pull_charlesreid1"
     theme_dir = "/home/charles/codes/charlesreid1/charlesreid1.com-theme"
     src_dir = "/www/charlesreid1.com/charlesreid1-src"
@@ -49,21 +55,33 @@ def pull():
         pelicancmd = ["pelican","content"]
         output += extract_output(pelicancmd, pelican_dir)
 
-        # copy new stie over
-        cpcmd = ["/bin/cp","-r","*","/www/charlesreid1.com/htdocs/."]
+        everything = glob.glob(output_dir+"/*")
+        cpcmd = ["/bin/cp","-r",*everything,htdocs_dir+"/."]
         output += extract_output(cpcmd, output_dir)
-
-    except subprocess.CalledProcessError:
 
         now = datetime.now()
         day = now.date().isoformat()
         hr = re.sub(":","-",now.time().isoformat()[0:8])
         timestamp = day + "_" + hr
-        logfile = log_dir+"/logfile_"+timestamp+".log"
-        with open(logfile,'w') as f:
-            logfile.write(output)
+
+        logfile = log_dir+"/SUCCESS_"+timestamp+".log"
+        touchcmd = ["touch",logfile]
+        subprocess.call(touchcmd)
+
+    except subprocess.CalledProcessError:
 
         print("Encountered error: logging to %s"%logfile)
+
+        now = datetime.now()
+        day = now.date().isoformat()
+        hr = re.sub(":","-",now.time().isoformat()[0:8])
+        timestamp = day + "_" + hr
+
+        print("Dumping out results")
+        print(len(output))
+        logfile = log_dir+"/FAIL_"+timestamp+".log"
+        with open(logfile,'w') as f:
+            f.write(output)
 
 
 if __name__=="__main__":
@@ -76,8 +94,5 @@ if __name__=="__main__":
     elif(user!="charles"):
         print("You aren't charles - you should run this script as charles!")
     else:
-        one_day = 24*3600
-        while True:
-            pull()
-            time.sleep(one_day)
+        pull()
 

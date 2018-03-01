@@ -13,6 +13,8 @@ Pull Charlesreid1.com Data
 This script pulls the latest version of 
 git, wiki, map, and census data
 into charlesreid1.com/data
+
+VERIFIED
 """
 
 
@@ -24,7 +26,7 @@ def extract_output(cmd, cwd):
 def pull_charlesreid1_data():
 
     log_dir  = "/home/charles/.logs/pull_charlesreid1"
-    data_dir = "/www/charlesreid1.com/charlesreid1-src/data"
+    data_dir = "/www/charlesreid1.com/htdocs/data"
 
     try:
         output = ""
@@ -37,6 +39,18 @@ def pull_charlesreid1_data():
         gitpullcmd = ["git","pull","origin","master"]
         output += extract_output(gitpullcmd, data_dir)
 
+    except subprocess.CalledProcessError:
+
+        now = datetime.now()
+        day = now.date().isoformat()
+        hr = re.sub(":","-",now.time().isoformat()[0:8])
+        timestamp = day + "_" + hr
+        logfile = log_dir+"/logfile_"+timestamp+".log"
+        with open(logfile,'w') as f:
+            logfile.write(output)
+
+        print("Encountered error: logging to %s"%logfile)
+
 
 if __name__=="__main__":
 
@@ -48,8 +62,4 @@ if __name__=="__main__":
     elif(user!="charles"):
         print("You aren't charles - you should run this script as charles!")
     else:
-        one_day = 24*3600
-        while True:
-            pull()
-            time.sleep(one_day)
-
+        pull_charlesreid1_data()
