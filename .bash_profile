@@ -27,9 +27,11 @@ PATH="${HOME}/.pyenv/bin:${PATH}"
 # Try not to have to deal with PYTHONPATH...
 
 # Go
-#export PATH="${HOME}/.local/bin:${PATH}"
-#export PATH="${HOME}/gocode/bin:${PATH}"
 export GOPATH="${HOME}/gocode"
+export PATH="$GOPATH/bin:$PATH"
+
+export GOENV_ROOT="$HOME/.goenv"
+export PATH="$GOENV_ROOT/bin:$PATH"
 
 
 
