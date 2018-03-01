@@ -274,7 +274,7 @@ class PushGitea(object):
         addcmd = ["git","add","git"]
         subprocess.call(addcmd, cwd=gitdir2)
 
-        commitcmd = ["git","commit","git","-m","[SCRIPT] updating to latest git data"]
+        commitcmd = ["git","commit","git","-m","[SCRIPT] pushing latest git commit data"]
         dbg("    - git commit")
         subprocess.call(commitcmd, cwd=gitdir2)
 
