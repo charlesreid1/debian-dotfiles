@@ -17,7 +17,7 @@ You should log into the wiki being scraped
 with pywikibot.
 
 You should also connect to the VPN so 
-Jupiter MongoDB is at 10.6.0.1
+Jupiter MongoDB is at 10.6.0.*
 
 Pseudocode:
 
@@ -43,12 +43,16 @@ Database schema:
 """
 
 
+JUPITER_IP = '10.6.0.2'
+JUPITER_PORT = '27017'
+
+
 def page_history_to_csv(tmpdir):
 
     # Make connection to database
     # Requires page_history database to be populated already
     # See https://charlesreid1.com:3000/wiki/charlesreid1-wiki-data
-    client = MongoClient('10.6.0.1',27017)
+    client = MongoClient(JUPITER_IP,JUPITER_PORT)
     db = client['charlesreid1wiki']
     collection = db['page_history']
     
@@ -142,7 +146,7 @@ def get_collection(collections_label):
     and get the collection labeled collections_label,
     AND its corresponding meta collection.
     """
-    client = MongoClient('10.6.0.1', 27017)
+    client = MongoClient(JUPITER_IP,JUPITER_PORT)
     db = client['charlesreid1wiki']
 
     # Collections:
