@@ -34,6 +34,15 @@ run gitea server in screen:
 ./screen_run_gitea.sh
 ```
 
+## crontabs
+
+The rojo crontab is intended to be installed for the regular non-root user (charles).
+It will install the latest charlesreid1.com theme and update charlesreid1.com weekly,
+and it will update charlesreid1.com/data repos daily.
+
+The sudo crontab will dump the gitea repositories to generate a new commit count
+for the git.charlesreid1.com commit calendar.
+
 ## backups
 
 most of the backups dump to `/junkinthetrunk`.
