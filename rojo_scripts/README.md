@@ -36,6 +36,8 @@ run gitea server in screen:
 
 ## backups
 
+most of the backups dump to `/junkinthetrunk`.
+
 back up bash history:
 
 ```
@@ -55,7 +57,7 @@ back up database (wiki only, and everything):
 ./backup_mysql.py
 ```
 
-(Need a bacup gitea script)
+(Need a backup gitea script)
 
 ## databases
 
