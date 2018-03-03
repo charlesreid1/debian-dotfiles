@@ -121,6 +121,10 @@ def push_changes(tmpdir):
     dbg("    - git push")
     subprocess.call(pushcmd, cwd=repodir)
 
+    cleancmd = ["rm","-rf",tmpdir]
+    dbg("    - clean up")
+    subprocess.call(cleancmd)
+
 
 
 if __name__=="__main__":
