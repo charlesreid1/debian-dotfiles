@@ -13,10 +13,7 @@ from pprint import pprint
 """
 Pull Charlesreid1.com - Rojo
 
-This script pulls the latest version of charlesreid1.com
-source and the latest wiki edit data.
-
-VERIFIED
+This script pulls the latest version of charlesreid1.com source.
 """
 
 
