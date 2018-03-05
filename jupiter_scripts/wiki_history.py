@@ -44,7 +44,7 @@ Database schema:
 
 
 JUPITER_IP = '10.6.0.2'
-JUPITER_PORT = '27017'
+JUPITER_PORT = 27017
 
 
 def page_history_to_csv(tmpdir):
