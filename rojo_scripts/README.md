@@ -45,28 +45,7 @@ for the git.charlesreid1.com commit calendar.
 
 ## backups
 
-most of the backups dump to `/junkinthetrunk`.
-
-back up bash history:
-
-```
-./backup_bashhist.py
-```
-
-back up site (config files and wiki files):
-
-```
-./backup_charlesreid1.py
-```
-
-back up database (wiki only, and everything):
-
-```
-./backup_wiki.py
-./backup_mysql.py
-```
-
-(Need a backup gitea script)
+see [`backups/` directory](/rojo_scripts/backups/README.md) for backup scripts.
 
 ## databases
 
