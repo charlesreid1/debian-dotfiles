@@ -14,6 +14,7 @@ function doIt() {
 		--exclude "fix_ssh.sh" \
 		--exclude "greenfield_codes.sh" \
 		--exclude "install_packages.sh" \
+		--exclude "install_pyenv.sh" \
 		--exclude "jupiter-apt-stash.txt" \
 		--exclude "jupiter_install_packages.sh" \
 		--exclude "pre_bootstrap.sh" \
