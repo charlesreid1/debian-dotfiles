@@ -46,8 +46,10 @@ if [[ "${HOSTNAME}" == "rojo" ]]; then
     userStyle="${red}"
 elif [[ "${HOSTNAME}" == "jupiter" ]]; then
     userStyle="${green}"
+elif [[ "${HOSTNAME}" == "krash" ]]; then
+    userStyle="${cyan}"
 else
-    userStyle="${orange}"
+    userStyle="${yellow}"
 fi
 
 # Highlight the hostname when connected via SSH.
