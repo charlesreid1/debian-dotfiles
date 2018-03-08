@@ -3,6 +3,8 @@
 
 # lazy af
 alias mk='make'
+alias smk='snakemake'
+alias smake='snakemake'
 alias py='python3'
 alias ipy='ipython --pylab'
 
@@ -89,8 +91,10 @@ alias clc='clear; pwd'
 alias cl='clc; ll'
 alias cll='clear; ll'
 alias cls='clear; ls'
+alias lcs='clear; ls'
 alias csl='cls'
 alias cla='clear; la'
+alias c='clear'
 
 
 
@@ -124,7 +128,6 @@ function rojo() {
   export IP="10.6.0.1"
   ssh -Y charles@${IP} # the actual ssh call
 }
-
 
 alias jupiter="jupiter"
 function jupiter() {
