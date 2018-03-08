@@ -26,3 +26,10 @@ dpkg-reconfigure openssh-server
 
 systemctl restart ssh
 
+echo ""
+echo ""
+echo "Generate private/public keys with the command:"
+echo ""
+echo " ssh-keygen -t rsa"
+echo ""
+echo ""
