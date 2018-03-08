@@ -7,6 +7,8 @@ alias smk='snakemake'
 alias smake='snakemake'
 alias py='python3'
 alias ipy='ipython --pylab'
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias ipaddr="dig +short myip.opendns.com @resolver1.opendns.com"
 
 
 # one-letter aliases
