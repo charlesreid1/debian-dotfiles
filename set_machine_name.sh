@@ -17,8 +17,13 @@ fi
 
 echo "The current hostname is" $(cat /etc/hostname)
 
-echo "Type the new hostname you want for your machine, then press [ENTER]:"
-read newhostname
+if [[ "$#" -eq 0 ]]
+then
+    echo "Type the new hostname you want for your machine, then press [ENTER]:"
+    read newhostname
+else
+    newhostname="$1"
+fi
 
 hostname $newhostname 
 echo $newhostname > /etc/hostname

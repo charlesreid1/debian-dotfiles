@@ -18,6 +18,7 @@ function doIt() {
 		--exclude "install_pyenv.sh" \
 		--exclude "jupiter-apt-stash.txt" \
 		--exclude "jupiter_install_packages.sh" \
+		--exclude "make_user_charles.sh" \
 		--exclude "pre_bootstrap.sh" \
 		--exclude "python_install.sh" \
 		--exclude "python_setup.sh" \
