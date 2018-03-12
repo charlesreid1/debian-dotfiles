@@ -10,6 +10,7 @@ git pull origin master;
 function doIt() {
 	rsync \
 		--exclude ".git/" \
+		--exclude "add_charles_to_docker.sh" \
 		--exclude "bootstrap.sh" \
 		--exclude "fix_ssh.sh" \
 		--exclude "gen_ssh_keys.sh" \
