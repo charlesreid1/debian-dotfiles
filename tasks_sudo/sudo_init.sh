@@ -3,6 +3,11 @@
 if [[ "$#" -eq 1 ]] 
 then
 
+    DOTFILES="/root/codes/dotfiles"
+    DEBIAN="$DOTFILES/debian"
+    
+    cd $DEBIAN
+
     ./make_user_charles.sh
     ./install_packages.sh
     ./remove_packages.sh
