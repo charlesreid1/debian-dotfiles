@@ -22,7 +22,6 @@ apt-get install -y tcpdump
 apt-get install -y curl
 apt-get install -y wget
 apt-get install -y stunnel
-apt-get --assume-yes install -y wireshark
 apt-get install -y net-too
 apt-get install -y python3
 apt-get install -y python-dev
