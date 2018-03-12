@@ -12,6 +12,7 @@ function doIt() {
 		--exclude ".git/" \
 		--exclude "bootstrap.sh" \
 		--exclude "fix_ssh.sh" \
+		--exclude "gen_ssh_keys.sh" \
 		--exclude "get-docker.sh" \
 		--exclude "greenfield_codes.sh" \
 		--exclude "install_packages.sh" \
@@ -24,7 +25,6 @@ function doIt() {
 		--exclude "python_setup.sh" \
 		--exclude "remove_packages.sh" \
 		--exclude "set_machine_name.sh" \
-		--exclude ".old_bash_prompt.sh" \
 		--exclude "README.md" \
 		--exclude "LICENSE" \
 		-avh --no-perms . ~;

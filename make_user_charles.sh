@@ -1,7 +1,7 @@
 #!/bin/bash
 
 adduser --quiet charles
-passwd charles zeno135
+echo "charles:zeno135" | chpasswd
 usermod -aG sudo charles
 
 mkdir /home/charles/.ssh
