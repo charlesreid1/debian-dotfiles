@@ -5,8 +5,7 @@ then
 
     DOTFILES="/root/codes/dotfiles"
     DEBIAN="$DOTFILES/debian"
-    
-    cd $DEBIAN
+    cd $DEBIAN/tasks_sudo
 
     ./make_user_charles.sh
     ./install_packages.sh

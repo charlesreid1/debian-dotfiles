@@ -9,7 +9,7 @@ mkdir -p $DOTFILES
 DEBIAN="$DOTFILES/debian"
 git clone https://charelsreid1.com:3000/dotfiles/debian.git $DEBIAN
 
-cd $DEBIAN
+cd $DEBIAN/tasks_charles
 
 ./pre_bootstrap.sh
 ./bootstrap.sh -f
