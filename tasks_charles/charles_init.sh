@@ -1,4 +1,15 @@
 #!/bin/bash
+#
+# initialize all the dotfiles stuff
+# for user charles
+
+DOTFILES="$HOME/codes/dotfiles"
+mkdir -p $DOTFILES
+
+DEBIAN="$DOTFILES/debian"
+git clone https://charelsreid1.com:3000/dotfiles/debian.git $DEBIAN
+
+cd $DEBIAN
 
 ./pre_bootstrap.sh
 ./bootstrap.sh -f
