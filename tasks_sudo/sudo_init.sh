@@ -12,7 +12,7 @@ then
     ./remove_packages.sh
     ./fix_ssh.sh
     ./set_time.sh
-    ./get-docker.sh
+    ./get_docker.sh
     ./add_charles_to_docker.sh
     ./set_machine_name.sh $1
 
