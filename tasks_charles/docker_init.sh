@@ -19,5 +19,7 @@ cd d-mediawiki
 make
 cd ../
 
-git clone https://charlesreid1.com:3000/docker/d-charlesreid1-utils.git
+git clone git@git.charlesreid1.com:docker/d-charlesreid1-utils.git
+
+git clone git@git.charlesreid1.com:docker/pod-charlesreid1-wiki.git
 
