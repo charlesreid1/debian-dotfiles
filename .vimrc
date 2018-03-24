@@ -152,7 +152,7 @@ let &guicursor = &guicursor . ",a:blinkon0"
 
 
 " ------------------------
-"       Makefiles
+"   Filetype Settings
 " -----------------------
 
 " Do special stuff for Makefiles:
@@ -160,9 +160,17 @@ let &guicursor = &guicursor . ",a:blinkon0"
 " needed, and have indentation at 8 chars to be sure that all indents are tabs
 " (despite the mappings later):
 au BufRead,BufNewFile Makefile*,*.make,*.mk set noexpandtab
-" otherwise = 4 or even 8 (the 8 looks nice)
+
+
+" C++ files: 4 or even 8 (the 8 looks nice)
 au BufRead,BufNewFile *.cpp,*.cxx,*.cc,*.c,*.h,*.hpp,*.hxx,*.hh set tabstop=4 shiftwidth=4 softtabstop=4 nowrap
 
+
+" Snakemake files are named Snakefile, or .rule, or .snake, or .smk
+" https://snakemake.readthedocs.io/en/stable/project_info/faq.html#how-do-i-enable-syntax-highlighting-in-vim-for-snakefiles
+au BufNewFile,BufRead Snakefile set syntax=snakemake
+au BufNewFile,BufRead *rule set syntax=snakemake
+au BufNewFile,BufRead *.smk set syntax=snakemake
 
 
 " ------------------------
@@ -397,6 +405,12 @@ vnoremap p "_dP
 " ====================
 " " (woah.)
 
+" " Use the Solarized Dark theme
+" set background=dark
+" colorscheme solarized
+" let g:solarized_termtrans=1
+"
+"
 " Enhance command-line completion
 set wildmenu
 

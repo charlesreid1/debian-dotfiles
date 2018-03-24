@@ -4,9 +4,9 @@
 # Description:  Pull the latest charlesreid1.com/data from data repos.
 # Frequency:    All day every day, 2am
 #   MIN      HR         DOM            MONTH            DOW          CMD
-    0        2          *              *                *            python3 /home/charles/rojo_scripts/pull_charlesreid1_data.py
+    0        2          *              *                *            /usr/bin/env python /home/charles/rojo_scripts/pull_charlesreid1_data.py
 # 
 # Description:  Pull the latest charlesreid1.com site and apply latest theme.
 # Frequency:    Monday surprise, 2am
 #   MIN      HR         DOM            MONTH            DOW          CMD
-    1        2          *              *                1            python3 /home/charles/rojo_scripts/pull_charlesreid1.py
+    1        2          *              *                1            /usr/bin/env python /home/charles/rojo_scripts/pull_charlesreid1.py
