@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python
 from datetime import datetime 
 import subprocess
 import socket
@@ -31,7 +31,9 @@ def backup_mysql(basedir):
     # back up mysql db
     userarg = "--user=%s"%(u)
     pwarg = "--password=%s"%(p)
-    dumpcmdbase = ["mysqldump",userarg,pwarg]
+    dbarg = "--databases"
+    adarg = "--add-drop-database"
+    dumpcmdbase = ["mysqldump",userarg,pwarg,dbarg,adarg]
     
     allargs = "--all-databases"
     alldump = basedir+"/sql_dump.sql"
