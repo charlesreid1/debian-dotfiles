@@ -164,11 +164,12 @@ au BufRead,BufNewFile Makefile*,*.make,*.mk set noexpandtab
 au BufRead,BufNewFile *.cpp,*.cxx,*.cc,*.c,*.h,*.hpp,*.hxx,*.hh set tabstop=4 shiftwidth=4 softtabstop=4 nowrap
 
 
+
 " ------------------------
-"     End Makefiles
+"     Yaml Files
 " -----------------------
 
-
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 
 
