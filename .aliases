@@ -3,8 +3,12 @@
 
 # lazy af
 alias mk='make'
+alias smk='snakemake'
+alias smake='snakemake'
 alias py='python3'
 alias ipy='ipython --pylab'
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias ipaddr="dig +short myip.opendns.com @resolver1.opendns.com"
 
 
 # one-letter aliases
@@ -89,8 +93,10 @@ alias clc='clear; pwd'
 alias cl='clc; ll'
 alias cll='clear; ll'
 alias cls='clear; ls'
+alias lcs='clear; ls'
 alias csl='cls'
 alias cla='clear; la'
+alias c='clear'
 
 
 
@@ -115,13 +121,33 @@ function charles() {
   ssh -Y charles@${IP} # the actual ssh call
 }
 
+alias rojo="rojo"
+function rojo() {
+  ssh-agent > ~/ssh.file # env vars in ssh.file 
+  chmod +x ~/ssh.file # execute file
+  ~/ssh.file > /dev/null
+  rm -f ~/ssh.file
+  export IP="10.6.0.1"
+  ssh -Y charles@${IP} # the actual ssh call
+}
+
+alias jupiter="jupiter"
+function jupiter() {
+  ssh-agent > ~/ssh.file # env vars in ssh.file 
+  chmod +x ~/ssh.file # execute file
+  ~/ssh.file > /dev/null
+  rm -f ~/ssh.file
+  export IP="10.6.0.2"
+  ssh -Y charles@${IP} # the actual ssh call
+}
+
 alias maya="maya"
 function maya() {
   ssh-agent > ~/ssh.file # env vars in ssh.file 
   chmod +x ~/ssh.file # execute file
   ~/ssh.file > /dev/null
   rm -f ~/ssh.file
-  export IP="192.168.125.123"
+  export IP="10.6.0.10"
   ssh -Y charles@${IP} # the actual ssh call
 }
 
@@ -131,10 +157,19 @@ function cronus() {
   chmod +x ~/ssh.file # execute file
   ~/ssh.file > /dev/null
   rm -f ~/ssh.file
-  export IP="192.168.125.50"
+  export IP="10.6.0.20"
   ssh -Y charles@${IP} # the actual ssh call
 }
 
+alias krash="krash"
+function krash() {
+  ssh-agent > ~/ssh.file # env vars in ssh.file 
+  chmod +x ~/ssh.file # execute file
+  ~/ssh.file > /dev/null
+  rm -f ~/ssh.file
+  export IP="192.155.84.98"
+  ssh -Y charles@${IP} # the actual ssh call
+}
 
 
 

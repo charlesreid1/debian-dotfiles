@@ -10,9 +10,3 @@ mkdir -p ~/.vim/undo
 mkdir -p ~/.vim/backups
 mkdir -p ~/.logs
 
-# Change shell to bash
-BASH="/bin/bash"
-echo "About to set shell to ${BASH}"
-chsh -s ${BASH}
-
-

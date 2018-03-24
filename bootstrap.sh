@@ -11,16 +11,9 @@ function doIt() {
 	rsync \
 		--exclude ".git/" \
 		--exclude "bootstrap.sh" \
-		--exclude "fix_ssh.sh" \
 		--exclude "greenfield_codes.sh" \
-		--exclude "install_packages.sh" \
 		--exclude "jupiter_install_packages.sh" \
-		--exclude "pre_bootstrap.sh" \
-		--exclude "python_install.sh" \
-		--exclude "python_setup.sh" \
-		--exclude "remove_packages.sh" \
-		--exclude "set_machine_name.sh" \
-		--exclude ".old_bash_prompt.sh" \
+		--exclude "jupiter_apt-stash.txt" \
 		--exclude "README.md" \
 		--exclude "LICENSE" \
 		-avh --no-perms . ~;

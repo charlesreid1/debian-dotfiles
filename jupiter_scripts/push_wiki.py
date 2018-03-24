@@ -85,7 +85,7 @@ def push_changes(tmpdir):
     addcmd = ["git","add",edits_repopath,graph_repopath]
     subprocess.call(addcmd, cwd=tmpdir+"/"+reponame)
 
-    commitcmd = ["git","commit",edits_repopath,graph_repopath,"-m","'Update wiki page edit and page graph data.'"]
+    commitcmd = ["git","commit",edits_repopath,graph_repopath,"-m","[SCRIPT] updating wiki page edit and page graph data."]
     subprocess.call(commitcmd, cwd=tmpdir+"/"+reponame)
 
     pushcmd = ["git","push","origin","master"]
@@ -120,6 +120,10 @@ def push_changes(tmpdir):
     pushcmd = ["git","push","origin","master"]
     dbg("    - git push")
     subprocess.call(pushcmd, cwd=repodir)
+
+    cleancmd = ["rm","-rf",tmpdir]
+    dbg("    - clean up")
+    subprocess.call(cleancmd)
 
 
 
