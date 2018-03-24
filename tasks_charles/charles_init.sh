@@ -1,7 +1,6 @@
 #!/bin/bash
 #
-# initialize all the dotfiles stuff
-# for user charles
+# initialize all the dotfiles stuff for user 
 set -x
 
 DOTFILES="$HOME/codes/dotfiles"
