@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+import glob
 import getpass
 import subprocess
 import time
@@ -35,9 +36,30 @@ def pull_charlesreid1_data():
         mkdircmd = ["mkdir","-p",log_dir]
         output += extract_output(mkdircmd, "/")
 
-        # update data
+        # pull to latest 
         gitpullcmd = ["git","pull","origin","master"]
         output += extract_output(gitpullcmd, data_dir)
+
+        # update each submodule
+        for direc in glob.glob(data_dir+"/*"):
+            if os.path.isdir(direc):
+
+                # pull this submodule
+                output += extract_output(gitpullcmd, direc)
+
+                # add it to the list of submodules to update (add commit push)
+                addcmd = ["git","add",direc]
+                subprocess.call(addcmd, cwd=data_dir)
+
+
+        # continue updating submodules to latest (add commit push)
+        commitcmd = ["git","commit","-a","-m","[SCRIPT] updating submodules to latest"]
+        subprocess.call(commitcmd, cwd=data_dir)
+
+        pushcmd = ["git","push","origin","master"]
+        subprocess.call(pushcmd, cwd=data_dir)
+
+
 
     except subprocess.CalledProcessError:
 
