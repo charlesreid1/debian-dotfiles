@@ -8,8 +8,10 @@
 #
 #   MIN      HR         DOM            MONTH            DOW          CMD
     0        2          *              *                *            /usr/bin/env python /home/charles/codes/docker/d-charlesreid1-utils/backup/daily_mysql.py
+    5        2          *              *                *            /usr/bin/env python /home/charles/codes/docker/d-charlesreid1-utils/backup/daily_wikifiles.py
 # 
 # Description:  Weekly MySQL backup
 # Frequency:    Sunday Funday, 2:15 am
 #   MIN      HR         DOM            MONTH            DOW          CMD
-    15       2          *              *                0            /usr/bin/env python /home/charles/codes/docker/d-charlesreid1-utils/backup/weekly_mysql.py
+    30       2          *              *                0            /usr/bin/env python /home/charles/codes/docker/d-charlesreid1-utils/backup/weekly_mysql.py
+    35       2          *              *                0            /usr/bin/env python /home/charles/codes/docker/d-charlesreid1-utils/backup/weekly_wikifiles.py
