@@ -13,6 +13,7 @@ then
     ./fix_ssh.sh
     ./set_time.sh
     ./get_docker.sh
+    ./instal_certbot.sh
     ./add_charles_to_docker.sh
     ./set_machine_name.sh $1
 
