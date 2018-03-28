@@ -8,14 +8,18 @@ then
     cd $DEBIAN/tasks_sudo
 
     ./make_user_charles.sh
+    ./set_time.sh
+    ./set_machine_name.sh $1
     ./install_packages.sh
     ./remove_packages.sh
     ./fix_ssh.sh
-    ./set_time.sh
+    (
+    cd ../
+    ./gen_ssh_keys.sh
+    )
     ./get_docker.sh
-    ./instal_certbot.sh
     ./add_charles_to_docker.sh
-    ./set_machine_name.sh $1
+    ./install_certbot.sh
 
 else
 

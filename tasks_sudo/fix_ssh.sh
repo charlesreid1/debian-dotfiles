@@ -26,7 +26,6 @@ dpkg-reconfigure openssh-server
 
 systemctl restart ssh
 
-# Generate public/private key pairs
-# https://stackoverflow.com/a/39939070/463213
-# root
-./gen_ssh_keys $HOME/.ssh/id_rsa
+# public/private key pairs 
+# are created by running
+# ../gen_ssh_keys.sh
