@@ -15,10 +15,11 @@ cd $DEBIAN/tasks_charles
 (
 cd ../
 ./bootstrap.sh -f
+./gen_ssh_keys.sh
 )
 ./install_pyenv.sh
 ./python_install.sh
 ./python_setup.sh
-./gen_ssh_keys.sh
 ./docker_init.sh
+./deploy_codes_docker.sh
 
