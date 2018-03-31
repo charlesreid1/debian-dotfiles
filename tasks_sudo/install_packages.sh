@@ -21,10 +21,10 @@ apt-get install -y tcpdump
 apt-get install -y curl
 apt-get install -y wget
 apt-get install -y stunnel
-apt-get install -y python3
-apt-get install -y python-dev
 apt-get install -y perl
 apt-get install -y imagemagick
+
+
 #apt-get install -y golang
 #apt-get install -y texlive-ful
 #apt-get install -y octave

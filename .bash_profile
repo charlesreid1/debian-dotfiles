@@ -14,24 +14,30 @@ PATH="${HOME}/scripts:${PATH}"
 PATH="/sbin:${PATH}"
 PATH="/opt/collectd/bin:${PATH}"
 PATH="/opt/collectd/sbin:${PATH}"
-PATH="/usr/local/bro/bin:${PATH}"
-PATH="${HOME}/.pyenv/bin:${PATH}"
-
-# To load pyenv automatically,
-# add this:
-#eval "$(pyenv init -)"
+#PATH="/usr/local/bro/bin:${PATH}"
 
 
 
 # Python:
 # Try not to have to deal with PYTHONPATH...
 
-# Go
+# go 
 export GOPATH="${HOME}/gocode"
 export PATH="$GOPATH/bin:$PATH"
 
+# goenv
 export GOENV_ROOT="$HOME/.goenv"
 export PATH="$GOENV_ROOT/bin:$PATH"
+
+# pyenv
+export PATH="${HOME}/.pyenv/bin:${PATH}"
+
+# activate pyenv
+# you should also install a pyenv version!
+# pyenv install --list
+# pyenv install -s miniconda3-4.3.30
+eval "$(pyenv init -)"
+#eval "$(pyenv virtualenv-init -)"
 
 
 

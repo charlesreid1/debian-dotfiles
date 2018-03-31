@@ -14,11 +14,10 @@ if [ "$(id -u)" == "0" ]; then
     exit 1;
 fi
 
-pip3 install -U --user numpy scipy pandas
-pip3 install -U --user matplotlib seaborn
-pip3 install -U --user jupyter ipython
-pip3 install -U --user tornado pyzmq pygments
-pip3 install -U --user pygments pillow pelican
-pip3 install -U --user virtualenv conda
-pip3 install -U --user pelican
+PIP="$HOME/.pyenv/shims/pip"
+
+$PIP install -U --user numpy scipy pandas matplotlib seaborn jupyter ipython
+$PIP install -U --user tornado pyzmq pygments pygments pillow 
+$PIP install -U --user pelican
+$PIP install -U --user virtualenv conda
 

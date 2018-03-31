@@ -17,9 +17,8 @@ cd ../
 ./bootstrap.sh -f
 ./gen_ssh_keys.sh
 )
-./install_pyenv.sh
+./install_pyenv.py
 ./python_install.sh
-./python_setup.sh
 ./docker_init.sh
 ./deploy_codes_docker.sh
 
