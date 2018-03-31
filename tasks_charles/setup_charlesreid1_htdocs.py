@@ -36,9 +36,16 @@ domains = ['charlesreid1.blue',
            'charlesreid1.red',
            'charlesreid1.com']
 
+print("")
+print("setup charlesreid1.com htdocs")
+print("-----------------------------")
+print("")
+
 for domain in domains:
     
     base_dir = join('/www',domain)
+    mkdircmd = ["mkdir","-p",base_dir]
+    subprocess.call(mkdircmd)
 
     live_branch = "pages"
     src_branch = "master"
@@ -49,14 +56,14 @@ for domain in domains:
     src_name = domain+'-src'
     src = join(base_dir,src_name)
 
-    # make htdocs dir
-    if not os.path.isdir(htdocs):
-        mkdircmd = ["mkdir","-p",htdocs]
-        subprocess.call(mkdircmd, cwd=base_dir)
+    # make charlesreid1.blue-src dir
+    if not os.path.isdir(src):
+        clonecmd = ["git","clone","-b", src_branch, srcrepo, src_name]
+        subprocess.call(clonecmd, cwd=base_dir)
 
     # make charlesreid1.blue-src dir
     if not os.path.isdir(src):
-        clonecmd = ["git","clone","-b",branch,srcrepo,src]
-        subprocess.call(mkdircmd, cwd=base_dir)
+        clonecmd = ["git","clone","-b", live_branch, srcrepo, htdocs_name]
+        subprocess.call(clonecmd, cwd=base_dir)
 
 

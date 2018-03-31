@@ -30,6 +30,7 @@ print("")
 print("setup charlesreid1.com pelican")
 print("------------------------------")
 print("")
+
 for i,_url,_dir in enumerate(url_to_dir):
     print(" - Cloning %s into %s"%(_url,_dir))
     clonedir = join(charlesreid1_base_dir,_dir)
