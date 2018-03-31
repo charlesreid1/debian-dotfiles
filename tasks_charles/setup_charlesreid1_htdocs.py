@@ -40,8 +40,8 @@ for domain in domains:
     
     base_dir = join('/www',domain)
 
-    live_branch = "master"
-    src_branch = "charlesreid1-src"
+    live_branch = "pages"
+    src_branch = "master"
 
     htdocs_name = 'htdocs'
     htdocs = join(base_dir,htdocs_name)
