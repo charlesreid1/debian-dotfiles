@@ -10,3 +10,5 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 usermod -aG docker charles
+usermod -aG www-data charles
+usermod -aG admin charles

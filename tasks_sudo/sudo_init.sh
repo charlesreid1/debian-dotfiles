@@ -18,7 +18,7 @@ then
     ./gen_ssh_keys.sh
     )
     ./get_docker.sh
-    ./add_charles_to_docker.sh
+    ./add_charles_to_groups.sh
     ./install_certbot.sh
 
 else
