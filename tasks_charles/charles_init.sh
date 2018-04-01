@@ -21,4 +21,5 @@ cd ../
 ./python_install.sh
 ./docker_init.sh
 ./deploy_codes_docker.sh
-
+./setup_charlesreid1_htdocs.py
+./setup_charlesreid1_pelican.py
