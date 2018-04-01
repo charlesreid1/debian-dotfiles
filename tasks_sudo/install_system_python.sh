@@ -1,8 +1,10 @@
 #!/bin/bash
 # 
 # install a baseline system version of python.
-# pyenv is the real workhorse python,
-# but it's important to have a baseline.
+#
+# this script is old.
+# current approach is to use the pyenv version of python,
+# and set up the .bash_profile to do that automatically.
 
 if [ "$(id -u)" != "0" ]; then
     echo ""
