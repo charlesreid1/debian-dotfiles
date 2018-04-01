@@ -9,6 +9,14 @@ Setup Charlesreid1.com Permissions
 
 This sets the permissions of `/wwww/charlesreid1.X/htdocs`
 to `www-data:www-data` so we don't get a 403 error.
+
+Note that this complicates the procedure of running 
+sudo tasks, then running user tasks, because this task
+must be run after the user task taht creates the 
+htdocs structure.
+
+We could fix it, but we're going to move to a git webhook 
+anyway, so just wait for that.
 """
 
 user = getpass.getuser()
