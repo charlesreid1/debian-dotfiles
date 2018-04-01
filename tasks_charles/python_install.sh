@@ -14,10 +14,13 @@ if [ "$(id -u)" == "0" ]; then
     exit 1;
 fi
 
+source ~/.bash_profile
+
 PIP="$HOME/.pyenv/shims/pip"
 
-$PIP install -U --user numpy scipy pandas matplotlib seaborn jupyter ipython
-$PIP install -U --user tornado pyzmq pygments pygments pillow 
-$PIP install -U --user pelican
-$PIP install -U --user virtualenv conda
+$PIP install -U pelican
+$PIP install -U numpy scipy pandas 
+$PIP install -U jupyter ipython
+$PIP install -U matplotlib seaborn 
+$PIP install -U tornado pyzmq pygments pygments pillow 
 

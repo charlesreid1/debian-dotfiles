@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import subprocess
 import os, re
 from os.path import join
 
@@ -47,23 +48,30 @@ for domain in domains:
     mkdircmd = ["mkdir","-p",base_dir]
     subprocess.call(mkdircmd)
 
-    live_branch = "pages"
     src_branch = "master"
+    live_branch = "pages"
+
+    src_name = domain+'-src'
+    src = join(base_dir,src_name)
 
     htdocs_name = 'htdocs'
     htdocs = join(base_dir,htdocs_name)
 
-    src_name = domain+'-src'
-    src = join(base_dir,src_name)
+    pelicandir = join(src, 'pelican')
+    pelicanoutputdir = join(pelicandir, 'output')
 
     # make charlesreid1.blue-src dir
     if not os.path.isdir(src):
         clonecmd = ["git","clone","-b", src_branch, srcrepo, src_name]
         subprocess.call(clonecmd, cwd=base_dir)
 
-    # make charlesreid1.blue-src dir
-    if not os.path.isdir(src):
-        clonecmd = ["git","clone","-b", live_branch, srcrepo, htdocs_name]
+    # make the pelican build target 
+    if not os.path.isdir(pelicanoutputdir):
+        oclonecmd = ["git","clone","-b", live_branch, srcrepo, pelicanoutputdir]
         subprocess.call(clonecmd, cwd=base_dir)
 
+    # make the LIVE htdocs dir
+    if not os.path.isdir(htdocs):
+        clonecmd = ["git","clone","-b", live_branch, srcrepo, htdocs_name]
+        subprocess.call(clonecmd, cwd=base_dir)
 
