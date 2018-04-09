@@ -11,3 +11,5 @@ fi
 
 usermod -aG docker charles
 usermod -aG www-data charles
+
+adduser charles sudo
