@@ -7,6 +7,8 @@ from os.path import join
 """
 Setup Charlesreid1.com Permissions
 
+TODO: check hostname
+
 This sets the permissions of `/wwww/charlesreid1.X/htdocs`
 to `www-data:www-data` so we don't get a 403 error.
 
