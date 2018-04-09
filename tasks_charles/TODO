@@ -1,0 +1,12 @@
+- need to install conda: https://git.charlesreid1.com/dotfiles/dahak-yeti/raw/branch/master/tasks_user/install_conda.py
+- if a private key already exists, interactive, asks y/n, just answer n
+- deploy_codes_docker.sh points to wrong git loc
+- setup_charlesreid1_htdocs.py tries to modify /www
+- need to check hostname when /www
+- setup_charlesreid1_pelican.py line 20 env -> environ
+- https on port 3000 is broken - exposed directly - requires gitea server to have a cert for charlesreid1.com
+- deploy_codes_docker.sh should not make, should fix git@git
+- python installation: pyenv installs ok, but just prints out what you're supposed to do
+- set executable bit on install conda
+- move python install to install python
+- add install conda to charles initial task script
