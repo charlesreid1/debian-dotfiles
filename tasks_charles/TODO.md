@@ -14,3 +14,4 @@
 - add_charles_to_groups.sh should include SUO
 - if that doesn't work, make passwordless sudo access: "ubuntu ALL=(ALL) NOPASSWD:ALL" to /etc/sudoers
 - print instructions: if you are on AWS, you need to add your public key to the user's authorized keys, or enable password ssh
+- install conda is .sh and should be .py
