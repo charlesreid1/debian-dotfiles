@@ -7,7 +7,7 @@ DOTFILES="$HOME/codes/dotfiles"
 mkdir -p $DOTFILES
 
 DEBIAN="$DOTFILES/debian"
-git clone https://charlesreid1.com:3000/dotfiles/debian.git $DEBIAN
+git clone https://git.charlesreid1.com/dotfiles/debian.git $DEBIAN
 
 cd $DEBIAN/tasks_charles
 
