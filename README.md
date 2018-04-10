@@ -1,26 +1,143 @@
 # Debian Server Dotfiles
 
-Repository containing dotfiles appropriate for use on Debian servers.
+Repository containing dotfiles and scripts for bootstrapping 
+from a fresh bare-metal cloud node to a fully-configured node.
 
-[Link to instructions](https://charlesreid1.com:3000/dotfiles/vanilla)
+This hard-codes the user `charles` so it should be edited before general use.
 
-## run order 
+TODO: make username a parameter of the script (`$2`)
 
-cloud init runs these scripts in a particular order:
 
-As sudo:
 
-* `make_user_charles.sh`
-* `install_packages.sh`
-* `remove_packages.sh`
-* `fix_ssh.sh`
-* `get-docker.sh`
-* `add_charles_to_docker.sh`
-* `set_machine_name.sh`
+## Components
 
-As user charles:
+This repo has the following components:
 
-* `charles_tasks.sh`
+* tasks to run on boot
+* dotfiles to install on boot
+* scripts to install on boot
 
-Also see [cloud-init](https://charlesreid1.com:3000/dotfiles/cloud-init)
+The user is also provided with:
+
+* crontabs
+* startup services
+
+
+
+## Quick Start
+
+The quickest way to get started with this repo is to use the scripts in `cloud_init`.
+
+This directory contains `user_data.sh`, a one-liner pipe-to-bash that will:
+
+* bootstrap the entire repository from scratch
+* run the sudo tasks as sudo
+* switch to the regular user
+* run the regular user tasks as regular user
+
+This gives you a fully hands-free configuration.
+
+[Link to instructions](https://git.charlesreid1.com/dotfiles/vanilla)
+
+
+
+## The `tasks/` Directory
+
+The entrypoint for everything is the `tasks/` directory.
+
+`tasks/sudo_all.sh` script should be run as sudo to run all sudo tasks.
+
+`tasks/charles_all.sh` script should be run as charles to run all regular user tasks.
+
+The scripts depend on relative locations,
+and should be run like this:
+
+```
+$ cd /path/to/debian/tasks
+$ ./sudo_all.sh <hostname>
+$ ./charles_all.sh
+```
+
+or in a script,
+
+```
+#!/bin/bash
+
+DIR="/path/to/debian/tasks"
+cd $DIR
+./sudo_all.sh <hostname>
+./charles_all.sh
+```
+
+### `sudo_all.sh` script
+
+The `sudo_all.sh` script runs the tasks in the following order:
+
+* system tasks
+* install tasks
+* secrets tasks
+* deployment tasks
+* clone tasks
+
+Run without an argument:
+
+```
+$ ./sudo_all.sh <hostname>
+```
+
+### `charles_all.sh` script
+
+The `charles_all.sh` script runs the tasks in the following order:
+
+* system tasks
+* install tasks
+* secrets tasks
+* deployment tasks
+* clone tasks
+
+Run without an argument:
+
+```
+$ ./charles_all.sh
+```
+
+
+
+## The `dotfiles/` Directory
+
+This directory contains a set of dotfiles to install to set up the machine.
+
+Run the `bootstrap.sh` script to copy these dotfiles into the home directory.
+
+
+
+## The `scripts/` Directory
+
+Host specific installation scripts.
+
+* `blackbeard/` - hook server
+* `jupiter/` - beefy debian node
+* `krash/` - charlesreid1 node
+
+
+
+## The `crontab/` Directory
+
+Contains regular user and sudo crontab files for various hosts.
+
+
+
+## The `services/` Directory
+
+Contains startup services that can be installed.
+
+* `dockerpod-charlesreid1.service` - runs docker-compose pod running site
+
+
+
+## The `motd/` Directory
+
+Contains a special message of the day to display at login for each machine.
+
+
 
