@@ -1,40 +1,17 @@
-# tasks
+# Tasks
 
 Contains tasks grouped by functionality.
 
-## task groups
+They are further divided into sudo tasks and regular user tasks.
 
-- System
-    - Users and Groups
-    - Machine name
-    - Machine time
-    - IPv6
+All directories have an `_all.sh` script that can be used to run
+all tasks for sudo or for the regular user.
 
-- Install
-    - Aptitude
-    - Dotfiles
-    - Scripts
-    - Python
-        - Pyenv
-        - Conda
-        - Snakemake
-        - pip
-    - Go
-        - Goenv
-    - Docker
+## Task Groups
 
-- Secrets
-    - SSH
-    - SSL
-
-- Deployment
-    - Pelican
-    - Static site content
-
-- Clones
-    - Github
-    - git.charlesreid1.com
-
-
-
+* System (machine name, users, groups, time, network)
+* Install (apt, dotfiles, scripts, python, go, docker)
+* Secrets (SSH, SSL)
+* Deployment (pelican, site static content)
+* Clones (github, git.charlesreid1.com)
 

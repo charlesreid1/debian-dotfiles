@@ -102,14 +102,17 @@ $ ./charles_all.sh
 ```
 
 
-
 ## The `dotfiles/` Directory
 
 This directory contains a set of dotfiles to install to set up the machine.
 
 Run the `bootstrap.sh` script to copy these dotfiles into the home directory.
 
-
+```
+$ cd dotfiles
+$ ./bootstrap.sh    # ask confirmation
+$ ./bootstrap.sh -f # do not ask confirmation
+```
 
 ## The `scripts/` Directory
 
@@ -119,12 +122,14 @@ Host specific installation scripts.
 * `jupiter/` - beefy debian node
 * `krash/` - charlesreid1 node
 
+See [`scripts/README.md`](/scripts/README.md).
 
 
 ## The `crontab/` Directory
 
 Contains regular user and sudo crontab files for various hosts.
 
+See [`crontab/README.md`](/crontab/README.md).
 
 
 ## The `services/` Directory
@@ -133,11 +138,12 @@ Contains startup services that can be installed.
 
 * `dockerpod-charlesreid1.service` - runs docker-compose pod running site
 
+See [`services/README.md`](/services/README.md).
 
 
 ## The `motd/` Directory
 
 Contains a special message of the day to display at login for each machine.
 
-
+See [`motd/README.md`](/motd/README.md).
 
