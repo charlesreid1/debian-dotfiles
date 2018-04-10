@@ -10,7 +10,7 @@ Contains tasks grouped by functionality.
     - Machine time
     - IPv6
 
-- Installing
+- Install
     - Aptitude
     - Dotfiles
     - Scripts
