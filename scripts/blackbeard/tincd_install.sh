@@ -1,8 +1,10 @@
 #!/bin/bash
 #
-# Install tincd on krash
+# Install tincd on blackbeard
 #
-# krash = 10.6.0.36
+# blackbeard = 10.244.0.36
+#
+# hard-coded to avoid string variable mixups.
 
 if [ "$(id -u)" != "0" ]; then
     echo ""
