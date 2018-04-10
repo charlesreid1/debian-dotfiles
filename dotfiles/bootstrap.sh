@@ -4,6 +4,10 @@
 # into the home directory using rsync.
 #
 # ./bootstrap.sh
+# 
+# to force:
+#
+# ./bootstrap.sh -f
 
 git pull origin master;
 
@@ -11,14 +15,6 @@ function doIt() {
 	rsync \
 		--exclude ".git/" \
 		--exclude "bootstrap.sh" \
-		--exclude "gen_ssh_keys.sh" \
-		--exclude "greenfield_codes.sh" \
-		--exclude "jupiter_install_packages.sh" \
-		--exclude "jupiter_apt-stash.txt" \
-		--exclude "tasks_sudo" \
-		--exclude "tasks_charles" \
-		--exclude "README.md" \
-		--exclude "LICENSE" \
 		-avh --no-perms . ~;
 	source ~/.bash_profile;
 }
