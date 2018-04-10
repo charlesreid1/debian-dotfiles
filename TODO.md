@@ -1,11 +1,48 @@
+organization:
+- better organization
+- example: deploy codes docker
+- codes, python, software, dotfiles, etc.
+- what is the logic? how do we compartmentalize?
+- need to have a system like, here is a modular set of tasks we will always do
+- these hostnames do these things - check hostname in script
+
+topics:
+- system 
+    - users and groups
+    - machine name
+    - machine time
+    - ipv6
+
+- installing
+    - apt packages
+    - dotfiles
+    - scripts
+    - python
+        - pyenv
+        - conda
+        - snakemake
+    - go
+        - goenv
+    - docker
+
+- secrets
+    - ssh keys
+    - ssl certs
+
+- clone deploy
+    - pelican
+    - github
+    - git.charlesreid1.com
+    - static sites
+
+
+
 pyenv:
 - <s>python installation: pyenv installs ok, but just prints out what you're supposed to do
 - need to add next step, install conda/py distribution</s>
 
-
 python:
-- move python install to install python
-
+- <s>move python install to install python</s>
 
 install conda:
 - <s>add install conda script: https://git.charlesreid1.com/dotfiles/dahak-yeti/raw/branch/master/tasks_user/install_conda.py
@@ -13,6 +50,10 @@ install conda:
 - add install conda to charles initial task script
 - install conda is .sh and should be .py
 - set executable bit on install conda</s>
+
+
+
+
 
 
 docker:
