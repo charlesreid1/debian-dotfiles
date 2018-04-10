@@ -1,4 +1,6 @@
 #!/bin/bash
+# 
+# initial entry point
 
 if [[ "$#" -eq 0 ]]
 then
@@ -14,8 +16,6 @@ else
     ./sudo_make_user_charles.sh
     ./sudo_add_charles_to_groups.sh
     ./sudo_set_time.sh
-    
-    ./sudo_disable_ipv6.sh
 
 fi
 
