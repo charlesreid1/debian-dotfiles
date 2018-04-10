@@ -1,6 +1,7 @@
 # Deployment Tasks
 
-These cover deployment of repos, static sites, and stuff:assets:
+These cover deployment of assets
+(pelican themes, pelican sites, and other stuff).
 
 Pelican
 
