@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Lays the groundwork for dotfile installation;
 # creates vim swap/undo directories and sets bash
