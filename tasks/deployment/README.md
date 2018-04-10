@@ -1,10 +1,9 @@
 # Deployment Tasks
 
-These cover deployment of assets
-(pelican themes, pelican sites, and other stuff).
+for #krash only
 
-Pelican
+deployment of assets:
 
-Static site content
+* static web content
+* pelican themes
 
-Github 

@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
-import getpass
 import subprocess
 import os, re
 from os.path import join
-from domain_lists import domains
+from domains_list import domains
 
 
 """
-Setup Charlesreid1.com Sudo Tasks #krash
+Setup Charlesreid1.com User Tasks #krash
 
 This sets up the directory structure
 for various charlesreid1 domains
@@ -19,6 +18,15 @@ Each domain has a folder under `/www`:
         example.blue
         example.red/
         example.com/
+
+Each domain has a source directory and a live 
+htdocs directory. The source directory is labeled
+with -src and the live directory is called htdocs:
+
+    /www/
+        example.com/
+            example.com-src/
+            htdocs/
 
 The source directory contains the static content
 and pelican files required to generate the site's
@@ -47,48 +55,39 @@ so the sudo script handles the htdocs directories.
 if os.environ['HOSTNAME']=='krash':
 
     user = getpass.getuser()
-    if(user!="root"):
-        raise Exception("You are not root - this script requires root (chown commands).")
+    if(user=="root"):
+        raise Exception("You are root - this script should be run as a regular user!")
     
     
     for domain in domains:
     
         print("")
-        print("set permissions on %s htdocs"%(domain))
+        print("setup %s htdocs"%(domain))
         print("-----------------------------")
         print("")
-
-
-        srcrepo = domains[domain]
-
-
-        # sudo creates /www/domain.com
-        base_dir = join('/www',domain)
-        if not os.path.isdir(base_dir):
-            mkdircmd = ["mkdir","-p",base_dir]
-            print(" - making dir %s"%(base_dir))
-            subprocess.call(mkdircmd)
     
-        # chown charles:charles /www/domain.com
-        permissions = "charles:charles"
-        chowncmd = ["chown", permissions, base_dir]
-        print(" - setting permissions on %s to %s"%(base_dir,permissions))
-        subprocess.call(chowncmd)
+    
+        srcrepo = domains[domain]
+    
+    
+        # sudo creates /www/domain.com
     
     
         # sudo creates /www/domain.com/htdocs
     
-        # Clone live branch as www-data to /www/domain.com/htdocs
-        branch = "gh-pages"
-        live_name = 'htdocs'
-        live_dir = join('/www',domain,live_name)
-        if not os.path.isdir(live_dir):
-            sudoclonecmd = ["sudo","-H","-u","www-data","git","clone","--recursive","-b",branch,srcrepo,live_dir]
-            print(" - cloning %s into %s"%(srcrepo,live_dir))
+    
+        # user creates /www/domain.com/domain.com-src
+    
+        # Clone source branch to /www/domain.com/domain.com-src
+        branch = "master"
+        base_dir = join('/www',domain)
+        src_name = domain+"-src"
+        src_dir = join(base_dir,src_name)
+        if not os.path.isdir(src_dir):
+            sudoclonecmd = ["git","clone","-b",branch,srcrepo,src_dir]
+            print(" - cloning %s into %s"%(srcrepo,src_dir))
             subprocess.call(sudoclonecmd, cwd=base_dir)
     
     
-        # charles creates /www/domain.com/domain.com-src
-    
         print(" - done.")
-
+    
