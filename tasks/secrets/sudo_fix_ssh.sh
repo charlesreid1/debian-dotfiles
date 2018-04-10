@@ -1,8 +1,13 @@
 #!/bin/bash
 #
 # Install SSH server
-# Fix SSH keys
+# Replace stale image SSH keys
 # Enable SSH service on boot
+#
+# This will cause an authentication error
+# if you have already logged into the node.
+# This is because the RSA fingerprint of 
+# the machine that's sent to SSH will change.
 
 if [ "$(id -u)" != "0" ]; then
     echo ""
@@ -26,6 +31,3 @@ dpkg-reconfigure openssh-server
 
 systemctl restart ssh
 
-# public/private key pairs 
-# are created by running
-# ../gen_ssh_keys.sh

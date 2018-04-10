@@ -1,9 +1,7 @@
 #!/bin/bash
-#
-# create ssh in the default key location ~/.ssh/id_rsa
 # 
-# this can be run by the root user
-# or by any regular user
+# this is where you would add any
+# pre-baked public keys.
 
 ssh-keygen -f $HOME/.ssh/id_rsa -t rsa -N ''
 chmod 700 $HOME/.ssh
