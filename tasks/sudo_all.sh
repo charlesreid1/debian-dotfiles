@@ -8,7 +8,14 @@ then
     echo ""
     echo ""
     exit 1;
-else
+elif [ "$(id -u)" != "0" ]; then
+    echo ""
+    echo ""
+    echo "This script should be run as root."
+    echo ""
+    echo ""
+    exit 1;
+fi
 
     root_dir=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
     
