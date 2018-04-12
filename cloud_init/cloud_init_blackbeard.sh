@@ -16,8 +16,8 @@ $DOTFILES/tasks/sudo_all.sh blackbeard
 
 # copy the user init script
 cp $DOTFILES/tasks/charles_init.sh /home/$USER/.
-chown $USER:$USER /home/$USER/user_init.sh
+chown $USER:$USER /home/$USER/charles_init.sh
 
 # run user init script as user
-sudo -H -i -u $USER /home/$USER/user_init.sh
+sudo -H -i -u $USER /home/$USER/charles_init.sh
 
