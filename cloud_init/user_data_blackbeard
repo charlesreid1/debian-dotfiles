@@ -1,2 +1,2 @@
 #!/bin/bash
-bash <( curl https://raw.githubusercontent.com/charlesreid1/dahak-yeti/master/cloud_init/cloud_init.sh )
+bash <( curl https://git.charlesreid1.com/dotfiles/debian/raw/branch/master/cloud_init/cloud_init_blackbeard.sh )
