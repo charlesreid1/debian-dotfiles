@@ -11,8 +11,7 @@ This hard-codes the user `charles` so it should be edited before general use.
 This repo has the following components:
 
 * tasks to run on boot
-* dotfiles to install on boot
-* scripts to install on boot
+* dotfiles (and scripts) to install on boot
 
 The user is also provided with:
 
@@ -48,25 +47,10 @@ The entrypoint for everything is the `tasks/` directory.
 
 `tasks/charles_all.sh` script should be run as charles to run all regular user tasks.
 
-The scripts depend on relative locations,
-and should be run like this:
+The task scripts are path-independent and can be run from anywhere.
 
-```
-$ cd /path/to/debian/tasks
-$ ./sudo_all.sh <hostname>
-$ ./charles_all.sh
-```
-
-or in a script,
-
-```
-#!/bin/bash
-
-DIR="/path/to/debian/tasks"
-cd $DIR
-./sudo_all.sh <hostname>
-./charles_all.sh
-```
+They automatically detect the location of the script to determine the location
+of neighboring task scripts that need to be initiated.
 
 
 ### `sudo_all.sh` script
@@ -82,7 +66,7 @@ The `sudo_all.sh` script runs the tasks in the following order:
 Run with the hostname as the only argument:
 
 ```
-$ ./sudo_all.sh <hostname>
+$ /path/to/dotfiles/tasks/sudo_all.sh <hostname>
 ```
 
 
@@ -99,7 +83,7 @@ The `charles_all.sh` script runs the tasks in the following order:
 Run without an argument:
 
 ```
-$ ./charles_all.sh
+$ /path/to/dotfiles/tasks/charles_all.sh 
 ```
 
 
@@ -115,21 +99,22 @@ $ ./bootstrap.sh    # ask confirmation
 $ ./bootstrap.sh -f # do not ask confirmation
 ```
 
+**NOTE:** This is run by the main tasks scripts.
+It should be manually re-run anytime your dotfiles
+change.
 
-## The `scripts/` Directory
+**NOTE:** On running the bootstrap script, any changes
+to your dotfiles in your home directory will be 
+wiped out, so make sure you save any changes
+(or, make them to the dotfiles in the repository).
 
-Host specific installation scripts.
-
-* `krash/` - charlesreid1 node
-* `blackbeard/` - hook/bot server
-* `jupiter/` - beefy debian node
-
-See [`scripts/README.md`](/scripts/README.md).
 
 
 ## The `crontab/` Directory
 
 Contains regular user and sudo crontab files for various hosts.
+
+Install by editing your crontab, `crontab -e`.
 
 See [`crontab/README.md`](/crontab/README.md).
 
