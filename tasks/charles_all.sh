@@ -10,25 +10,11 @@ then
     exit 1;
 else
 
-    (
-    cd system
-    ./charles_system_all.sh
-    )
+    root_dir=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 
-    (
-    cd install
-    ./charles_install_all.sh
-    )
-    
-    (
-    cd secrets
-    ./charles_secrets_all.sh
-    )
-
-    (
-    cd deployment
-    ./charles_deployment_all.sh
-    )
+    $root_dir/system/charles_system_all.sh
+    $root_dir/install/charles_install_all.sh
+    $root_dir/deployment/charles_deployment_all.sh
 
 fi
 

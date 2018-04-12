@@ -10,25 +10,12 @@ then
     exit 1;
 else
 
-    (
-    cd system
-    ./sudo_system_all.sh
-    )
-
-    (
-    cd install
-    ./sudo_install_all.sh
-    )
+    root_dir=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
     
-    (
-    cd secrets
-    ./sudo_secrets_all.sh
-    )
-
-    (
-    cd deployment
-    ./sudo_deployment_all.sh
-    )
+    $root_dir/system/sudo_system_all.sh
+    $root_dir/install/sudo_install_all.sh
+    $root_dir/secrets/sudo_secrets_all.sh
+    $root_dir/deployment/sudo_deployment_all.sh
 
 fi
 

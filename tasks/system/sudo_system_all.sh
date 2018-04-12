@@ -12,10 +12,12 @@ then
     exit 1;
 else
 
-    ./sudo_set_machine_name.sh $1
-    ./sudo_make_user_charles.sh
-    ./sudo_add_charles_to_groups.sh
-    ./sudo_set_time.sh
+    system_dir=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+
+    $system_dir/sudo_set_machine_name.sh $1
+    $system_dir/sudo_make_user_charles.sh
+    $system_dir/sudo_add_charles_to_groups.sh
+    $system_dir/sudo_set_time.sh
 
 fi
 

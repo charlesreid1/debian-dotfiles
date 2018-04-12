@@ -14,8 +14,14 @@ if [ "$(id -u)" == "0" ]; then
     exit 1;
 fi
 
+# Note:
+# Once we source ~/.bash_profile,
+# the version of python we installed
+# will be shimmed, and should also be
+# in our path.
 source ~/.bash_profile
 
+# Be explicit about pip location, just in case.
 PIP="$HOME/.pyenv/shims/pip"
 
 $PIP install -U pelican
