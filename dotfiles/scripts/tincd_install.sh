@@ -18,6 +18,7 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 LABEL="master"
+USER="charles"
 
 apt-get install -y tinc
 
@@ -78,4 +79,5 @@ ifconfig $INTERFACE down
 EOL
 
 git clone https://git.charlesreid1.com/charlesreid1/tinc-hosts.git /etc/tinc/$LABEL/hosts
+sudo chown -R $USER:$USER /etc/tinc/$LABEL/hosts
 
