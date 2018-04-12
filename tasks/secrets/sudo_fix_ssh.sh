@@ -8,6 +8,9 @@
 # if you have already logged into the node.
 # This is because the RSA fingerprint of 
 # the machine that's sent to SSH will change.
+# 
+# Don't trust the image provider to 
+# handle baked-in SSH keys correctly.
 
 if [ "$(id -u)" != "0" ]; then
     echo ""
