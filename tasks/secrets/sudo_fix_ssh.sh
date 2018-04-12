@@ -11,6 +11,7 @@
 # 
 # Don't trust the image provider to 
 # handle baked-in SSH keys correctly.
+set -x
 
 if [ "$(id -u)" != "0" ]; then
     echo ""

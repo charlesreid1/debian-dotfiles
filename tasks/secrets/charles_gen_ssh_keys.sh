@@ -2,6 +2,7 @@
 # 
 # this is where you would add any
 # pre-baked public keys.
+set -x
 
 ssh-keygen -f $HOME/.ssh/id_rsa -t rsa -N ''
 chmod 700 $HOME/.ssh

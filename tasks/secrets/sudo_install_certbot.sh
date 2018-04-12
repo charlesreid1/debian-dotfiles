@@ -1,6 +1,7 @@
 #!/bin/bash
 # 
 # https://certbot.eff.org/lets-encrypt/ubuntuxenial-nginx
+set -x
 
 if [ "$(id -u)" != "0" ]; then
     echo ""
