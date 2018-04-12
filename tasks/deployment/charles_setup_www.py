@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import subprocess
-import os, re
+import os, re, socket
 from os.path import join
 
 
@@ -58,7 +58,7 @@ domains = {
         'charlesreid1.com'  : 'https://git.charlesreid1.com/charlesreid1/charlesreid1.com.git'
 }
 
-if os.environ['HOSTNAME']=='krash':
+if socket.gethostname()=="krash":
 
     user = getpass.getuser()
     if(user=="root"):

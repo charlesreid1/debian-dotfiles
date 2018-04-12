@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os, re
+import os, re, socket
 from os.path import join
 
 """
@@ -17,7 +17,7 @@ Pelican extensions:
     math?
 """
 
-if os.environ['HOSTNAME']=='krash':
+if socket.gethostname()=="krash":
 
     charlesreid1_base_dir = join(os.env['HOME'],'codes','charlesreid1')
     
