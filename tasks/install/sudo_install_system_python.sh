@@ -18,5 +18,3 @@ apt-get install -y python3
 wget https://bootstrap.pypa.io/get-pip.py
 /usr/bin/env python3 get-pip.py
 
-chown charles:charles /home/charles/.cache
-
