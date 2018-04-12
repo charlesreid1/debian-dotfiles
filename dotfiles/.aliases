@@ -55,7 +55,7 @@ fi
 
 
 
-alias ls="/bin/ls -1 ${colorflag}"
+alias ls="/bin/ls -1 --group-directories-first ${colorflag}"
 alias sl='ls'
 
 
