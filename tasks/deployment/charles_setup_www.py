@@ -2,7 +2,7 @@
 import subprocess
 import os, re
 from os.path import join
-from domains_list import domains
+from .domains_list import domains
 
 
 """
