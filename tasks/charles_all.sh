@@ -10,11 +10,16 @@ then
     exit 1;
 else
 
-    root_dir=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+    tasks_dir=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 
-    $root_dir/system/charles_system_all.sh
-    $root_dir/install/charles_install_all.sh
-    $root_dir/deployment/charles_deployment_all.sh
+    $tasks_dir/system/charles_system_all.sh
+    $tasks_dir/install/charles_install_all.sh
+    $tasks_dir/deployment/charles_deployment_all.sh
+
+    (
+    cd $tasks_dir/../dotfiles
+    ./bootstrap.sh -f
+    )
 
 fi
 
