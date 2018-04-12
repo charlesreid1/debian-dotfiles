@@ -12,9 +12,9 @@
 git pull origin master;
 
 if [[ "$HOSTNAME" == "jupiter" ]]; then
-    EXTRA_EXCLUDE=''
+    EXTRA_EXCLUDE='--exclude rojo_scripts'
 else
-    EXTRA_EXCLUDE='--exclude "jupiter_scripts"'
+    EXTRA_EXCLUDE='--exclude rojo_scripts --exclude jupiter_scripts'
 fi
 
 function doIt() {
