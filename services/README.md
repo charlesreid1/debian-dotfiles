@@ -1,5 +1,11 @@
 # systemd services
 
+Systemd services are started and stopped via:
+
+```
+systemctl <action> <name-of-service>
+```
+
 ## docker-compose
 
 To run a docker pod on boot, create a systemd service 
@@ -15,7 +21,7 @@ docker-compose -f $HOME/codes/docker/pod-charlesreid1/docker-compose.yml up
 
 ### The service
 
-The service is in the file `dockerpod-charlesreid1.service`
+The service is defined in the file `dockerpod-charlesreid1.service`.
 
 ### Installing the service
 
