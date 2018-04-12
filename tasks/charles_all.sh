@@ -22,6 +22,7 @@ tasks_dir=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 
 $tasks_dir/system/charles_system_all.sh
 $tasks_dir/install/charles_install_all.sh
+$tasks_dir/secrets/charles_secrets_all.sh
 $tasks_dir/deployment/charles_deployment_all.sh
 
 (

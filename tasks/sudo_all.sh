@@ -17,10 +17,10 @@ elif [ "$(id -u)" != "0" ]; then
     exit 1;
 fi
 
-root_dir=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+tasks_dir=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
     
-$root_dir/system/sudo_system_all.sh $1
-$root_dir/install/sudo_install_all.sh
-$root_dir/secrets/sudo_secrets_all.sh
-$root_dir/deployment/sudo_deployment_all.sh
+$tasks_dir/system/sudo_system_all.sh $1
+$tasks_dir/install/sudo_install_all.sh
+$tasks_dir/secrets/sudo_secrets_all.sh
+$tasks_dir/deployment/sudo_deployment_all.sh
 
