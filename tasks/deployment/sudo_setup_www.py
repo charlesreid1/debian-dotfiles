@@ -3,7 +3,7 @@ import getpass
 import subprocess
 import os, re
 from os.path import join
-from domain_lists import domains
+from .domain_lists import domains
 
 
 """
