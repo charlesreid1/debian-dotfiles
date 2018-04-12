@@ -3,7 +3,6 @@ import getpass
 import subprocess
 import os, re
 from os.path import join
-from .domain_lists import domains
 
 
 """
@@ -43,6 +42,13 @@ so the user script handles the source directories.
 The user www-data must own the htdocs directories,
 so the sudo script handles the htdocs directories.
 """
+
+
+domains = {
+        'charlesreid1.blue' : 'https://git.charlesreid1.com/charlesreid1/charlesreid1.com.git',
+        'charlesreid1.red'  : 'https://git.charlesreid1.com/charlesreid1/charlesreid1.com.git',
+        'charlesreid1.com'  : 'https://git.charlesreid1.com/charlesreid1/charlesreid1.com.git'
+}
 
 if os.environ['HOSTNAME']=='krash':
 
