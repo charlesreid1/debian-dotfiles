@@ -28,10 +28,8 @@ apt-get install -y git
 DOTFILES="$HOME/dotfiles"
 git clone https://git.charlesreid1.com/dotfiles/debian $DOTFILES
 
-
-
 # run root init script
-$DOTFILES/tasks_sudo/sudo_init.sh dahak-yeti
+$DOTFILES/tasks_sudo/sudo_init.sh MACHINENAME
 
 # copy the user init script
 cp $DOTFILES/tasks_user/user_init.sh /home/$USER/.
