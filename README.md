@@ -5,9 +5,6 @@ from a fresh bare-metal cloud node to a fully-configured node.
 
 This hard-codes the user `charles` so it should be edited before general use.
 
-TODO: make username a parameter of the script (`$2`)
-
-
 
 ## Components
 
@@ -23,12 +20,12 @@ The user is also provided with:
 * startup services
 
 
-
 ## Quick Start
 
 The quickest way to get started with this repo is to use the scripts in `cloud_init`.
 
-This directory contains `user_data.sh`, a one-liner pipe-to-bash that will:
+This directory contains `user_data_machinename`, 
+a one-liner pipe-to-bash that will:
 
 * bootstrap the entire repository from scratch
 * run the sudo tasks as sudo
@@ -37,8 +34,10 @@ This directory contains `user_data.sh`, a one-liner pipe-to-bash that will:
 
 This gives you a fully hands-free configuration.
 
-[Link to instructions](https://git.charlesreid1.com/dotfiles/vanilla)
+You should create a new `user_data` script 
+for each new machine.
 
+[Link to dotfile instructions](https://git.charlesreid1.com/dotfiles/vanilla)
 
 
 ## The `tasks/` Directory
@@ -69,6 +68,7 @@ cd $DIR
 ./charles_all.sh
 ```
 
+
 ### `sudo_all.sh` script
 
 The `sudo_all.sh` script runs the tasks in the following order:
@@ -79,11 +79,12 @@ The `sudo_all.sh` script runs the tasks in the following order:
 * deployment tasks
 * clone tasks
 
-Run without an argument:
+Run with the hostname as the only argument:
 
 ```
 $ ./sudo_all.sh <hostname>
 ```
+
 
 ### `charles_all.sh` script
 
@@ -114,13 +115,14 @@ $ ./bootstrap.sh    # ask confirmation
 $ ./bootstrap.sh -f # do not ask confirmation
 ```
 
+
 ## The `scripts/` Directory
 
 Host specific installation scripts.
 
-* `blackbeard/` - hook server
-* `jupiter/` - beefy debian node
 * `krash/` - charlesreid1 node
+* `blackbeard/` - hook/bot server
+* `jupiter/` - beefy debian node
 
 See [`scripts/README.md`](/scripts/README.md).
 
