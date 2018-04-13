@@ -69,6 +69,21 @@ EOL
 ifconfig $INTERFACE 10.6.0.36 netmask 255.255.0.0
 EOL
 
+# -----------
+
+else
+
+    cat > /etc/tinc/$LABEL/tinc.conf <<EOL
+Name = unknown
+AddressFamily = any
+Mode = switch
+EOL
+
+    cat > /etc/tinc/$LABEL/tinc-up <<EOL
+#!/bin/sh
+ifconfig $INTERFACE 10.6.0.x netmask 255.255.0.0
+EOL
+
 fi
 
 # -----------
