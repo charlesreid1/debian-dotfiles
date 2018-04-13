@@ -12,7 +12,8 @@ DOTFILES="$HOME/dotfiles"
 git clone https://git.charlesreid1.com/dotfiles/debian $DOTFILES
 
 # run root init script
-$DOTFILES/tasks/sudo_all.sh blackbeard
+RANDSTRING="`python -c "import random, string; print(''.join(random.choices(string.ascii_uppercase, k=2) + random.choices(string.digits, k=1)))"`"
+$DOTFILES/tasks/sudo_all.sh $RANDSTRING
 
 # copy the user init script
 cp $DOTFILES/tasks/charles_init.sh /home/$USER/.
