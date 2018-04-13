@@ -12,3 +12,6 @@ Using Linode, you can simply run the one-liner
 to run the entire script immediately after logging 
 in as the root user.
 
+[digital ocean guide to cloud-init](https://www.digitalocean.com/community/tutorials/how-to-use-cloud-config-for-your-initial-server-setup)
+
+
