@@ -9,11 +9,11 @@ $secrets_dir/sudo_install_certbot.sh
 
 $secrets_dir/charles_gen_ssh_keys.sh
 
-if [[ "$HOSTNAME" == "blackbeard" ]]; then
+if [ -f /home/ubuntu/.ssh/authorized_keys ]; then
     # aws only:
     # copy authorized key
     # from ubuntu to charles
-    cp /home/ubuntu/.ssh/authorized_keys /home/charles/.ssh/authorized_keys
+    cat /home/ubuntu/.ssh/authorized_keys > /home/charles/.ssh/authorized_keys
     chown charles:charles /home/charles/.ssh/authorized_keys
 fi
 
