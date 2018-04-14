@@ -6,7 +6,8 @@ Systemd services are started and stopped via:
 systemctl <action> <name-of-service>
 ```
 
-## docker-compose
+
+## charlesreid1 docker pod
 
 To run a docker pod on boot, create a systemd service 
 called `dockerpod-charlesreid1.service` that calls docker-compose
@@ -55,4 +56,37 @@ To stop the containers, use systemctl:
 sudo systemctl stop dockerpod-charlesreid1.service
 ```
 
+
+## bots docker pod
+
+To run the bots docker pod on boot, install the systemd service
+for the bot pod.
+
+### The service
+
+The service is defined in the file `dockerpod-bots.service`.
+
+### Installing the service
+
+To install the service, put it in the `/etc/systemd/system/` directory.
+
+### Running the service
+
+To install the bot pod service:
+
+```
+sudo systemctl enable dockerpod-bots.service
+```
+
+To start the bot pod service: 
+
+```
+sudo systemctl start dockerpod-bots.service
+```
+
+To stop the containers:
+
+```
+sudo systemctl stop dockerpod-bots.service
+```
 
