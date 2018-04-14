@@ -1,0 +1,15 @@
+[Unit]
+Description=charlesreid1 vpn
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/etc/tinc/zombie
+ExecStart=/sbin/tincd -n zombie -D -d3
+ExecReload=/sbin/tincd -n zombie -kHUP
+TimeoutStopSec=5
+Restart=always
+RestartSec=60
+
+[Install]
+WantedBy=multi-user.target

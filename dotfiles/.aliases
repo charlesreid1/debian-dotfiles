@@ -101,8 +101,8 @@ alias c='clear'
 
 
 
-# socks proxy thru rojo
-# (forwards http traffic thru rojo port 8080)
+# socks proxy thru charlesreid1
+# (forwards http traffic thru charlesreid1 port 8080)
 # ---------------
 alias socks='ssh -fN -D 8080 charles@charlesreid1.com'
 
@@ -121,13 +121,13 @@ function charles() {
   ssh -Y charles@${IP} # the actual ssh call
 }
 
-alias rojo="rojo"
-function rojo() {
+alias blackbeard="blackbeard"
+function blackbeard() {
   ssh-agent > ~/ssh.file # env vars in ssh.file 
   chmod +x ~/ssh.file # execute file
   ~/ssh.file > /dev/null
   rm -f ~/ssh.file
-  export IP="10.6.0.1"
+  export IP="54.191.178.27"
   ssh -Y charles@${IP} # the actual ssh call
 }
 
