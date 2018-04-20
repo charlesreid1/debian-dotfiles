@@ -84,7 +84,7 @@ sudo script:
 april 19 notes:
 - couple of annoyances remaining
 - yaml indentation is competely wacky
-- control b is not back
-- control l is not clear
+- Control+B is not back but literally inserts "back"
+- <s>Control+L is not clear</s> check `.inputrc`
 
 

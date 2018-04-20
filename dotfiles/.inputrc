@@ -33,7 +33,7 @@ set blink-matching-paren on
 
 # handy dandy keyboard shortcuts
 "\C-k": "cls"
-"\C-l": "ls"
+"\C-l": "clear"
 "\C-u": "cd"
 "\C-b": "back"
 
