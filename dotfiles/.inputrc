@@ -31,11 +31,6 @@ set blink-matching-paren on
 ## Change the mode of everything that uses readline
 #set editing-mode vi
 
-# handy dandy keyboard shortcuts
-"\C-k": "cls"
-"\C-l": "clear"
-"\C-u": "cd"
-"\C-b": "back"
 
 # Immediately add a trailing slash when autocompleting symlinks to directories
 set mark-symlinked-directories on
