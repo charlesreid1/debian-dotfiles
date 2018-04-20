@@ -75,3 +75,16 @@ sudo script:
 - <s>add_charles_to_groups.sh should include SUDO</s>
 - if that doesn't work, make passwordless sudo access: "ubuntu ALL=(ALL) NOPASSWD:ALL" to /etc/sudoers
 
+
+
+
+-----------------
+
+
+april 19 notes:
+- couple of annoyances remaining
+- yaml indentation is competely wacky
+- control b is not back
+- control l is not clear
+
+
