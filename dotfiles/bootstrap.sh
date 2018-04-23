@@ -11,13 +11,17 @@
 
 git pull origin master;
 
-EXTRA_EXCLUDE='--exclude scripts rojo_scripts jupiter_scripts blackbeard_scripts krash_scripts'
+EXTRA_EXCLUDE=''
 
 function doIt() {
     rsync \
         --exclude ".git/" \
         --exclude "bootstrap.sh" \
-        ${EXTRA_EXCLUDE} \
+        --exclude "scripts" \
+        --exclude "rojo_scripts" \
+        --exclude "jupiter_scripts" \
+        --exclude "blackbeard_scripts" \
+        --exclude "krash_scripts" \
         -avh --no-perms . ~;
     source ~/.bash_profile;
 }
@@ -33,7 +37,10 @@ else
 fi;
 unset doIt;
 
-if [ -d "${HOSTNAME}_scripts" ]; then
+if [ -d "${PWD}/${HOSTNAME}_scripts" ]; then
+    echo "Creating scripts link:"
+    set -x
     ln -fs ${PWD}/${HOSTNAME}_scripts ${HOME}/scripts
+    set +x
 fi
 
