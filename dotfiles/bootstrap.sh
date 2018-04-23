@@ -12,9 +12,13 @@
 git pull origin master;
 
 if [[ "$HOSTNAME" == "jupiter" ]]; then
-    EXTRA_EXCLUDE='--exclude rojo_scripts'
-else
+    EXTRA_EXCLUDE='--exclude rojo_scripts blackbeard_scripts'
+
+elif [[ "$HOSTNAME" == "blackbeard" ]]; then
     EXTRA_EXCLUDE='--exclude rojo_scripts --exclude jupiter_scripts'
+
+else
+    EXTRA_EXCLUDE='--exclude rojo_scripts --exclude jupiter_scripts --exclude blackbeard_scripts'
 fi
 
 function doIt() {
