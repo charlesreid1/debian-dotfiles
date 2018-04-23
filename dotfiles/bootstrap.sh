@@ -11,15 +11,7 @@
 
 git pull origin master;
 
-if [[ "$HOSTNAME" == "jupiter" ]]; then
-    EXTRA_EXCLUDE='--exclude rojo_scripts blackbeard_scripts'
-
-elif [[ "$HOSTNAME" == "blackbeard" ]]; then
-    EXTRA_EXCLUDE='--exclude rojo_scripts --exclude jupiter_scripts'
-
-else
-    EXTRA_EXCLUDE='--exclude rojo_scripts --exclude jupiter_scripts --exclude blackbeard_scripts'
-fi
+EXTRA_EXCLUDE='--exclude scripts rojo_scripts jupiter_scripts blackbeard_scripts krash_scripts'
 
 function doIt() {
     rsync \
@@ -40,3 +32,8 @@ else
     fi;
 fi;
 unset doIt;
+
+if [ -d "${HOSTNAME}_scripts" ]; then
+    ln -fs ${PWD}/${HOSTNAME}_scripts ${HOME}/scripts
+fi
+
