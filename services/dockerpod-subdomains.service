@@ -1,0 +1,12 @@
+[Unit]
+Description=nginx subdomains docker pod
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+ExecStart=/usr/local/bin/docker-compose -f /home/charles/codes/docker/d-nginx-subdomains/docker-compose.yml up
+ExecStop=/usr/local/bin/docker-compose  -f /home/charles/codes/docker/d-nginx-subdomains/docker-compose.yml down
+
+[Install]
+WantedBy=default.target
