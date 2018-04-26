@@ -1,10 +1,26 @@
 # systemd services
 
-Systemd services are started and stopped via:
+the systemd services are called `X.service`.
+
+Define the esrvice: create a .service file to perform your task.
+
+Install the service: put it in the `/etc/systemd/system` directory.
+
+Enable/disable the service: add/remove service in the list of available services via:
 
 ```
-systemctl <action> <name-of-service>
+sudo systemctl enable X.service
+sudo systemctl disable X.service
 ```
+
+Start/stop the service: use the start/stop verbs to start/stop the service:
+
+```
+sudo systemctl start X.service
+sudo systemctl stop X.service
+```
+
+
 
 
 ## charlesreid1 docker pod
