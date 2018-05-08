@@ -5,4 +5,4 @@
 # Frequency:    YYYY
 #   MIN      HR         DOM            MONTH            DOW          CMD
 #    0        2          *              *                *            /usr/bin/env python /home/charles/script.py
-     0        2          *              *                *            /home/charles/codes/docker/pod-charlesreid1/utils-gitea/scrape_gitea_as_sudo.sh
+     13       *          *              *                *            /home/charles/codes/docker/pod-charlesreid1/utils-gitea/scrape_gitea_as_sudo.sh
