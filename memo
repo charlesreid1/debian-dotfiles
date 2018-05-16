@@ -1,0 +1,5 @@
+memo:
+* we split the thing in two
+* sudo script to scrape and count
+* non sudo script to check in
+* use separate private key, separate gitea account
