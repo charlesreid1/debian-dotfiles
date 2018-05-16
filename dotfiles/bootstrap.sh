@@ -15,7 +15,8 @@ EXTRA_EXCLUDE=''
 
 function doIt() {
     rsync \
-        --exclude ".git/" \
+        --exclude ".git" \
+        --exclude ".gitignore" \
         --exclude "bootstrap.sh" \
         --exclude "scripts" \
         --exclude "rojo_scripts" \
