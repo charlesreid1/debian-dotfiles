@@ -33,10 +33,11 @@ while true
 do
     # bootstrap-pull captain hook
     if [ -f "/tmp/triggers/push-b-captain-hook-master" ]; then
-        # trigger script
-        python $HOME/blackbeard_scripts/captain_hook_pull_host.py
-        # remove trigger file
-        rm -f $TRIGGER
+        echo "CAPTAIN HOOK'S CANARY:"
+        echo "Running trigger to update Captain Hook on the host machine (user charles)"
+        sudo -H -u charles python /home/charles/blackbeard_scripts/captain_hook_pull_host.py
+        echo "All done."
+        rm -f "/tmp/triggers/push-b-captain-hook-master"
     fi
 
     sleep 10;
