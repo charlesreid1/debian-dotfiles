@@ -10,3 +10,6 @@
     0        2          *              *                *            /home/charles/codes/docker/pod-charlesreid1/utils-backup/daily_mysql.sh
     5        2          *              *                *            /home/charles/codes/docker/pod-charlesreid1/utils-backup/daily_wikifiles.sh
     10       2          *              *                *            /home/charles/codes/docker/pod-charlesreid1/utils-backup/daily_gitea.sh
+#
+    10       *          *              *                *            /home/charles/codes/docker/pod-charlesreid1/utils-gitea/assemble_gitea_counts.sh
+    11       *          *              *                *            /home/charles/scripts/git_pull_data.sh

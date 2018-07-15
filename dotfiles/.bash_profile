@@ -46,7 +46,7 @@ eval "$(pyenv init -)"
 
 HISTFILE="$HOME/.bash_history"
 HISTFILESIZE=1000000000
-HISTIGNORE="ls:cls:clc:clear:pwd:l:ll:[ \t]*"
+HISTIGNORE="ls:cls:clc:clear:pwd:l:ll:[ ]*"
 HISTSIZE=1000000
 HISTTIMEFORMAT=': %Y-%m-%d_%H:%M:%S; '
 
