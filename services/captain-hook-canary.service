@@ -1,0 +1,13 @@
+[Unit]
+Description=captain hook canary script
+Requires=dockerpod-captainhook.service
+After=dockerpod-captainhook.service
+
+[Service]
+Restart=always
+ExecStart=/home/charles/blackbeard_scripts/captain_hook_canary.sh
+ExecStop=/usr/bin/pgrep -f captain_hook_canary | /usr/bin/xargs /bin/kill 
+
+[Install]
+WantedBy=default.target
+
