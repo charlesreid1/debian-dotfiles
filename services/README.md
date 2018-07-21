@@ -1,10 +1,33 @@
 # systemd services
 
-the systemd services are named `X.service`.
+The systemd services are named `X.service`.
+
+They go in `/etc/systemd/system/`.
 
 ## General procedure
 
 Define the service: create a file `X.service` to perform your task.
+
+Install the service: put it in the `/etc/systemd/system` directory.
+
+Enable/disable the service: add/remove service in the list of available services via:
+
+```
+sudo systemctl enable X.service
+sudo systemctl disable X.service
+```
+
+Start/stop the service: use the start/stop verbs to start/stop the service:
+
+```
+sudo systemctl start X.service
+sudo systemctl stop X.service
+```
+
+<br />
+<br />
+
+## example
 
 Here's an example that persistently restarts a service anytime it stops:
 
@@ -21,22 +44,6 @@ ExecStop=<command to stop running your serivce, usually docker-compose -f /my/do
 
 [Install]
 WantedBy=default.target
-```
-
-Install the service: put it in the `/etc/systemd/system` directory.
-
-Enable/disable the service: add/remove service in the list of available services via:
-
-```
-sudo systemctl enable X.service
-sudo systemctl disable X.service
-```
-
-Start/stop the service: use the start/stop verbs to start/stop the service:
-
-```
-sudo systemctl start X.service
-sudo systemctl stop X.service
 ```
 
 <br />
