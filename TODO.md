@@ -1,3 +1,14 @@
+07/21 note:
+
+having the issue of synchronizing scripts again
+
+blackbeard_scripts diverges b/c copied, not symlinked linked.
+not easy to reconcile list of files. the bootstrap script tends to squash local changes.
+
+
+
+
+
 topics:
 - system 
     - users and groups
