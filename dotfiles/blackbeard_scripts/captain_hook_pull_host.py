@@ -18,6 +18,7 @@ restart the container pod.
 """
 
 work_dir = os.path.join('/home','charles','codes','docker','pod-webhooks','b-captain-hook')
+pod_dir = os.path.join('/home','charles','codes','docker','pod-webhooks')
 
 # Step 1:
 # Update Captain Hook
@@ -32,5 +33,5 @@ time.sleep(10)
 # Step 2:
 # Restart Captain Hook pod
 pod_restart = ['docker-compose','restart']
-subprocess.call(pod_restart, cwd=work_dir)
+subprocess.call(pod_restart, cwd=pod_dir)
 
