@@ -57,7 +57,7 @@ with open('/tmp/captain_hook_pull_host_%s.log'%(d),'w') as f:
     f.write("\n\n")
     time.sleep(5)
     
-    pull_cmd = ['git','pull','origin','master']
+    pull_cmd = ['git','pull','cmr','master']
     subprocess.call(pull_cmd, cwd=work_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     
     stdout, stderr = proc.communicate()
