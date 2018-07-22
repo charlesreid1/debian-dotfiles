@@ -38,6 +38,7 @@ do
         sudo -H -u charles python /home/charles/blackbeard_scripts/captain_hook_pull_host.py
         echo "All done."
         rm -f "/tmp/triggers/push-b-captain-hook-master"
+        touch /tmp/canary-yup-host-works
     fi
 
     sleep 10;
