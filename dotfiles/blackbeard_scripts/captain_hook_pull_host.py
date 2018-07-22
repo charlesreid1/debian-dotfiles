@@ -25,6 +25,11 @@ pod_dir = os.path.join('/home','charles','codes','docker','pod-webhooks')
 co_cmd = ['git','checkout','master']
 subprocess.call(co_cmd, cwd=work_dir)
 
+f_cmd = ['git','fetch','--all']
+subprocess.call(f_cmd, cwd=work_dir)
+
+time.sleep(5)
+
 pull_cmd = ['git','pull','origin','master']
 subprocess.call(pull_cmd, cwd=work_dir)
 
