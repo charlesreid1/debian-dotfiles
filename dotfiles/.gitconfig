@@ -96,6 +96,8 @@
 
 [core]
 
+    editor = vim
+
     # Use custom `.gitignore` and `.gitattributes`
     excludesfile = ~/.gitignore
     attributesfile = ~/.gitattributes
