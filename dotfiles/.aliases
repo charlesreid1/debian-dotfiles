@@ -265,16 +265,7 @@ alias back='cd $OLDPWD'
 ####################
 # modified mathias
 
-# Easier navigation: .., ..., ...., ....., ~ and -
-alias ..="cd .."
-alias ...="cd ../.."
-### alias ....="cd ../../.."
-### alias .....="cd ../../../.."
-### alias ~="cd ~" # `cd` is probably faster to type though
-### alias -- -="cd -"
-
 # Shortcuts
-alias d="cd ~/Desktop"
 alias g="git"
 alias h="history"
 
@@ -282,15 +273,9 @@ alias h="history"
 # Always enable colored `grep` output
 # Note: `GREP_OPTIONS="--color=auto"` is deprecated, hence the alias usage.
 alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
 
 # Get week number
 alias week='date +%V'
-
-# Stopwatch
-alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
-
 
 # Print each PATH entry on a separate line
 alias path='echo -e ${PATH//:/\\n}'
