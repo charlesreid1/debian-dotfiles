@@ -43,18 +43,23 @@ Database schema:
 """
 
 
-JUPITER_IP = '10.6.0.2'
+JUPITER_IP = '192.168.1.153'
 JUPITER_PORT = 27017
 
 
-def page_history_to_csv(tmpdir):
+def edit_history_to_csv(tmpdir):
+    """
+    Step 2:
+    Load edit history from database,
+    do a pandas groupby, and dump to csv.
+    """
 
     # Make connection to database
-    # Requires page_history database to be populated already
-    # See https://charlesreid1.com:3000/wiki/charlesreid1-wiki-data
+    # Requires edit_history database to be populated already
+    # Also see https://git.charlesreid1.com/wiki/charlesreid1-wiki-data
     client = MongoClient(JUPITER_IP,JUPITER_PORT)
     db = client['charlesreid1wiki']
-    collection = db['page_history']
+    collection = db['edit_history']
     
     # Extract timestamp and character count for revision 
     df = pd.DataFrame()
@@ -65,7 +70,7 @@ def page_history_to_csv(tmpdir):
             print(i+1)
     
         # If you want to stop early
-        if(i>300 and False):
+        if(i>300 and True):
             break
     
         # Very simple csv: timestamp and count
@@ -80,17 +85,18 @@ def page_history_to_csv(tmpdir):
 
 
 
-def page_history_database():
-    """Run the algorithm that iterates through
-    each page and each revision, creating a document
-    for each revision.
+def edit_history_database():
+    """
+    Step 1:
+    Iterate over every edit of every page on the wiki.
+    Create a MongoDB document for each edit.
     """
     N = 0
     sleepytime = 0.1
 
     # Get connection/database/collections objects
-    prefix = 'page_history'
-    client, db, page_history_collection = get_collection(prefix)
+    prefix = 'edit_history'
+    client, db, edit_history_collection = get_collection(prefix)
 
     # Get the site
     site = get_site()
@@ -120,10 +126,10 @@ def page_history_database():
             doc['count'] = len(rev.text)
 
             # Remove the old document
-            page_history_collection.delete_one({"_id": rev.sha1})
+            edit_history_collection.delete_one({"_id": rev.sha1})
 
             # Insert the new document
-            page_history_collection.insert_one(doc)
+            edit_history_collection.insert_one(doc)
 
         time.sleep(sleepytime)
 
@@ -150,8 +156,8 @@ def get_collection(collections_label):
     db = client['charlesreid1wiki']
 
     # Collections:
-    #   page_history
-    #   page_history_meta
+    #   edit_history
+    #   edit_history_meta
     col = db[collections_label]
 
     return client, db, col
@@ -176,8 +182,8 @@ def get_page_generator(s,max_items=0):
 def nuke():
     """Nuke everybody"""
     # Get connection/database/collections objects
-    client, db, page_history_collection = get_collections()
-    page_history_collection.drop()
+    client, db, edit_history_collection = get_collections()
+    edit_history_collection.drop()
     client.close()
 
 
