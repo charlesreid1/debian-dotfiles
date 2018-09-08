@@ -13,3 +13,4 @@ sudo curl -L https://github.com/docker/compose/releases/download/1.20.1/docker-c
 sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 
+sudo gpasswd -a charles docker
