@@ -41,7 +41,8 @@ unset doIt;
 if [ -d "${PWD}/${HOSTNAME}_scripts" ]; then
     echo "Creating scripts link:"
     set -x
-    ln -fs ${PWD}/${HOSTNAME}_scripts ${HOME}/scripts
+    rm -fr ${HOME}/scripts
+    ln -fs ${PWD}/${HOSTNAME}_scripts/ ${HOME}/scripts
     set +x
 fi
 
