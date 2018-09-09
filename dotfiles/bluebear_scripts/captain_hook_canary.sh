@@ -35,7 +35,7 @@ do
     if [ -f "/tmp/triggers/push-b-captain-hook-master" ]; then
         echo "CAPTAIN HOOK'S CANARY:"
         echo "Running trigger to update Captain Hook on the host machine (user charles)"
-        sudo -H -u charles python /home/charles/scripts/blackbeard_scripts/captain_hook_pull_host.py
+        sudo -H -u charles python /home/charles/scripts/captain_hook_pull_host.py
         echo "All done."
         rm -f "/tmp/triggers/push-b-captain-hook-master"
         touch /tmp/canary-yup-host-works
