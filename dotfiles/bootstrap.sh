@@ -22,6 +22,7 @@ function doIt() {
         --exclude "rojo_scripts" \
         --exclude "jupiter_scripts" \
         --exclude "blackbeard_scripts" \
+        --exclude "bluebear_scripts" \
         --exclude "krash_scripts" \
         -avh --no-perms . ~;
     source ~/.bash_profile;
