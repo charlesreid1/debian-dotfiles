@@ -3,13 +3,17 @@
 #
 #
 #
-# Description:  Daily charlesreid1.com backup
-# Frequency:    All day every day, 2:00 am
+# Description:  charlesreid1.com backup
+# 
+# Bimonthly
 #
 #   MIN      HR         DOM            MONTH            DOW          CMD
     0        2          *              *                *            /home/charles/codes/docker/pod-charlesreid1/utils-backup/daily_mysql.sh
     5        2          *              *                *            /home/charles/codes/docker/pod-charlesreid1/utils-backup/daily_wikifiles.sh
-    10       2          *              *                *            /home/charles/codes/docker/pod-charlesreid1/utils-backup/daily_gitea.sh
+#
+    10       2          1              *                *            /home/charles/codes/docker/pod-charlesreid1/utils-backup/monthly_gitea.sh
+    10       2          15             *                *            /home/charles/codes/docker/pod-charlesreid1/utils-backup/monthly_gitea.sh
+#
 #
     10       *          *              *                *            /home/charles/codes/docker/pod-charlesreid1/utils-gitea/assemble_gitea_counts.sh
     11       *          *              *                *            /home/charles/scripts/git_pull_data.sh
