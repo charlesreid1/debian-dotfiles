@@ -12,12 +12,14 @@ if [ "$(id -u)" != "0" ]; then
     exit 1;
 fi
 
-### # some incredibly obnoxious marketing spammer that was DDOSing me
-### CIDR_IP="46.229.168.0/24"
-### /sbin/iptables -A INPUT -s ${CIDR_IP} -j DROP
+# some incredibly obnoxious marketing spammer that was (is?) DDOSing me
+CIDR_IP="46.229.168.0/24"
+/sbin/iptables -A INPUT -s ${CIDR_IP} -j DROP
 
 # fail2ban
 for IPADDR in $(cat /var/log/fail2ban.log | /bin/grep "Ban " | sed 's/^.*Ban \(.*\)$/\1/g' | sort | uniq); do
+
     /sbin/iptables -A INPUT -s ${IPADDR} -j DROP
+
 done
 
