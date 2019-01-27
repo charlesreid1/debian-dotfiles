@@ -6,3 +6,6 @@
 #   MIN      HR         DOM            MONTH            DOW          CMD
 #    0        2          *              *                *            /usr/bin/env python /home/charles/script.py
      13       *          *              *                *            /home/charles/codes/docker/pod-charlesreid1/utils-gitea/scrape_gitea_as_sudo.sh
+     0        4          25             *                *            /home/charles/codes/certbot/krash_renew.sh
+     5        3          *              *                *            /home/charles/scripts/iptables_ban_jerks.sh
+     0        0          *              *                0            service dockerpod-charesreid1 restart
