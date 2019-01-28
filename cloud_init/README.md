@@ -15,6 +15,18 @@ in as the root user.
 [digital ocean guide to cloud-init](https://www.digitalocean.com/community/tutorials/how-to-use-cloud-config-for-your-initial-server-setup)
 
 
+## What to copy and paste in
+
+Copy and paste this into the box:
+
+```
+#!/bin/bash
+bash <( curl https://git.charlesreid1.com/dotfiles/debian/raw/branch/master/cloud_init/cloud_init_XXXXX.sh )
+```
+
+where you have checked in a cloud init script called `cloud_init_XXXXX.sh`
+that sets the machine name and non-root user that you want.
+
 ## Notes
 
 problems with pasting bash script with shebang
