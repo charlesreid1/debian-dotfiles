@@ -18,9 +18,23 @@ set nofoldenable    " disable folding
 set noesckeys
 set ttimeoutlen=5
 
-" you have to do this a second time
+" now you have to do this a second time
+" (after the above lines)
 set nocompatible
 
+
+" ------------------------
+"  Lazy stuffs
+"  -----------------------
+"  https://spf13.com/post/perfect-vimrc-vim-config-file/
+"
+" make ; work like : to save us from Shift
+nnoremap ; :
+" 
+"""" Remove trailing whitespaces and \^M chars
+"""autocmd FileType c,cpp,java,php,js,python,twig,xml,yml autocmd
+"""BufWritePre <buffer> :call
+"""setline(1,map(getline(1,"$"),'substitute(v:val,"\\\\s\\\\+$","","")'))
 
 
 
@@ -50,33 +64,15 @@ vnoremap <C-p> y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
 
 
 
-
-
 " ----------------------------------------
-" fix latex highlighting in markdown
+" insert new line without leaving normal mode
+" by typing, literally, backslash o or O
+" \o   \O
+" (this still sucks.)
+" https://vi.stackexchange.com/a/3877
 " ----------------------------------------
-
-function! MathAndLiquid()
-    "" Define certain regions
-    " Block math. Look for "$$[anything]$$"
-    syn region math start=/\$\$/ end=/\$\$/
-    " inline math. Look for "$[not $][anything]$"
-    syn match math_block '\$[^$].\{-}\$'
-
-    " Fenced code blocks, used in GitHub Flavored Markdown (GFM)
-    syn region highlight_block start='```' end='```'
-
-    "" Actually highlight those regions.
-    hi link math Statement
-    hi link math_block Function
-    hi link highlight_block Function
-endfunction
-
-" Call everytime we open a Markdown file
-autocmd BufRead,BufNewFile,BufEnter *.md,*.markdown call MathAndLiquid()
-
-
-
+nnoremap <Leader>o o<Esc>
+nnoremap <Leader>O O<Esc>
 
 
 
@@ -108,16 +104,11 @@ if has("autocmd")
     \   exe "normal g`\"" |
     \ endif
 endif " has("autocmd")
-" in Python, don't move comment hashtag to first column.
-" smartindent unnecessary for python anyway.
-" http://stackoverflow.com/questions/2063175/vim-insert-mode-comments-go-to-start-of-line
-au! FileType python setl nosmartindent
 " allow visual mode to go to blank space at end of lines
 set virtualedit=block
 " put horz./vert. splits in the right place
 set splitbelow
 set splitright
-
 
 
 
@@ -127,6 +118,7 @@ set splitright
 
 " this turns on syntax highlighting
 syntax on
+"set synmaxcol=200 " don't syntax highlight past this many chars
 set ic
 " this highlights search items
 set hls
@@ -147,30 +139,79 @@ set backspace=indent,eol,start
 let &guicursor = &guicursor . ",a:blinkon0"
 
 
+" --------------------------
+" Pathogen
+" --------------------------
+"
+"  to install vim pathogen plugin:
+"  mkdir -p ~/.vim/autoload ~/.vim/bundle && curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+"
+"  now you need to "infect" yourself
+"  (questionable word choices...)
+execute pathogen#infect()
 
 
 
+" --------------------------
+" Go settings
+" --------------------------
+"
+" https://github.com/paulswanson/congo/blob/master/congo.sh
+"
+filetype indent plugin on
+"set number
+"set mouse=a
+"
+" to install vim-go plugin:
+" git clone https://github.com/fatih/vim-go.git ~/.vim/bundle/vim-go
+"
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_fmt_command = "goimports"
 
 
 " ------------------------
 "   Filetype Settings
 " -----------------------
 
+" python
+" ------------------------
+" don't move comment hashtag to the first column.
+" smartindent is unnecessary for python anyway.
+" http://stackoverflow.com/questions/2063175/vim-insert-mode-comments-go-to-start-of-line
+au! FileType python setl nosmartindent
+
+" golang
+" see https://github.com/paulswanson/congo/blob/master/congo.sh
+" ------------------------
+au BufRead,BufNewFile *.go set noexpandtab
+
 " Makefiles
+" ------------------------
 au BufRead,BufNewFile Makefile*,*.make,*.mk set noexpandtab
+
 " C++
+" ------------------------
 au BufRead,BufNewFile *.cpp,*.cxx,*.cc,*.c,*.h,*.hpp,*.hxx,*.hh set tabstop=4 shiftwidth=4 softtabstop=4 nowrap
+
 " Snakemake files: Snakefile, .rule, .snake, .settings, .smk
-au BufNewFile,BufRead Snakefile set syntax=snakemake
-au BufNewFile,BufRead *rule set syntax=snakemake
-au BufNewFile,BufRead *.snake set syntax=snakemake
-au BufNewFile,BufRead *.settings set syntax=snakemake
-au BufNewFile,BufRead *.smk set syntax=snakemake
+" ------------------------
+au BufNewFile,BufRead set syntax=snakemake
+au BufNewFile,BufRead Snakefile*,*.rule,*.snake,*.smk set syntax=snakemake
+
 " Yaml
-autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-
-
-
+" ------------------------
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab 
+" don't autoindent yaml files
+filetype plugin indent on
+au filetype yaml call DisableIndentY()
+function! DisableIndentY()
+        set autoindent&
+        set cindent&
+        set smartindent&
+        set indentexpr&
+endfunction
 
 
 
@@ -188,10 +229,6 @@ set nowrap
 set tabstop=4 shiftwidth=4 expandtab
 set nosmartindent   " die die die
 
-" color scheme stuff
-colorscheme desert
-
-
 " set the text width at
 " 80 or 88, whatever
 "set textwidth=80
@@ -199,7 +236,6 @@ colorscheme desert
 " above directive will auto-wrap
 " your text as you type it, and may
 " end up driving you mad.
-
 
 " > Bugbear's documentation explains 88 vs 80:
 " > "it's like highway speed limits, we won't bother 
@@ -212,13 +248,6 @@ colorscheme desert
 hi Bang ctermfg=red guifg=red
 "match Bang /\%>87v.*\%<89v/
 match Bang /\%>79v.*\%<81v/
-
-
-
-
-
-
-
 
 
 
@@ -237,11 +266,6 @@ abbreviate exmaple example
 
 
 
-
-
-
-
-
 " ------------------------
 "     Tab Wild Mode
 " -----------------------
@@ -254,8 +278,6 @@ if exists('+autochdir')
 endif
 " Running command :CD will change to current file's directory
 com! CD cd %:p:h
-
-
 
 
 
@@ -286,12 +308,6 @@ endif
 
 
 
-
-
-
-
-
-
 " ------------------------
 "       Markdown
 " -----------------------
@@ -306,8 +322,25 @@ function! DisableIndent()
         set indentexpr&
 endfunction
 
+" fix latex highlighting in markdown
+function! MathAndLiquid()
+    "" Define certain regions
+    " Block math. Look for "$$[anything]$$"
+    syn region math start=/\$\$/ end=/\$\$/
+    " inline math. Look for "$[not $][anything]$"
+    syn match math_block '\$[^$].\{-}\$'
 
+    " Fenced code blocks, used in GitHub Flavored Markdown (GFM)
+    syn region highlight_block start='```' end='```'
 
+    "" Actually highlight those regions.
+    hi link math Statement
+    hi link math_block Function
+    hi link highlight_block Function
+endfunction
+
+" Call everytime we open a Markdown file
+autocmd BufRead,BufNewFile,BufEnter *.md,*.markdown call MathAndLiquid()
 
 
 
@@ -320,10 +353,6 @@ if has("persistent_undo")
     set undodir=~/.vim/undodir
     set undofile
 endif
-
-
-
-
 
 
 
@@ -365,19 +394,10 @@ vnoremap p "_dP
 
 
 
-
-
-
-
 " ====================
 " modified mathias
 " ====================
 " " (woah.)
-
-" Use the Solarized Dark theme
-"set background=dark
-"colorscheme solarized
-"let g:solarized_termtrans=1
 
 " Enhance command-line completion
 set wildmenu
@@ -407,8 +427,8 @@ set modelines=4
 """set secure
 " Enable line numbers
 set number
-" Enable syntax highlighting
-syntax on
+"""""""""""""" Enable syntax highlighting
+"""""""""""""syntax on
 " Highlight current line
 set cursorline
 " Highlight searches
@@ -464,5 +484,61 @@ if has("autocmd")
 endif
 " Mark special characters
 "set listchars=nbsp:☠,tab:▸␣
-set listchars=tab:▸␣
+"set listchars=tab:▸␣
 "set list
+
+
+
+" ----------------------------
+" colorrrzzzzz
+" ----------------------------
+
+set background=dark
+
+set t_Co=256
+
+function! BgToggle()
+  if &background == "light"
+    execute ":set background=dark"
+  else
+    execute ":set background=light"
+  endif
+endfunction
+nnoremap <F5> :call BgToggle()<cr>
+
+" to install vim-colors-solarized plugin:
+" git clone git://github.com/altercation/vim-colors-solarized.git ~/.vim/bundle/vim-colors-solarized
+"
+let g:solarized_termcolors=256
+
+"" If the following line is commented out,
+"" F5/background toggle will change from
+"" dark to light. If the line is enabled,
+"" the background color will remain the same
+"" dark default terminal backgorund color.
+"let g:solarized_termtrans = 1
+"
+let g:solarized_degrade = 0
+let g:solarized_bold = 1
+let g:solarized_underline = 1
+let g:solarized_italic = 1
+let g:solarized_contrast = "normal"
+let g:solarized_visibility= "normal"
+"
+colorscheme solarized
+
+" ------------------------
+" Move Faster
+" ------------------------
+"
+" default shift + j (combines lines)
+" moves to shift + L
+nnoremap <S-L> :join<CR>
+
+" shift + j and shift + k
+" move up and down n lines
+map <S-j> 7j
+map <S-k> 7k
+
+" these have to go at the end
+
