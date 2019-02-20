@@ -15,15 +15,15 @@ EXTRA_EXCLUDE=''
 
 function doIt() {
     rsync \
-        --exclude ".git" \
-        --exclude ".gitignore" \
         --exclude "bootstrap.sh" \
-        --exclude "scripts" \
-        --exclude "rojo_scripts" \
-        --exclude "jupiter_scripts" \
         --exclude "blackbeard_scripts" \
         --exclude "bluebear_scripts" \
+        --exclude "jupiter_scripts" \
         --exclude "krash_scripts" \
+        --exclude "rojo_scripts" \
+        --exclude "scripts" \
+        --exclude ".git" \
+        --exclude ".gitignore" \
         -avh --no-perms . ~;
     source ~/.bash_profile;
 }
