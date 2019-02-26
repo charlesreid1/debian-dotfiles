@@ -14,7 +14,6 @@ PATH="${HOME}/scripts:${PATH}"
 PATH="/sbin:${PATH}"
 PATH="/opt/collectd/bin:${PATH}"
 PATH="/opt/collectd/sbin:${PATH}"
-#PATH="/usr/local/bro/bin:${PATH}"
 
 
 
@@ -25,17 +24,17 @@ PATH="/opt/collectd/sbin:${PATH}"
 export GOPATH="${HOME}/gocode"
 export PATH="$GOPATH/bin:$PATH"
 
-# goenv
+# add the goenv binary to the path
 export GOENV_ROOT="$HOME/.goenv"
 export PATH="$GOENV_ROOT/bin:$PATH"
 
-# pyenv
+# activate goenv
+eval "$(goenv init -)"
+
+# add the pyenv binary to the path
 export PATH="${HOME}/.pyenv/bin:${PATH}"
 
 # activate pyenv
-# you should also install a pyenv version!
-# pyenv install --list
-# pyenv install -s miniconda3-4.3.30
 eval "$(pyenv init -)"
 #eval "$(pyenv virtualenv-init -)"
 
