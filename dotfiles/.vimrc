@@ -29,6 +29,8 @@ set nocompatible
 "  https://spf13.com/post/perfect-vimrc-vim-config-file/
 "
 " make ; work like : to save us from Shift
+" nnoremap --> extra n means normal mode only,
+" nore means no recursive
 nnoremap ; :
 " 
 """" Remove trailing whitespaces and \^M chars
@@ -144,7 +146,8 @@ let &guicursor = &guicursor . ",a:blinkon0"
 " --------------------------
 "
 "  to install vim pathogen plugin:
-"  mkdir -p ~/.vim/autoload ~/.vim/bundle && curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+"  mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+"  curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 "
 "  now you need to "infect" yourself
 "  (questionable word choices...)
@@ -524,7 +527,14 @@ let g:solarized_underline = 1
 let g:solarized_italic = 1
 let g:solarized_contrast = "normal"
 let g:solarized_visibility= "normal"
+
+" install solarized by getting the 
+" solarized color scheme in vim format
+" (solarized.vim) from here:
 "
+" https://raw.githubusercontent.com/altercation/vim-colors-solarized/master/colors/solarized.vim
+"
+" put it in ~/.vim/colors/solarized.vim
 colorscheme solarized
 
 " ------------------------
