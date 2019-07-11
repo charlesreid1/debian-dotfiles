@@ -22,7 +22,7 @@ set -e
 
 GITEAVOL="podcharlesreid1_stormy_gitea_data"
 TS=$(date +"%Y-%m-%d")
-BACKUPDIR=junkinthetrunk/backups/monthly/gitea_dockervolume_${TS}
+BACKUPDIR=/junkinthetrunk/backups/monthly/gitea_dockervolume_${TS}
 
 mkdir -p ${BACKUPDIR}
 
