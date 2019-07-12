@@ -16,6 +16,8 @@ EXTRA_EXCLUDE=''
 function doIt() {
     rsync \
         --exclude "bootstrap.sh" \
+        --exclude "bluebeard_scripts" \
+        --exclude "redbeard_scripts" \
         --exclude "blackbeard_scripts" \
         --exclude "bluebear_scripts" \
         --exclude "jupiter_scripts" \
