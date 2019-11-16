@@ -32,7 +32,7 @@ set nocompatible
 " nnoremap --> extra n means normal mode only,
 " nore means no recursive
 nnoremap ; :
-" 
+"
 """" Remove trailing whitespaces and \^M chars
 """autocmd FileType c,cpp,java,php,js,python,twig,xml,yml autocmd
 """BufWritePre <buffer> :call
@@ -47,7 +47,7 @@ nnoremap ; :
 " lower case/UPPER CASE/Capital Case
 "
 " Originallly mapped to ~
-" Switched to Control+P 
+" Switched to Control+P
 "   b/c it was not doing anything useful
 function! TwiddleCase(str)
   if a:str ==# toupper(a:str)
@@ -59,17 +59,18 @@ function! TwiddleCase(str)
   endif
   return result
 endfunction
-"" Map twiddle to ~ 
+"" Map twiddle to ~
 "vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
 " Map twiddle to C-p
+" (You have to have a visual selection first!!!)
+" (This is complete black magic, no idea where this comes from)
 vnoremap <C-p> y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
 
 
 
 " ----------------------------------------
 " insert new line without leaving normal mode
-" by typing, literally, backslash o or O
-" \o   \O
+" by literally typing ,o or ,O
 " (this still sucks.)
 " https://vi.stackexchange.com/a/3877
 " ----------------------------------------
@@ -205,7 +206,7 @@ au BufNewFile,BufRead Snakefile*,*.rule,*.snake,*.smk set syntax=snakemake
 
 " Yaml
 " ------------------------
-autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab 
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 " don't autoindent yaml files
 filetype plugin indent on
 au filetype yaml call DisableIndentY()
@@ -234,14 +235,14 @@ set nosmartindent   " die die die
 
 " set the text width at
 " 80 or 88, whatever
-"set textwidth=80
-" IMPORTANT - 
+set textwidth=115
+" IMPORTANT -
 " above directive will auto-wrap
 " your text as you type it, and may
 " end up driving you mad.
 
 " > Bugbear's documentation explains 88 vs 80:
-" > "it's like highway speed limits, we won't bother 
+" > "it's like highway speed limits, we won't bother
 " > you if you overdo it by a few km/h".
 "
 " Turn character 80/88 red
@@ -266,6 +267,11 @@ abbreviate recomend recommend
 abbreviate slef self
 abbreviate paramters parameters
 abbreviate exmaple example
+abbreviate improt import
+abbreviate impot import
+abbreviate imrpot import
+abbreviate surpress suppress
+abbreviate supress suppress
 
 
 
@@ -363,6 +369,13 @@ endif
 "  Github Maximum Awesome
 " -----------------------
 "
+" By default, <Leader> is \
+" but that's hard to reach,
+" and no one uses , anyway
+let mapleader = ','
+" now shortcuts are as easy as
+" ,A ,B ,C
+
 " Shift+Tab should de-indent
 " Control + D is de-indent
 inoremap <S-Tab> <C-d>
@@ -374,8 +387,6 @@ set ruler                                                    " show where you ar
 set showcmd
 set smartcase                                                " case-sensitive search if any caps
 set wildignore=log/**,node_modules/**,target/**,tmp/**,*.pyc
-" keyboard shortcuts
-let mapleader = ','
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
@@ -414,8 +425,7 @@ set ttyfast
 """"""""""""""""""""""""
 " Don’t add empty newlines at the end of files
 set noeol
-" Centralize backups, swapfiles and undo history
-set backupdir=~/.vim/backups
+" Set swap file dir
 set directory=~/.vim/swap
 if exists("&undodir")
 	set undodir=~/.vim/undo
@@ -459,23 +469,13 @@ set title
 " Show the (partial) command as it’s being typed
 set showcmd
 " Use relative line numbers
-if exists("&relativenumber")
-	set relativenumber
-	au BufReadPost * set relativenumber
-endif
+""" if exists("&relativenumber")
+""" 	set relativenumber
+""" 	au BufReadPost * set relativenumber
+""" endif
 " Start scrolling N lines before the horizontal window border
 set scrolloff=5
-" Strip trailing whitespace (,ss)
-function! StripWhitespace()
-	let save_cursor = getpos(".")
-	let old_query = getreg('/')
-	:%s/\s\+$//e
-	call setpos('.', save_cursor)
-	call setreg('/', old_query)
-endfunction
-noremap <leader>ss :call StripWhitespace()<CR>
-" Save a file as root (,W)
-noremap <leader>W :w !sudo tee % > /dev/null<CR>
+
 " Automatic commands
 if has("autocmd")
     " Enable file type detection
@@ -489,6 +489,43 @@ endif
 "set listchars=nbsp:☠,tab:▸␣
 "set listchars=tab:▸␣
 "set list
+
+
+" ---------------------------
+"  <leader> is set to , above
+"  and gives us a whole namespace
+"  of shortcuts to work with.
+"
+"  Can map things to:
+"  - custom functions
+"  - system comands
+
+" Show leader in bottom right
+set showcmd
+
+" Strip whitespace - trailing whitespace - with (,ss)
+function! StripWhitespace()
+	let save_cursor = getpos(".")
+	let old_query = getreg('/')
+	:%s/\s\+$//e
+	call setpos('.', save_cursor)
+	call setreg('/', old_query)
+endfunction
+noremap <Leader>ss :call StripWhitespace()<cr>
+
+" Strip annoying windows newline characters ^M
+function! StripWinLineBreaks()
+    let save_cursor = getpos(".")
+    let old_query = getreg('/')
+    :%s///g
+    call setpos('.', save_cursor)
+    call setreg('/', old_query)
+endfunction
+noremap <Leader>sn :call StripWinLineBreaks()<cr>
+
+" Save a file as root (,W)
+noremap <Leader>W :w !sudo tee % > /dev/null<cr>
+
 
 
 
@@ -528,7 +565,7 @@ let g:solarized_italic = 1
 let g:solarized_contrast = "normal"
 let g:solarized_visibility= "normal"
 
-" install solarized by getting the 
+" install solarized by getting the
 " solarized color scheme in vim format
 " (solarized.vim) from here:
 "
@@ -537,9 +574,32 @@ let g:solarized_visibility= "normal"
 " put it in ~/.vim/colors/solarized.vim
 colorscheme solarized
 
+" more color schemes:
+"colorscheme blue
+"colorscheme darkblue
+"colorscheme default
+"colorscheme delek
+"colorscheme desert " <-- old standby
+"colorscheme elflord
+"colorscheme evening
+"colorscheme industry
+"colorscheme koehler
+"colorscheme macvim
+"colorscheme morning
+"colorscheme murphy
+"colorscheme pablo
+"colorscheme peachpuff " <-- not bad
+"colorscheme ron
+"colorscheme shine
+"colorscheme slate
+"colorscheme solarized
+"colorscheme torte
+"colorscheme zellner
+
 " ------------------------
 " Move Faster
 " ------------------------
+" (these MUST go at the end)
 "
 " default shift + j (combines lines)
 " moves to shift + L
@@ -550,5 +610,7 @@ nnoremap <S-L> :join<CR>
 map <S-j> 7j
 map <S-k> 7k
 
-" these have to go at the end
-
+" -----------------------------
+" Jedi Autocomplete Plugin
+" -----------------------------
+let g:jedi#auto_initialization = 0

@@ -7,38 +7,92 @@
 
 # Must
 EDITOR="vim"
+GIT_EDITOR="vim"
+
+# Better man pages
+PAGER="most"
+
+# Go stuff
+GOROOT=$HOME/go
+GOPATH=$HOME/go
 
 # Set $PATH here
-PATH="/usr/local/bin:$PATH"
 PATH="${HOME}/scripts:${PATH}"
-PATH="/sbin:${PATH}"
-PATH="/opt/collectd/bin:${PATH}"
-PATH="/opt/collectd/sbin:${PATH}"
+PATH="/usr/local/bin:$PATH"
+PATH="/usr/local/sbin:${PATH}" # homebrew admin tools
+PATH="${PATH}:${GOROOT}/bin"
+PATH="/usr/local/opt/coreutils/libexec/gnubin:${PATH}"
+
+# Tell git not to look for getext.sh
+# since pyenv has trouble with that
+export GIT_INTERNAL_GETTEXT_TEST_FALLBACKS=1
+
+if [[ "$HOSTNAME" == "seawater" ]]; then
+
+    PATH="$HOME/pkg/terraform:${PATH}"
+
+    # Begin Elasticsearch crap
+    #
+    # To install elasticsearch 5.4.2 (or whichever version) manually:
+    # - install Java (preferably using brew)
+    # - download elasticsearch 5.4.2 from here: https://www.elastic.co/downloads/past-releases/elasticsearch-5-4-2
+    #   any other version of elasticsearch x.y.z is available at https://www.elastic.co/downloads/past-releases/elasticsearch-x-y-z
+    # - extract elasticsearch
+    # - set ES_HOME to the directory where you extracted elasticsearch 5.4.2
+    # - set JAVA_HOME to the directory where your Java binary lives
+    # - set PATH to include both of these directories at the front of the path
+    export ES_HOME="${HOME}/pkg/elasticsearch-5.4.2"
+    export JAVA_HOME="/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home"
+    if [[ -d "$ES_HOME" ]]; then
+        export PATH="${ES_HOME}/bin:${JAVA_HOME}/bin:${PATH}"
+    fi
+    #
+    # End Elasticsearch crap
+fi
+
+if [[ "$HOSTNAME" == "maya" ]]; then
+
+	# Setting PATH for homebrew
+	PATH="$HOME/.local/bin:$PATH"
+	PATH="$HOME/Library/Python/3.6/bin:$PATH"
+
+    ### # some weird new homebrew thing??
+    ### # this is where python -> python3 lives now
+    ### # https://stackoverflow.com/a/45228901
+    ### PATH="/usr/local/opt/python/libexec/bin:${PATH}"
+
+	# Set up google cloud SDK
+	F1="/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc"
+	F2="/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc"
+	if [[ -f $F1 ]]; then
+		source $F1
+	fi
+	if [[ -f $F2 ]]; then
+		source $F2
+	fi
+
+fi
 
 
-
-# Python:
-# Try not to have to deal with PYTHONPATH...
-
-# go 
-export GOPATH="${HOME}/gocode"
-export PATH="$GOPATH/bin:$PATH"
-
-# add the goenv binary to the path
+# goenv installer
 export GOENV_ROOT="$HOME/.goenv"
 export PATH="$GOENV_ROOT/bin:$PATH"
 
-# activate goenv
-eval "$(goenv init -)"
+# Only enable this if you are using go.
+# This will add half a second every time you
+# open a new shell.
+#eval "$(goenv init -)"
 
-# add the pyenv binary to the path
-export PATH="${HOME}/.pyenv/bin:${PATH}"
-
-# activate pyenv
+# pyenv installer
+# https://github.com/pyenv/pyenv-installer
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
-#eval "$(pyenv virtualenv-init -)"
 
+export PATH
 
+# Just let homebrew take care of PYTHONPATH, yeah?
+# But if you really needed to, you could set it here.
 
 
 # Bash history
@@ -60,6 +114,9 @@ shopt -s histappend;
 PROMPT_COMMAND='history -a;history -n'
 
 
+# aws cli tab-completion
+# https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-completion.html
+complete -C "$(pyenv which aws_completer)" aws
 
 
 #############################
@@ -79,13 +136,6 @@ shopt -s nocaseglob;
 # Autocorrect typos in path names when using `cd`
 shopt -s cdspell;
 
-# Enable some Bash 4 features when possible:
-# * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
-# * Recursive globbing, e.g. `echo **/*.txt`
-for option in autocd globstar; do
-	shopt -s "$option" 2> /dev/null;
-done;
-
 if [ -f /etc/bash_completion ]; then
 	source /etc/bash_completion;
 fi;
@@ -94,7 +144,3 @@ fi;
 if type _git &> /dev/null && [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
 	complete -o default -o nospace -F _git g;
 fi;
-
-# Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
-[ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh;
-
