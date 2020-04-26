@@ -24,6 +24,7 @@ function doIt() {
         --exclude "krash_scripts" \
         --exclude "rojo_scripts" \
         --exclude "scripts" \
+        --exclude "diff_dotfiles.sh" \
         --exclude ".git" \
         --exclude ".gitignore" \
         -avh --no-perms . ~;
