@@ -41,20 +41,13 @@ else
 	white="\e[1;37m";
 fi;
 
-# User color depends on machine
 if [[ "${HOSTNAME}" == "rojo" ]]; then
     userStyle="${red}"
 elif [[ "${HOSTNAME}" == "jupiter" ]]; then
     userStyle="${green}"
 elif [[ "${HOSTNAME}" == "krash" ]]; then
     userStyle="${cyan}"
-elif [[ "${HOSTNAME}" == "blackbeard" ]]; then
-    userStyle="${white}"
-elif [[ "${HOSTNAME}" == "bluebear" ]]; then
-    userStyle="${cyan}"
-elif [[ "${HOSTNAME}" == "beavo" ]]; then
-    userStyle="${green}"
-elif [[ "${HOSTNAME}" == "redbeard" ]]; then
+elif [[ "${HOSTNAME}" == "bear" ]]; then
     userStyle="${red}"
 else
     userStyle="${yellow}"
@@ -71,6 +64,17 @@ fi;
 if [[ "${USER}" == "root" ]]; then
 	userStyle="${red}";
 fi;
+
+if [[ "$HOSTNAME" == "bascom" ]]; then
+    dss_msg()
+    {
+        DSS_MSG=" "
+        if [[ ! -z "$DSS_DEPLOYMENT_STAGE" ]]; then
+            DSS_MSG="${red}(on $DSS_DEPLOYMENT_STAGE) ${reset}"
+        fi
+        echo $DSS_MSG
+    }
+fi
 
 # Set the terminal title and prompt.
 PS1="\[\033]0;\W\007\]"; # working directory base name

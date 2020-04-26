@@ -22,10 +22,29 @@ PATH="/usr/local/bin:$PATH"
 PATH="/usr/local/sbin:${PATH}" # homebrew admin tools
 PATH="${PATH}:${GOROOT}/bin"
 PATH="/usr/local/opt/coreutils/libexec/gnubin:${PATH}"
+PATH="${HOME}/bin:${PATH}"
+if [[ ("$HOSTNAME" == "seawater") || ("$HOSTNAME" == "bascom") ]]; then
+    PATH="${HOME}/bin/elasticsearch-5.4.2/bin:${PATH}"
+
+    # assume-role cli util:
+    # Add homebrew-installed ruby to path:
+    # (WARNING: THIS CAN CAUSE PROBLEMS!)
+    export PATH="/usr/local/opt/ruby/bin:$PATH"
+
+    # Add homebrew-ruby-gem-installed packages to path:
+    export PATH="/usr/local/lib/ruby/gems/2.6.0/bin:$PATH"
+
+    # aws - load config file when using assume-role
+    export AWS_SDK_LOAD_CONFIG="1"
+fi
 
 # Tell git not to look for getext.sh
 # since pyenv has trouble with that
 export GIT_INTERNAL_GETTEXT_TEST_FALLBACKS=1
+
+# git tab completion
+source ${HOME}/.git-completion.bash
+
 
 if [[ "$HOSTNAME" == "seawater" ]]; then
 
@@ -48,6 +67,17 @@ if [[ "$HOSTNAME" == "seawater" ]]; then
     fi
     #
     # End Elasticsearch crap
+
+    # non-symlinked zlib
+    export LDFLAGS="-L/usr/local/opt/zlib/lib"
+    export CPPFLAGS="-I/usr/local/opt/zlib/include"
+
+    # The next line updates PATH for the Google Cloud SDK.
+    if [ -f '/Users/charles/Downloads/google-cloud-sdk/path.bash.inc' ]; then . '/Users/charles/Downloads/google-cloud-sdk/path.bash.inc'; fi
+    
+    # The next line enables shell command completion for gcloud.
+    if [ -f '/Users/charles/Downloads/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/charles/Downloads/google-cloud-sdk/completion.bash.inc'; fi
+
 fi
 
 if [[ "$HOSTNAME" == "maya" ]]; then
@@ -113,6 +143,8 @@ shopt -s histappend;
 # https://askubuntu.com/a/673283
 PROMPT_COMMAND='history -a;history -n'
 
+# don't try to autocomplete commands when tab is pressed and line is empty
+shopt -s no_empty_cmd_completion
 
 # aws cli tab-completion
 # https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-completion.html

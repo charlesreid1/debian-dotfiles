@@ -27,37 +27,91 @@
     lg2-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
     lg3-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(bold cyan)(committed: %cD)%C(reset) %C(auto)%d%C(reset)%n''          %C(white)%s%C(reset)%n''          %C(dim white)- %an <%ae> %C(reset) %C(dim white)(committer: %cn <%ce>)%C(reset)'
 
+    # typo stuff
+    co = checkout
+    cehckout = checkout
+    ceckout = checkout
+    chekout = checkout
+    commti = commit
+    comimt = commit
+    comit = commit
+
+    # https://victorzhou.com/blog/git-aliases/
+    a = add
+    cm = commit -m
+    rh = reset --hard
+    lo = log --oneline -n 10
+    lolo = log --oneline -n 50
 
     # View abbreviated SHA, description, and history graph of the latest 20 commits
     l = log --pretty=oneline -n 20 --graph --abbrev-commit
 
-    # View the current working tree status using the short format
+    # View the current working tree status: short format and long format
     s = status -s
+    ss = status
 
+    # Just print the name of the current branch
+    cb = branch --show-current
+
+    # Show branches
     b = branch -v
     bv = branch -v
+    bb = branch -v
+
     ba = branch -a
     bb = branch -v -a
 
+    # Show remotes
     r = remote -v
     rv = remote -v
     ra = remote -v
 
     f = fetch --all
 
+    # Show log history of commits on this branch
+    # that are different from master
+    # (these aliases are useful for rebases)
+    #
+    # dm = *Different from *Master (log)
+    # https://stackoverflow.com/a/59273667/463213
+    dm = "log --boundary --right-only --graph --oneline master..HEAD"
+
+    # dms = *Different from *Master, *Status
+    dms = "diff --stat master..HEAD"
+
+    # dmf = *Different from *Master, *Files
+    dmf = "diff --name-only master..HEAD"
+
+    # show diff of staged changes
     cdiff = diff --cached
+    cd = diff --cached
+
+    # Interactive rebase with the given number of latest commits
+    # reb N = interactive rebase with last N commits (inclusive)
+    reb = "!r() { git rebase -i HEAD~$1; }; r"
+
+    # continue the rebase
+    rebc = "rebase --continue"
 
     # Show the diff between the latest commit and the current state
     d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
 
-    ### # `git di $number` shows the diff between the state `$number` revisions ago and the current state
-    ### di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
+    # `git di $number` shows the diff between the state `$number` revisions ago and the current state
+    di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
+
+    p = "!f() { git pull $1 $2; }; f"
 
     # Pull in remote changes for the current repository and all its submodules
-    p = !"git pull; git submodule foreach git pull origin master"
+    pp = !"git pull; git submodule foreach git pull origin master"
 
     # Clone a repository including all submodules
     c = clone --recursive
+
+    # Amend the currently staged files to the latest commit
+    amend = commit --amend --reuse-message=HEAD
+
+    # Oops
+    fix = commit --amend --reuse-message=HEAD --edit
 
     # Commit all changes
     ca = !git add -A && git commit -av
@@ -73,20 +127,6 @@
 
     # List aliases
     aliases = config --get-regexp alias
-
-    # Amend the currently staged files to the latest commit
-    amend = commit --amend --reuse-message=HEAD
-
-    # Oops
-    fix = commit --amend --reuse-message=HEAD --edit
-
-
-
-    # Credit an author on the latest commit
-    credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f"
-
-    # Interactive rebase with the given number of latest commits
-    reb = "!r() { git rebase -i HEAD~$1; }; r"
 
     # Remove the old tag with this name and tag the latest commit with it.
     retag = "!r() { git tag -d $1 && git push origin :refs/tags/$1 && git tag $1; }; r"
@@ -212,3 +252,8 @@
 [url "git://gist.github.com/"]
 
     insteadOf = "gist:"
+
+[rerere]
+
+    enabled = true
+    autoupdate = true
