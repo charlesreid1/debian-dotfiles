@@ -1,0 +1,10 @@
+# MIN: 0-59
+# HOUR: 0-23
+# DOM (day of month): 1-31
+# MONTH: 1-12 or Jan-Dec
+# DOW (day of week): 0-6 or Sun-Sat
+#
+# MIN   HR  DOM   MONTH   DOW   CMD
+  0     2   *     *       Sun   /home/charles/pod-charlesreid1/utils-backup/gitea_dump.sh
+  5     2   *     *       Sun   /home/charles/pod-charlesreid1/utils-backup/wikidb_dump.sh
+  10    2   *     *       Sun   /home/charles/pod-charlesreid1/utils-backup/wikifiles_dump.sh
