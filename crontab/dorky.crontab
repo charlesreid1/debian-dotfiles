@@ -5,4 +5,4 @@
 # DOW (day of week): 0-6 or Sun-Sat
 #
 # MIN   HR  DOM   MONTH   DOW   CMD
-  *     *   *     *       Sun   /home/charles/dotfiles/dotfiles/scripts/fail.sh
+  *     *   *     *       *     /home/charles/dotfiles/dotfiles/scripts/fail.sh
