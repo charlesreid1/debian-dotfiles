@@ -25,3 +25,15 @@ ufw allow 22
 ufw allow 80
 ufw allow 443
 ufw --force enable
+
+# allow ufw to nat connections from
+# external interface to internal 
+# (docker) interfaces
+sed -i -e 's/DEFAULT_FORWARD_POLICY="DROP"/DEFAULT_FORWARD_POLICY="ACCEPT"/g' /etc/default/ufw
+ufw reload
+
+# enable packet masquerading so we can
+# get the real IP of clients inside
+# docker containers.
+iptables -t nat -A POSTROUTING ! -o docker0 -s 172.17.0.0/16 -j MASQUERADE
+
