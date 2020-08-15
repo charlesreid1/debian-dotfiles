@@ -1,0 +1,10 @@
+# MIN: 0-59
+# HOUR: 0-23
+# DOM (day of month): 1-31
+# MONTH: 1-12 or Jan-Dec
+# DOW (day of week): 0-6 or Sun-Sat
+#
+# MIN   HR  DOM   MONTH   DOW   CMD
+  5     3   *     *       *     /home/charles/pod-private-wiki/utils-backup/wikidb_dump.sh
+  6     3   *     *       *     /home/charles/pod-private-wiki/utils-backup/wikifiles_dump.sh
+
