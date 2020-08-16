@@ -10,18 +10,15 @@ git() {
 }
 
 
-# check on deployed lambdas on AWS
-alias check_lambdas='aws lambda get-function-configuration --function-name dss-dev | jq .Environment.Variables'
-
-
 # lazy af
+# -------
 alias mk='make'
 alias smk='snakemake'
 alias smake='snakemake'
 alias py='python3'
 alias ipy='ipython --pylab'
-alias ip="curl https://www.canihazip.com/s"
-alias ipaddr="curl https://www.canihazip.com/s"
+alias ip="curl -4 icanhazip.com"
+alias ipaddr="curl -4 icanhazip.com"
 
 
 # python stuff
@@ -63,7 +60,7 @@ alias mv='mv -i'
 
 
 # ls aliases
-# -------------------- 
+# --------------------
 # Detect which `ls` flavor is in use
 
 LS=$(which ls)
@@ -111,7 +108,7 @@ alias lk='ls -lSr' # by size (small to big)
 
 
 
-# clear 
+# clear
 # ---------------
 alias clc='clear; pwd'
 alias cl='clc; ll'
@@ -137,13 +134,44 @@ alias socks='ssh -fN -D 8080 charles@charlesreid1.com'
 
 alias charles="charles"
 function charles() {
-  ssh-agent > ~/ssh.file # env vars in ssh.file 
+  ssh-agent > ~/ssh.file # env vars in ssh.file
   chmod +x ~/ssh.file # execute file
   ~/ssh.file > /dev/null
   rm -f ~/ssh.file
   export IP="charlesreid1.com"
   ssh -Y charles@${IP} # the actual ssh call
 }
+
+alias bear="bear"
+function bear() {
+  ssh-agent > ~/ssh.file # env vars in ssh.file
+  chmod +x ~/ssh.file # execute file
+  ~/ssh.file > /dev/null
+  rm -f ~/ssh.file
+  export IP="173.255.249.79"
+  ssh -Y charles@${IP} # the actual ssh call
+}
+
+alias bespin="bespin"
+function bespin() {
+  ssh-agent > ~/ssh.file # env vars in ssh.file
+  chmod +x ~/ssh.file # execute file
+  ~/ssh.file > /dev/null
+  rm -f ~/ssh.file
+  export IP="bespin"
+  ssh -Y charles@${IP} # the actual ssh call
+}
+
+alias dorky="dorky"
+function dorky() {
+  ssh-agent > ~/ssh.file # env vars in ssh.file
+  chmod +x ~/ssh.file # execute file
+  ~/ssh.file > /dev/null
+  rm -f ~/ssh.file
+  export IP="charlesreid1.party"
+  ssh -Y charles@${IP} # the actual ssh call
+}
+
 
 # tmux shortcuts
 # constructed with help from https://robots.thoughtbot.com/a-tmux-crash-course
@@ -200,7 +228,7 @@ alias cealr='clear'
 
 
 
-# cd 
+# cd
 # ---------------
 alias back='cd $OLDPWD'
 
@@ -313,25 +341,6 @@ alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'
 
 # Airport CLI alias
 alias airport='/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport'
-
-### # Intuitive map function
-### # For example, to list all directories that contain a certain file:
-### # find . -name .gitattributes | map dirname
-### alias map="xargs -n1"
-###
-### # One of @janmoesen’s ProTip™s
-### for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
-### 	alias "${method}"="lwp-request -m '${method}'"
-### done
-###
-###
-### # Stuff I never really use but cannot delete either because of http://xkcd.com/530/
-### alias stfu="osascript -e 'set volume output muted true'"
-### alias pumpitup="osascript -e 'set volume output volume 100'"
-###
-### # Kill all the tabs in Chrome to free up memory
-### # [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
-### alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
 
 # Lock the screen (when going AFK)
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"

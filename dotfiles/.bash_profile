@@ -1,9 +1,9 @@
 # This is the bash profile.
-# 
+#
 # This file sets PATH and bash options.
 #
 # to add your own non-committed machine-specific settings,
-# use ~/.extra 
+# use ~/.extra
 
 # Must
 EDITOR="vim"
@@ -75,10 +75,17 @@ if [[ "$HOSTNAME" == "seawater" ]]; then
 
     # The next line updates PATH for the Google Cloud SDK.
     if [ -f '/Users/charles/Downloads/google-cloud-sdk/path.bash.inc' ]; then . '/Users/charles/Downloads/google-cloud-sdk/path.bash.inc'; fi
-    
+
     # The next line enables shell command completion for gcloud.
     if [ -f '/Users/charles/Downloads/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/charles/Downloads/google-cloud-sdk/completion.bash.inc'; fi
 
+    # git tab completion
+    source ${HOME}/.git-completion.bash
+
+    # Enable tab completion for `g` by marking it as an alias for `git`
+    if type _git &> /dev/null && [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
+	complete -o default -o nospace -F _git g;
+    fi;
 fi
 
 if [[ "$HOSTNAME" == "maya" ]]; then
@@ -102,6 +109,13 @@ if [[ "$HOSTNAME" == "maya" ]]; then
 		source $F2
 	fi
 
+    # git tab completion
+    source ${HOME}/.git-completion.bash
+
+    # Enable tab completion for `g` by marking it as an alias for `git`
+    if type _git &> /dev/null && [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
+	complete -o default -o nospace -F _git g;
+    fi;
 fi
 
 
@@ -134,11 +148,11 @@ HISTIGNORE="ls:cls:clc:clear:pwd:l:ll:[ ]*"
 HISTSIZE=1000000
 HISTTIMEFORMAT=': %Y-%m-%d_%H:%M:%S; '
 
-# Save Bash history 
+# Save Bash history
 shopt -s cmdhist;
 # Append to the Bash history file, rather than overwriting it
 shopt -s histappend;
-# Write history to .bash_history immediately. 
+# Write history to .bash_history immediately.
 # -a writes current/new lines to history file
 # -n reloads only new commands
 # https://askubuntu.com/a/673283
