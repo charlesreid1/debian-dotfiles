@@ -53,6 +53,12 @@ elif [[ "${HOSTNAME}" == "bespin" ]]; then
     userStyle="${purple}"
 elif [[ "${HOSTNAME}" == "dorky" ]]; then
     userStyle="${yellow}"
+elif [[ "${HOSTNAME}" == "emmett" ]]; then
+    userStyle="${yellow}"
+elif [[ "${HOSTNAME}" == "dudley" ]]; then
+    userStyle="${orange}"
+elif [[ "${HOSTNAME}" == "lars" ]]; then
+    userStyle="${white}"
 else
     userStyle="${yellow}"
 fi
@@ -68,17 +74,6 @@ fi;
 if [[ "${USER}" == "root" ]]; then
 	userStyle="${red}";
 fi;
-
-if [[ "$HOSTNAME" == "bascom" ]]; then
-    dss_msg()
-    {
-        DSS_MSG=" "
-        if [[ ! -z "$DSS_DEPLOYMENT_STAGE" ]]; then
-            DSS_MSG="${red}(on $DSS_DEPLOYMENT_STAGE) ${reset}"
-        fi
-        echo $DSS_MSG
-    }
-fi
 
 # Set the terminal title and prompt.
 PS1="\[\033]0;\W\007\]"; # working directory base name

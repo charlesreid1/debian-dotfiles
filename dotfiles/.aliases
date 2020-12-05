@@ -24,7 +24,7 @@ alias ipaddr="curl -4 icanhazip.com"
 # python stuff
 # ------------
 # https://unix.stackexchange.com/a/459586
-alias vp="[ -d vp ] || virtualenv -p python3.6 vp && source vp/bin/activate"
+alias vp="[ -d vp ] || virtualenv -p python3 vp && source vp/bin/activate"
 
 
 # one-letter aliases
@@ -139,7 +139,7 @@ function charles() {
   ~/ssh.file > /dev/null
   rm -f ~/ssh.file
   export IP="charlesreid1.com"
-  ssh -Y charles@${IP} # the actual ssh call
+  ssh -p 5778 -Y charles@${IP} # the actual ssh call
 }
 
 alias bear="bear"
