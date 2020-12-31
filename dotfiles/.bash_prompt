@@ -54,9 +54,9 @@ elif [[ "${HOSTNAME}" == "bespin" ]]; then
 elif [[ "${HOSTNAME}" == "dorky" ]]; then
     userStyle="${yellow}"
 elif [[ "${HOSTNAME}" == "emmett" ]]; then
-    userStyle="${yellow}"
+    userStyle="${green}"
 elif [[ "${HOSTNAME}" == "dudley" ]]; then
-    userStyle="${orange}"
+    userStyle="${cyan}"
 elif [[ "${HOSTNAME}" == "lars" ]]; then
     userStyle="${white}"
 else
