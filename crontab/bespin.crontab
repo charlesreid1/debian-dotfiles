@@ -5,6 +5,6 @@
 # DOW (day of week): 0-6 or Sun-Sat
 #
 # MIN   HR  DOM   MONTH   DOW   CMD
-  5     3   *     *       *     /home/charles/pod-private-wiki/utils-backup/wikidb_dump.sh
+  3     3   *     *       *     /home/charles/pod-private-wiki/utils-backup/wikidb_dump.sh
   6     3   *     *       *     /home/charles/pod-private-wiki/utils-backup/wikifiles_dump.sh
-
+  12    3   *     *       *     /usr/bin/test -d /media/charles/usb && /bin/ls -1 -t /home/charles/backups | /usr/bin/head -n1 | /usr/bin/xargs -I% cp -r /home/charles/backups/% /media/charles/usb/backups/.
