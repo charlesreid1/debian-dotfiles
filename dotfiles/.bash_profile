@@ -60,6 +60,7 @@ export PATH="$GOENV_ROOT/bin:$PATH"
 # https://github.com/pyenv/pyenv-installer
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 
 export PATH
