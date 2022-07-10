@@ -90,14 +90,6 @@ PROMPT_COMMAND='history -a;history -n'
 # don't try to autocomplete commands when tab is pressed and line is empty
 shopt -s no_empty_cmd_completion
 
-if [[ "$HOSTNAME" == "bascom" ]]; then
-    # aws cli tab-completion
-    # https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-completion.html
-    complete -C "$(pyenv which aws_completer)" aws
-fi
-
-
-
 #############################
 # ssh-agent setup
 SSH_ENV="$HOME/.ssh/agent-environment"

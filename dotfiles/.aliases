@@ -20,6 +20,10 @@ alias ipy='ipython --pylab'
 alias ip="curl -4 icanhazip.com"
 alias ipaddr="curl -4 icanhazip.com"
 
+# uuid generator
+# install with "go get github.com/syumai/uuidgenseeded"
+# unique input is iso-8601 formatted datetime stamp + nanoseconds
+alias uuid="date -Ins | uuidgenseeded -lower"
 
 # python stuff
 # ------------
@@ -129,6 +133,72 @@ alias socks='ssh -fN -D 8080 charles@charlesreid1.com'
 
 
 
+# tinc vpn
+# ---------------
+
+alias seawatervpn="seawatervpn"
+function seawatervpn() {
+  ssh-agent > ~/ssh.file # env vars in ssh.file
+  chmod +x ~/ssh.file # execute file
+  ~/ssh.file > /dev/null
+  rm -f ~/ssh.file
+  export IP="192.168.30.1"
+  ssh -p 5778 -Y charles@${IP} # the actual ssh call
+}
+
+alias randalvpn="randalvpn"
+function randalvpn() {
+  ssh-agent > ~/ssh.file # env vars in ssh.file
+  chmod +x ~/ssh.file # execute file
+  ~/ssh.file > /dev/null
+  rm -f ~/ssh.file
+  export IP="192.168.30.10"
+  ssh -p 5778 -Y charles@${IP} # the actual ssh call
+}
+
+alias mayavpn="mayavpn"
+function mayavpn() {
+  ssh-agent > ~/ssh.file # env vars in ssh.file
+  chmod +x ~/ssh.file # execute file
+  ~/ssh.file > /dev/null
+  rm -f ~/ssh.file
+  export IP="192.168.30.20"
+  ssh -Y charles@${IP} # the actual ssh call
+}
+
+alias bearvpn="bearvpn"
+function bearvpn() {
+  ssh-agent > ~/ssh.file # env vars in ssh.file
+  chmod +x ~/ssh.file # execute file
+  ~/ssh.file > /dev/null
+  rm -f ~/ssh.file
+  export IP="192.168.30.40"
+  ssh -p 5778 -Y charles@${IP} # the actual ssh call
+}
+
+alias emmettvpn="emmettvpn"
+function emmettvpn() {
+  ssh-agent > ~/ssh.file # env vars in ssh.file
+  chmod +x ~/ssh.file # execute file
+  ~/ssh.file > /dev/null
+  rm -f ~/ssh.file
+  export IP="192.168.30.55"
+  ssh -p 5778 -Y charles@${IP} # the actual ssh call
+}
+
+# Local machines
+# ---------------
+
+alias randal="randal"
+function randal() {
+  ssh-agent > ~/ssh.file # env vars in ssh.file
+  chmod +x ~/ssh.file # execute file
+  ~/ssh.file > /dev/null
+  rm -f ~/ssh.file
+  export IP="192.168.0.10"
+  ssh -p 5778 -Y charles@${IP} # the actual ssh call
+}
+
 # Remote machines
 # ---------------
 
@@ -149,27 +219,27 @@ function bear() {
   ~/ssh.file > /dev/null
   rm -f ~/ssh.file
   export IP="173.255.249.79"
-  ssh -Y charles@${IP} # the actual ssh call
+  ssh -p 5778 -Y charles@${IP} # the actual ssh call
 }
 
-alias bespin="bespin"
-function bespin() {
+alias emmett="emmett"
+function emmett() {
   ssh-agent > ~/ssh.file # env vars in ssh.file
   chmod +x ~/ssh.file # execute file
   ~/ssh.file > /dev/null
   rm -f ~/ssh.file
-  export IP="bespin"
-  ssh -Y charles@${IP} # the actual ssh call
+  export IP="173.255.252.181"
+  ssh -p 5778 -Y charles@${IP} # the actual ssh call
 }
 
-alias dorky="dorky"
-function dorky() {
+alias seawater="seawater"
+function seawater() {
   ssh-agent > ~/ssh.file # env vars in ssh.file
   chmod +x ~/ssh.file # execute file
   ~/ssh.file > /dev/null
   rm -f ~/ssh.file
   export IP="charlesreid1.party"
-  ssh -Y charles@${IP} # the actual ssh call
+  ssh -p 5778 -Y charles@${IP} # the actual ssh call
 }
 
 
