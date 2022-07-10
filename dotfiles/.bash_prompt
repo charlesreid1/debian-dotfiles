@@ -41,11 +41,6 @@ else
 	white="\e[1;37m";
 fi;
 
-# rojo - red
-# jupiter - green
-# cronus - yellow
-# krash - cyan
-# bespin - purple
 if [[ "${HOSTNAME}" == "bear" ]]; then
     userStyle="${red}"
 elif [[ "${HOSTNAME}" == "randal" ]]; then
@@ -53,6 +48,8 @@ elif [[ "${HOSTNAME}" == "randal" ]]; then
 elif [[ "${HOSTNAME}" == "dorky" ]]; then
     userStyle="${yellow}"
 elif [[ "${HOSTNAME}" == "emmett" ]]; then
+    userStyle="${green}"
+elif [[ "${HOSTNAME}" == "seawater" ]]; then
     userStyle="${green}"
 else
     userStyle="${yellow}"
