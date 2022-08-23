@@ -28,7 +28,7 @@ alias uuid="uuidgen"
 # ------------
 # https://unix.stackexchange.com/a/459586
 alias vp="[ -d vp ] || virtualenv -p python3 vp && source vp/bin/activate"
-if [[ "${HOSTNAME}" == "aptos" ]]; then
+if [[ "${HOSTNAME}" == "burro" ]]; then
     alias vpp="[ -d vpp ] || virtualenv --python ${HOME}/.pyenv/versions/pypy3.9-7.3.9/bin/pypy3 vpp && source vpp/bin/activate"
 fi
 
