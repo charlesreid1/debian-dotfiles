@@ -184,7 +184,7 @@ let g:go_fmt_command = "goimports"
 " don't move comment hashtag to the first column.
 " smartindent is unnecessary for python anyway.
 " http://stackoverflow.com/questions/2063175/vim-insert-mode-comments-go-to-start-of-line
-au! FileType python setl texwidth=0 nosmartindent
+au! FileType python setl textwidth=0 nosmartindent
 
 " golang
 " see https://github.com/paulswanson/congo/blob/master/congo.sh
@@ -603,3 +603,8 @@ vmap <C-j> xp`[V`]
 " Jedi Autocomplete Plugin
 " -----------------------------
 "let g:jedi#auto_initialization = 0
+
+"" -----------------------
+""  Black shortcut
+"" -----------------------
+"noremap <Leader>bb :Black<cr>
