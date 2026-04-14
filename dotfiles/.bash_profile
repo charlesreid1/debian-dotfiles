@@ -42,19 +42,6 @@ source $HOME/.deepseek_api_key
 # since pyenv has trouble with that
 export GIT_INTERNAL_GETTEXT_TEST_FALLBACKS=1
 
-if [[ "$HOSTNAME" == "bascom" ]]; then
-    # git tab completion
-    source ${HOME}/.git-completion.bash
-fi
-
-# goenv installer
-export GOENV_ROOT="$HOME/.goenv"
-export PATH="$GOENV_ROOT/bin:$PATH"
-
-# Only enable this if you are using go.
-# This will add half a second every time you
-# open a new shell.
-#eval "$(goenv init -)"
 
 # pyenv installer
 # https://github.com/pyenv/pyenv-installer
@@ -90,34 +77,26 @@ PROMPT_COMMAND='history -a;history -n'
 # don't try to autocomplete commands when tab is pressed and line is empty
 shopt -s no_empty_cmd_completion
 
-if [[ "$HOSTNAME" == "bascom" ]]; then
-    # aws cli tab-completion
-    # https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-completion.html
-    complete -C "$(pyenv which aws_completer)" aws
-fi
-
-
-
 #############################
 # ssh-agent setup
-SSH_ENV="$HOME/.ssh/agent-environment"
-
-function start_agent {
-    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
-    chmod 600 "${SSH_ENV}"
-    . "${SSH_ENV}" > /dev/null
-    /usr/bin/ssh-add;
-}
-
-# Source SSH settings, if applicable
-if [ -f "${SSH_ENV}" ]; then
-    . "${SSH_ENV}" > /dev/null
-    ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
-        start_agent;
-    }
-else
-    start_agent;
-fi
+### SSH_ENV="$HOME/.ssh/agent-environment"
+###
+### function start_agent {
+###     /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
+###     chmod 600 "${SSH_ENV}"
+###     . "${SSH_ENV}" > /dev/null
+###     /usr/bin/ssh-add;
+### }
+###
+### # Source SSH settings, if applicable
+### if [ -f "${SSH_ENV}" ]; then
+###     . "${SSH_ENV}" > /dev/null
+###     ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
+###         start_agent;
+###     }
+### else
+###     start_agent;
+### fi
 
 
 #############################
