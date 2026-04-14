@@ -5,6 +5,7 @@
 # to add your own non-committed machine-specific settings,
 # use ~/.extra
 
+
 # Must
 EDITOR="vim"
 GIT_EDITOR="vim"
@@ -16,6 +17,7 @@ PAGER="most"
 GOROOT=$HOME/go
 GOPATH=$HOME/go
 
+
 # Set $PATH here
 PATH="${HOME}/scripts:${PATH}"
 PATH="/usr/local/bin:$PATH"
@@ -23,20 +25,18 @@ PATH="/usr/local/sbin:${PATH}" # homebrew admin tools
 PATH="${PATH}:${GOROOT}/bin"
 PATH="/usr/local/opt/coreutils/libexec/gnubin:${PATH}"
 PATH="${HOME}/bin:${PATH}"
-if [[ ("$HOSTNAME" == "seawater") || ("$HOSTNAME" == "bascom") ]]; then
-    PATH="${HOME}/bin/elasticsearch-5.4.2/bin:${PATH}"
 
-    # assume-role cli util:
-    # Add homebrew-installed ruby to path:
-    # (WARNING: THIS CAN CAUSE PROBLEMS!)
-    export PATH="/usr/local/opt/ruby/bin:$PATH"
+# claude code
+export PATH="$HOME/.local/bin:$PATH"
+export ANTHROPIC_DEFAULT_OPUS_MODEL="claude-opus-4-6"
+export ANTHROPIC_MODEL="claude-opus-4-6"
 
-    # Add homebrew-ruby-gem-installed packages to path:
-    export PATH="/usr/local/lib/ruby/gems/2.6.0/bin:$PATH"
+# gemini
+source $HOME/.gemini_api_key
 
-    # aws - load config file when using assume-role
-    export AWS_SDK_LOAD_CONFIG="1"
-fi
+# deepseek
+source $HOME/.deepseek_api_key
+
 
 # Tell git not to look for getext.sh
 # since pyenv has trouble with that
@@ -141,9 +141,7 @@ if [ -f /etc/bash_completion ]; then
 	source /etc/bash_completion;
 fi;
 
-if [[ "$HOSTNAME" == "bascom" ]]; then
-    # Enable tab completion for `g` by marking it as an alias for `git`
-    if type _git &> /dev/null && [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
-    	complete -o default -o nospace -F _git g;
-    fi;
-fi
+# shut up
+touch ${HOME}/.hushlogin
+export BASH_SILENCE_DEPRECATION_WARNING=1
+export FILTER_BRANCH_SQUELCH_WARNING=1
